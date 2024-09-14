@@ -1,4 +1,4 @@
-import 'package:alquilafacil/screens/home_screen.dart';
+import 'package:alquilafacil/screens/auth/home_screen.dart';
 import 'package:alquilafacil/theme/main_theme.dart';
 import 'package:flutter/material.dart';
 
