@@ -35,10 +35,19 @@ class HomeScreen extends StatelessWidget{
                    borderRadius: const BorderRadius.all(Radius.circular(10.0))
                   ),
                   child: TextField(
+                    cursorColor: MainTheme.primary,
                     style: TextStyle(
                       color: MainTheme.primary
                     ),
                     decoration: InputDecoration(
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                          color: MainTheme.transparent
+                        )
+                      ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color:MainTheme.primary),
+                        ),
                       labelStyle: TextStyle(
                         color: MainTheme.helper
                       ),
@@ -47,6 +56,39 @@ class HomeScreen extends StatelessWidget{
                       hintStyle: TextStyle(
                         color: MainTheme.helper
                       )
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Container(
+                  width: 330,
+                  padding: const EdgeInsets.all(10.0),
+                  decoration: BoxDecoration(
+                      color: MainTheme.background,
+                      borderRadius: const BorderRadius.all(Radius.circular(10.0))
+                  ),
+                  child: TextField(
+                    cursorColor: MainTheme.primary,
+                    style: TextStyle(
+                        color: MainTheme.primary
+                    ),
+                    decoration: InputDecoration(
+                        enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                                color: MainTheme.transparent
+                            )
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color:MainTheme.primary),
+                        ),
+                        labelStyle: TextStyle(
+                            color: MainTheme.helper
+                        ),
+                        label: const Text("Contraseña"),
+                        hintText:  "Ingrese su contraseña",
+                        hintStyle: TextStyle(
+                            color: MainTheme.helper
+                        )
                     ),
                   ),
                 )
