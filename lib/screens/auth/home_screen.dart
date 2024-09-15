@@ -68,6 +68,7 @@ class HomeScreen extends StatelessWidget{
                       borderRadius: const BorderRadius.all(Radius.circular(10.0))
                   ),
                   child: TextField(
+                    obscureText: true,
                     cursorColor: MainTheme.primary,
                     style: TextStyle(
                         color: MainTheme.primary
