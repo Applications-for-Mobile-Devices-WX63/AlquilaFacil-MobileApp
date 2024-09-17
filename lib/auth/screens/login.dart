@@ -1,18 +1,19 @@
 
 import 'package:alquilafacil/theme/main_theme.dart';
-import 'package:alquilafacil/widgets/screen_bottom_app_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatefulWidget{
-  const HomeScreen({super.key});
+import '../../public/widgets/screen_bottom_app_bar.dart';
+
+class Login extends StatefulWidget{
+  const Login({super.key});
   @override
-  State<StatefulWidget> createState() => _HomeScreenState();
+  State<StatefulWidget> createState() => _LoginState();
 
 
 }
 
-class _HomeScreenState extends State<HomeScreen>{
+class _LoginState extends State<Login>{
   bool isAccepted = false;
   @override
   Widget build(BuildContext context) {
