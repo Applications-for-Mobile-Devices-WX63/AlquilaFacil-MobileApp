@@ -14,9 +14,6 @@ class AuthTextField extends StatefulWidget{
 }
 
 class _AuthTextField extends State<AuthTextField> {
-  String get textLabel => " ";
-  String get textHint =>  " ";
-  bool get isPassword  => false;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +26,7 @@ class _AuthTextField extends State<AuthTextField> {
           borderRadius: const BorderRadius.all(Radius.circular(10.0))
       ),
       child: TextField(
-        obscureText: isPassword,
+        obscureText: widget.isPassword,
         cursorColor: MainTheme.primary,
         style: TextStyle(
             color: MainTheme.primary,
@@ -48,8 +45,8 @@ class _AuthTextField extends State<AuthTextField> {
                 color: MainTheme.helper,
                 fontSize: 12.0
             ),
-            label: Text(textLabel),
-            hintText:  textHint,
+            label: Text(widget.textLabel),
+            hintText:  widget.textHint,
             hintStyle: TextStyle(
                 color: MainTheme.helper,
                 fontSize: 10.0
