@@ -1,4 +1,5 @@
 
+import 'package:alquilafacil/auth/screens/register.dart';
 import 'package:alquilafacil/theme/main_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget{
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: MainTheme.lightTheme ,
-      home: const Login(),
+      home: const Register(),
       debugShowCheckedModeBanner: false,
     );
   }
