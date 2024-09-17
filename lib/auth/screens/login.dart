@@ -1,4 +1,5 @@
 
+import 'package:alquilafacil/auth/widgets/auth_text_field.dart';
 import 'package:alquilafacil/theme/main_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -35,80 +36,9 @@ class _LoginState extends State<Login>{
                     )
                 ),
                 const SizedBox(height: 10),
-                Container(
-                  width: 330,
-                  height: 60,
-                  padding: const EdgeInsets.all(10.0),
-                  decoration: BoxDecoration(
-                      color: MainTheme.background,
-                      borderRadius: const BorderRadius.all(Radius.circular(10.0))
-                  ),
-                  child: TextField(
-                    cursorColor: MainTheme.primary,
-                    style: TextStyle(
-                        color: MainTheme.primary,
-                        fontSize: 12.0
-                    ),
-                    decoration: InputDecoration(
-                        enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                                color: MainTheme.transparent
-                            )
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color:MainTheme.primary),
-                        ),
-                        labelStyle: TextStyle(
-                            color: MainTheme.helper,
-                            fontSize: 12.0
-                        ),
-                        label: const Text("Correo electrónico"),
-                        hintText:  "Ingrese su correo electronico",
-                        hintStyle: TextStyle(
-                            color: MainTheme.helper,
-                            fontSize: 10.0
-                        )
-                    ),
-                  ),
-                ),
+                const AuthTextField( textLabel: 'Correo electrónico', textHint: 'Ingrese Correo electrónico', isPassword: false,),
                 const SizedBox(height: 10),
-                Container(
-                  width: 330,
-                  height: 60,
-                  padding: const EdgeInsets.all(10.0),
-                  decoration: BoxDecoration(
-                      color: MainTheme.background,
-                      borderRadius: const BorderRadius.all(Radius.circular(10.0))
-                  ),
-                  child: TextField(
-                    obscureText: true,
-                    cursorColor: MainTheme.primary,
-                    style: TextStyle(
-                        color: MainTheme.primary,
-                        fontSize: 12.0
-                    ),
-                    decoration: InputDecoration(
-                        enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                                color: MainTheme.transparent
-                            )
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color:MainTheme.primary),
-                        ),
-                        labelStyle: TextStyle(
-                            color: MainTheme.helper,
-                            fontSize: 12.0
-                        ),
-                        label: const Text("Contraseña"),
-                        hintText:  "Ingrese su contraseña",
-                        hintStyle: TextStyle(
-                            color: MainTheme.helper,
-                            fontSize: 10.0
-                        )
-                    ),
-                  ),
-                ),
+                const AuthTextField(textLabel: 'Contrasenña', textHint: 'Ingrese Contraseña', isPassword: true),
                 const SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
