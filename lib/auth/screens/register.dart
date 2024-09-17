@@ -1,8 +1,6 @@
 import 'dart:ui';
-
 import 'package:alquilafacil/auth/widgets/auth_text_field.dart';
 import 'package:alquilafacil/auth/widgets/condition_terms.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../theme/main_theme.dart';
@@ -26,7 +24,7 @@ class _Register extends State<Register>{
          child:  SingleChildScrollView(
            child: Center(
              child: Column(
-               children: [
+               children: <Widget> [
                   const Text(
                          "REGISTRATE",
                        style: TextStyle(
