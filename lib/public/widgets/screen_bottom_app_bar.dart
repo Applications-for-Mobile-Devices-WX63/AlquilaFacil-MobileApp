@@ -14,7 +14,7 @@ class ScreenBottomAppBar extends StatelessWidget{
       children: <Widget> [
         Expanded(child:   NavigationButton(buttonIcon: Icons.search_outlined, onNavigate: ()=>{Navigator.pushNamed(context, '/sign-up')}, iconColor: MainTheme.background, backgroundColor: Colors.orangeAccent),),
         Expanded(child:   NavigationButton(buttonIcon: Icons.notifications, onNavigate: ()=>{Navigator.pushNamed(context, '/')},iconColor: Colors.orangeAccent, backgroundColor: MainTheme.background),),
-        Expanded(child:  NavigationButton(buttonIcon: Icons.add, onNavigate:()=>{Navigator.pushNamed(context, '/')},iconColor: Colors.orangeAccent, backgroundColor: MainTheme.background,)),
+        Expanded(child:  NavigationButton(buttonIcon: Icons.add, onNavigate:()=>{Navigator.pushNamed(context, '/tutorial-space')},iconColor: Colors.orangeAccent, backgroundColor: MainTheme.background,)),
         Expanded(child:  NavigationButton(buttonIcon: Icons.calendar_month_outlined, onNavigate: ()=>{Navigator.pushNamed(context, '/')}, iconColor: Colors.orangeAccent, backgroundColor: MainTheme.background)),
         Expanded(child: NavigationButton(buttonIcon: Icons.person_outline, onNavigate: ()=>{Navigator.pushNamed(context, '/')},iconColor: Colors.orangeAccent, backgroundColor: MainTheme.background))
       ],
