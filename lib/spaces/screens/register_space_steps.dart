@@ -146,7 +146,7 @@ class _RegisterSpaceStepsState extends State<RegisterSpaceSteps> {
         SizedBox(height: 16),
         Expanded(
           child: GridView.count(
-            crossAxisCount: 2, // Número de columnas
+            crossAxisCount: 2, 
             children: [
               _buildOptionCard(
                 icon: Icons.beach_access, 
@@ -167,7 +167,7 @@ class _RegisterSpaceStepsState extends State<RegisterSpaceSteps> {
             ],
           ),
         ),
-        _buildNavigationButtons(), // Botones de navegación
+        _buildNavigationButtons(), 
       ],
     ),
   );
@@ -177,7 +177,7 @@ class _RegisterSpaceStepsState extends State<RegisterSpaceSteps> {
 Widget _buildStep4() {
   return Padding(
     padding: const EdgeInsets.all(16.0),
-    child: SingleChildScrollView( // Envolver toda la pantalla en el scroll
+    child: SingleChildScrollView( 
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -192,7 +192,6 @@ Widget _buildStep4() {
           ),
           SizedBox(height: 16.0),
 
-          // Formulario de dirección
           Column(
             children: [
               _buildTextField('Región', 'Perú'),
@@ -207,9 +206,9 @@ Widget _buildStep4() {
             ],
           ),
 
-          SizedBox(height: 32.0), // Espacio antes de los botones
+          SizedBox(height: 32.0),
 
-          // Botones de navegación
+        
           _buildNavigationButtons(isLastStep: true),
         ],
       ),
@@ -233,68 +232,35 @@ Widget _buildStep4() {
     );
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 Widget _buildTextField(String label, String hintText) {
   return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 8.0), // Espaciado vertical
+    padding: const EdgeInsets.symmetric(vertical: 8.0),
     child: TextFormField(
-      cursorColor: Colors.red[900], // Cambia el color del cursor a rojo
-      style: TextStyle(color: Colors.black), // Color del texto
+      cursorColor: Colors.red[900], 
+      style: TextStyle(color: Colors.black),
       decoration: InputDecoration(
         labelText: label,
         labelStyle: TextStyle(
-          color: Colors.black, // Color de la etiqueta
-          fontSize: 16.0, // Tamaño de la etiqueta
+          color: Colors.black, 
+          fontSize: 16.0,
         ),
         hintText: hintText,
         hintStyle: TextStyle(
-          color: Colors.grey, // Color del texto de sugerencia
-          fontSize: 14.0, // Tamaño del texto de sugerencia
+          color: Colors.grey, 
+          fontSize: 14.0, 
         ),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8.0), // Bordes redondeados
+          borderRadius: BorderRadius.circular(8.0), 
           borderSide: BorderSide(
-            color: Colors.black, // Color del borde
-            width: 1.0, // Grosor del borde
+            color: Colors.black,
+            width: 1.0, 
           ),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.0),
           borderSide: BorderSide(
-            color: Colors.black, // Color del borde cuando está enfocado
-            width: 1.0, // Grosor del borde cuando está enfocado
+            color: Colors.black, 
+            width: 1.0,
           ),
         ),
       ),
@@ -309,7 +275,6 @@ Widget _buildNavigationButtons({bool isLastStep = false}) {
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        // Botón "Anterior"
         OutlinedButton(
           onPressed: _currentPage > 0
               ? () {
@@ -319,13 +284,13 @@ Widget _buildNavigationButtons({bool isLastStep = false}) {
               : null,
           style: OutlinedButton.styleFrom(
             side: BorderSide(
-              color: Colors.red[900]!, // Borde rojo oscuro
-              width: 2.0, // Ancho del borde, ajusta el valor para hacerlo más grueso
+              color: Colors.red[900]!,
+              width: 2.0, 
             ),
-            foregroundColor: Colors.black, // Texto negro
-            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0), // Tamaño del botón
+            foregroundColor: Colors.black, 
+            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0), 
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8.0), // Bordes redondeados
+              borderRadius: BorderRadius.circular(8.0), 
             ),
           ),
           child: const Text('Anterior', style: TextStyle(fontSize: 16.0)),
@@ -341,11 +306,11 @@ Widget _buildNavigationButtons({bool isLastStep = false}) {
                       duration: Duration(milliseconds: 300), curve: Curves.ease);
                 },
           style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.red[900], // Fondo rojo
-            foregroundColor: Colors.white, // Texto blanco
-            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0), // Tamaño del botón
+            backgroundColor: Colors.red[900], 
+            foregroundColor: Colors.white, 
+            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8.0), // Bordes redondeados
+              borderRadius: BorderRadius.circular(8.0), 
             ),
           ),
           child: Text(isLastStep ? 'Finalizar' : 'Siguiente', style: TextStyle(fontSize: 16.0)),
@@ -401,21 +366,20 @@ Widget _buildNavigationButtons({bool isLastStep = false}) {
 Widget _buildOptionCard({required IconData icon, required String title}) {
   return GestureDetector(
     onTap: () {
-      // Lógica cuando se selecciona la opción
     },
     child: FractionallySizedBox(
-      widthFactor: 0.8, // Controla el ancho relativo al espacio disponible
+      widthFactor: 0.8, 
       heightFactor: 0.8 ,
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(12.0), // Bordes redondeados
+          borderRadius: BorderRadius.circular(12.0),
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.5),
               spreadRadius: 2,
               blurRadius: 5,
-              offset: Offset(0, 3), // Sombras alrededor
+              offset: Offset(0, 3), 
             ),
           ],
         ),
