@@ -1,3 +1,4 @@
+import 'package:alquilafacil/public/widgets/screen_bottom_app_bar.dart';
 import 'package:flutter/material.dart';
 
 class RegisterSpaceSteps extends StatefulWidget {
@@ -27,6 +28,9 @@ class _RegisterSpaceStepsState extends State<RegisterSpaceSteps> {
         backgroundColor: Colors.white,
 
       ),
+      bottomNavigationBar: const BottomAppBar(
+        child: ScreenBottomAppBar(),
+      ),
       body: PageView(
         controller: _pageController,
         onPageChanged: (int page) {
@@ -35,7 +39,7 @@ class _RegisterSpaceStepsState extends State<RegisterSpaceSteps> {
           });
         },
         children: [
-          _buildStep1(), 
+          _buildStep1(),
           _buildStep2(),
           _buildStep3(),
           _buildStep4(),
@@ -86,8 +90,7 @@ class _RegisterSpaceStepsState extends State<RegisterSpaceSteps> {
               description: 'Agrega las últimas configuraciones y publica tu espacio',
             ),
 
-            const SizedBox(height: 20.0),
-
+            const SizedBox(height: 25.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -341,7 +344,7 @@ Widget _buildNavigationButtons({bool isLastStep = false}) {
                   Text(
                     stepNumber,
                     style: const TextStyle(
-                      fontSize: 25.0,
+                      fontSize: 20.0,
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
                     ),

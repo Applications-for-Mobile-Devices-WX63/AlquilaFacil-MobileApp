@@ -1,5 +1,6 @@
 
 import 'package:alquilafacil/public/widgets/screen_bottom_app_bar.dart';
+import 'package:alquilafacil/spaces/widgets/search_space_button.dart';
 import 'package:alquilafacil/theme/main_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -25,39 +26,7 @@ class _SearchSpaces extends State<SearchSpaces> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Container(
-                      width: 300,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        color: MainTheme.helper,
-                        borderRadius: BorderRadius.circular(10.0)
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.only(top:5.0),
-                        child: TextField(
-                          textAlign: TextAlign.start,
-                          cursorColor: Colors.black,
-                          style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 15.0
-                          ),
-                          decoration: InputDecoration(
-                           enabledBorder: UnderlineInputBorder(
-                             borderSide: BorderSide(
-                               color: MainTheme.transparent
-                             )
-                           ),
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                color: MainTheme.transparent
-                              )
-                            ),
-                            hintText: "Busca tu espacio ideal",
-                            prefixIcon: IconButton(onPressed: ()=>{}, icon: const Icon(Icons.search_outlined)),
-                          ),
-                        ),
-                      ),
-                    ),
+                    const SearchSpaceButton(routeToRedirect: 'filter-spaces'),
                     Container(
                       decoration: BoxDecoration(
                         color: MainTheme.helper,
