@@ -15,7 +15,11 @@ class MyApp extends StatelessWidget{
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: MainTheme.lightTheme ,
-      home: const Register(),
+      initialRoute: "/",
+      routes:{
+        "/":(context) => const Login(),
+        "/sign-up":(context) => const Register()
+      },
       debugShowCheckedModeBanner: false,
     );
   }
