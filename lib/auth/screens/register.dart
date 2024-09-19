@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:alquilafacil/auth/widgets/auth_text_field.dart';
 import 'package:alquilafacil/auth/widgets/condition_terms.dart';
+import 'package:alquilafacil/public/widgets/screen_bottom_app_bar.dart';
 import 'package:flutter/material.dart';
 
 import '../../theme/main_theme.dart';
@@ -19,6 +20,9 @@ class _Register extends State<Register>{
   Widget build(BuildContext context) {
     return Scaffold(
        backgroundColor: MainTheme.primary,
+       bottomNavigationBar: const BottomAppBar(
+         child: ScreenBottomAppBar(),
+       ),
        body:  Padding(
          padding: const EdgeInsets.only(top: 100.0),
          child:  SingleChildScrollView(

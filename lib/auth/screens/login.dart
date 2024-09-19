@@ -47,7 +47,7 @@ class _LoginState extends State<Login>{
                   width: 330,
                   height: 50,
                   child: TextButton(
-                    onPressed: () {  },
+                    onPressed: () { Navigator.pushNamed(context, "/search-space"); },
                     child: const Text("Iniciar Sesión"),
                   ),
                 ),

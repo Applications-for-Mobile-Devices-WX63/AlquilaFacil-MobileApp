@@ -1,5 +1,6 @@
 
 import 'package:alquilafacil/auth/screens/register.dart';
+import 'package:alquilafacil/spaces/screens/search_spaces.dart';
 import 'package:alquilafacil/theme/main_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +19,8 @@ class MyApp extends StatelessWidget{
       initialRoute: "/",
       routes:{
         "/":(context) => const Login(),
-        "/sign-up":(context) => const Register()
+        "/sign-up":(context) => const Register(),
+        "/search-space":(context) => const SearchSpaces()
       },
       debugShowCheckedModeBanner: false,
     );
