@@ -17,6 +17,7 @@ class _SearchSpaces extends State<SearchSpaces> {
       bottomNavigationBar: const BottomAppBar(
         child:  ScreenBottomAppBar(),
       ),
+      backgroundColor:  MainTheme.background,
       body: SingleChildScrollView(
         child: Center(
           child: Column(
@@ -32,7 +33,7 @@ class _SearchSpaces extends State<SearchSpaces> {
                         color: MainTheme.helper,
                         borderRadius: BorderRadius.circular(25.0)
                       ),
-                      child: IconButton(onPressed: ()=>{}, 
+                      child: IconButton(onPressed: ()=>{Navigator.pushNamed(context, "/filter-screen")},
                           icon: const Icon(
                               Icons.filter_alt,
                           )

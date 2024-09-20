@@ -1,5 +1,6 @@
 
 import 'package:alquilafacil/auth/screens/register.dart';
+import 'package:alquilafacil/spaces/screens/filter_screen.dart';
 import 'package:alquilafacil/spaces/screens/filter_spaces.dart';
 import 'package:alquilafacil/spaces/screens/register_space_steps.dart';
 import 'package:alquilafacil/spaces/screens/search_spaces.dart';
@@ -24,7 +25,8 @@ class MyApp extends StatelessWidget{
         "/sign-up":(context) => const Register(),
         "/search-space":(context) => const SearchSpaces(),
         "/tutorial-space":(context) => const RegisterSpaceSteps(),
-        "/filter-spaces":(context) => const FilterSpaces()
+        "/filter-spaces":(context) => const FilterSpaces(),
+        "/filter-screen":(context) => const FilterScreen()
 
       },
       debugShowCheckedModeBanner: false,
