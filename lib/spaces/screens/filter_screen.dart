@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:alquilafacil/public/widgets/screen_bottom_app_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -27,8 +28,12 @@ class FilterScreen extends StatelessWidget{
           )
         ),
       ),
+      bottomNavigationBar: const BottomAppBar(
+        child: ScreenBottomAppBar(),
+      ),
       body: const SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
               padding: EdgeInsets.only(top: 20.0, left: 10.0),
@@ -62,14 +67,29 @@ class FilterScreen extends StatelessWidget{
                 ),
               ],
             ),
-            SizedBox(height: 30),
-            Text(
-              "Capacidad de Personas",
-              style: TextStyle(
-                fontSize: 12.0,
-                fontWeight: FontWeight.bold,
-                color: Colors.black
+            Padding(
+              padding: EdgeInsets.only(top:30,left: 10),
+              child: Text(
+                "Capacidad de Personas",
+                style: TextStyle(
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black
+                ),
               ),
+            ),
+           SizedBox(height: 20),
+            Column(
+              children: [
+                SizedBox(height: 20),
+                PersonCapacityFilter(filterRange: "5-10"),
+                SizedBox(height: 20),
+                PersonCapacityFilter(filterRange: "10-25"),
+                SizedBox(height: 20),
+                PersonCapacityFilter(filterRange: "25-50"),
+                SizedBox(height: 20),
+                PersonCapacityFilter(filterRange: "50-100")
+              ],
             )
           ],
         ),
@@ -117,4 +137,46 @@ class SpaceTypeCard extends StatelessWidget {
       ],
     );
   }
+}
+
+class PersonCapacityFilter extends StatefulWidget{
+  final String filterRange;
+  const PersonCapacityFilter({super.key, required this.filterRange});
+  @override
+  State<StatefulWidget> createState()=> _PersonCapacityFilter();
+
+}
+
+class _PersonCapacityFilter extends State<PersonCapacityFilter>{
+  bool isChecked = false;
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        const SizedBox(width: 10),
+        Checkbox(
+          side: const BorderSide(
+         color: Colors.black
+        ),
+            shape: const CircleBorder(),
+            value: isChecked,
+          checkColor: Colors.transparent,
+          activeColor: Colors.black,
+          onChanged: (bool? newValue) {
+            setState(() {
+              isChecked = newValue ?? false;
+            });
+          },
+        ),
+        const SizedBox(width: 10),
+        Text(
+            widget.filterRange,
+          style: const TextStyle(
+            color: Colors.black
+          ),
+        )
+      ],
+    );
+  }
+
 }
