@@ -44,7 +44,7 @@ class Register extends StatelessWidget{
                      signUpProvider.setFirstName(newValue);
                    },
                    validator: (_) {
-                     return signUpProvider.validateFirstName(signUpProvider.firstName);
+                     return signUpProvider.validateFirstName();
                    },
                  ),
                  const SizedBox(height: 10),
@@ -57,7 +57,7 @@ class Register extends StatelessWidget{
                     signUpProvider.setLastName(newValue);
                    },
                    validator: (_) {
-                     return signUpProvider.validateLastName(signUpProvider.lastName);
+                     return signUpProvider.validateLastName();
                    },
                  ),
                  const SizedBox(height: 10),
@@ -70,7 +70,7 @@ class Register extends StatelessWidget{
                     signUpProvider.setEmail(newValue);
                    },
                    validator: (_) {
-                     return signUpProvider.validateEmail(signUpProvider.email);
+                     return signUpProvider.validateEmail();
                    },
                  ),
                  const SizedBox(height: 10),
@@ -83,7 +83,7 @@ class Register extends StatelessWidget{
                      signUpProvider.setPhoneNumber(newValue);
                    },
                    validator: (_) {
-                     return signUpProvider.validatePhoneNumber(signUpProvider.phoneNumber);
+                     return signUpProvider.validatePhoneNumber();
                    },
                  ),
                  const SizedBox(height: 10),
@@ -96,7 +96,7 @@ class Register extends StatelessWidget{
                      signUpProvider.setDocumentNumber(newValue);
                    },
                    validator: (_) {
-                      return signUpProvider.validateDocumentNumber(signUpProvider.documentNumber);
+                      return signUpProvider.validateDocumentNumber();
                    },
                  ),
                  const SizedBox(height: 10),
@@ -109,7 +109,7 @@ class Register extends StatelessWidget{
                      signUpProvider.setPassword(newValue);
                    },
                    validator: (_) {
-                     return signUpProvider.validatePassword(signUpProvider.password);
+                     return signUpProvider.validatePassword();
                    },
                  ),
                  const SizedBox(height: 10),
@@ -122,7 +122,7 @@ class Register extends StatelessWidget{
                      signUpProvider.setConfirmPassword(newValue);
                    },
                    validator: (_) {
-                     return signUpProvider.validateConfirmPassword(signUpProvider.confirmPassword);
+                     return signUpProvider.validateConfirmPassword();
                    },
                  ),
                  const SizedBox(height: 10),

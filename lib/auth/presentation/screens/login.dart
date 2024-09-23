@@ -46,7 +46,7 @@ class _LoginState extends State<Login>{
                       signInProvider.setEmail(newEmail);
                 },
                   validator: (_){
-                      return signInProvider.validateEmail(signInProvider.email);
+                      return signInProvider.validateEmail();
                   },
                 ),
                 const SizedBox(height: 10),
@@ -54,7 +54,7 @@ class _LoginState extends State<Login>{
                   onChanged: (newPassword){
                       signInProvider.setPassword(newPassword);
                 }, validator: (_){
-                  return signInProvider.validatePassword(signInProvider.password);
+                  return signInProvider.validatePassword();
                 },),
                 const SizedBox(height: 20),
                 const ConditionsTerms(),

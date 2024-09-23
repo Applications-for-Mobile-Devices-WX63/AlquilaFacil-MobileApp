@@ -10,7 +10,7 @@ class SignInProvider extends ChangeNotifier with AuthFilter  {
  String get password => _password;
 
  @override
- String? validateEmail(String email)  {
+ String? validateEmail()  {
     if(email.isEmpty ){
       return "El email es requerido";
     }
@@ -21,7 +21,7 @@ class SignInProvider extends ChangeNotifier with AuthFilter  {
  }
 
   @override
-  String? validatePassword(String password){
+  String? validatePassword(){
    if(password.isEmpty ){
     return "Por favor ingrese una contraseña valida";
    }

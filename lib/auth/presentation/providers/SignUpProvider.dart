@@ -19,7 +19,7 @@ class SignUpProvider extends ChangeNotifier with AuthFilter{
   String get confirmPassword => _confirmPassword;
 
   @override
-  String? validateEmail(String email) {
+  String? validateEmail() {
     if(email.isEmpty ){
       return "El email es requerido";
     }
@@ -30,7 +30,7 @@ class SignUpProvider extends ChangeNotifier with AuthFilter{
   }
 
   @override
-  String? validatePassword(String password) {
+  String? validatePassword() {
     if(password.isEmpty ){
       return "Por favor ingrese una contraseña valida";
     }
@@ -41,21 +41,21 @@ class SignUpProvider extends ChangeNotifier with AuthFilter{
   }
 
 
-  String? validateFirstName(String firstName){
+  String? validateFirstName(){
     if (firstName.isEmpty) {
       return 'Por favor, ingrese su nombre';
     }
     return null;
   }
 
-  String? validateLastName(String lastName){
+  String? validateLastName(){
     if(lastName.isEmpty){
       return 'Por favor, ingrese sus apellidos';
     }
     return null;
   }
 
-  String? validatePhoneNumber(String phoneNumber){
+  String? validatePhoneNumber(){
     if (phoneNumber.isEmpty) {
       return 'Por favor, ingrese su número de teléfono';
     }
@@ -65,14 +65,14 @@ class SignUpProvider extends ChangeNotifier with AuthFilter{
     return null;
   }
 
-  String? validateDocumentNumber(String documentNumber){
+  String? validateDocumentNumber(){
     if (documentNumber.isEmpty) {
        return 'Por favor, ingrese su número de documento';
     }
     return null;
   }
 
-  String? validateConfirmPassword(String confirmPassword){
+  String? validateConfirmPassword(){
     if(confirmPassword != password){
       return 'Las contraseñas no coinciden';
     }
