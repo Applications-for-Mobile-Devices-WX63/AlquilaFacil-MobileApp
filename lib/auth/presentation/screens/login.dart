@@ -46,12 +46,7 @@ class _LoginState extends State<Login>{
                       signInProvider.setEmail(newEmail);
                 },
                   validator: (_){
-                       if(signInProvider.email.isEmpty ){
-                         return "El email es requerido";
-                       }
-                       if(!signInProvider.email.contains('@')){
-                         return "Por favor, ingrese un email valido";
-                       }
+                      return signInProvider.validateEmail(signInProvider.email);
                   },
                 ),
                 const SizedBox(height: 10),
@@ -59,12 +54,7 @@ class _LoginState extends State<Login>{
                   onChanged: (newPassword){
                       signInProvider.setPassword(newPassword);
                 }, validator: (_){
-                  if(signInProvider.password.isEmpty ){
-                    return "Por favor ingrese una contraseña valida";
-                  }
-                  if(signInProvider.password.length < 8){
-                    return "La contrasenña debe tener como minimo 8 caracteres";
-                  }
+                  return signInProvider.validatePassword(signInProvider.password);
                 },),
                 const SizedBox(height: 20),
                 const ConditionsTerms(),
