@@ -1,13 +1,14 @@
 
-import 'package:alquilafacil/auth/screens/register.dart';
+import 'package:alquilafacil/public/ui/theme/main_theme.dart';
 import 'package:alquilafacil/spaces/screens/filter_screen.dart';
 import 'package:alquilafacil/spaces/screens/filter_spaces.dart';
 import 'package:alquilafacil/spaces/screens/register_space_steps.dart';
 import 'package:alquilafacil/spaces/screens/search_spaces.dart';
-import 'package:alquilafacil/theme/main_theme.dart';
 import 'package:flutter/material.dart';
 
-import 'auth/screens/login.dart';
+import 'auth/presentation/screens/login.dart';
+import 'auth/presentation/screens/register.dart';
+
 
 void main() {
   runApp(const MyApp());

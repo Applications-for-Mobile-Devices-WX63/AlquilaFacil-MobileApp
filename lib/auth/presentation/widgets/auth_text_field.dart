@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../theme/main_theme.dart';
+import '../../../public/ui/theme/main_theme.dart';
+
+
+
 
 class AuthTextField extends StatefulWidget{
   final String textLabel;

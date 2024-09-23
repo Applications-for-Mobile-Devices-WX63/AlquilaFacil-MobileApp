@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 
-import '../../theme/main_theme.dart';
+import '../ui/theme/main_theme.dart';
 import 'navigation_button.dart';
 
 class ScreenBottomAppBar extends StatelessWidget{

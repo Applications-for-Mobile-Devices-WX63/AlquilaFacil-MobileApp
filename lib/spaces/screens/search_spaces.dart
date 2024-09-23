@@ -1,8 +1,9 @@
 
 import 'package:alquilafacil/public/widgets/screen_bottom_app_bar.dart';
 import 'package:alquilafacil/spaces/widgets/search_space_button.dart';
-import 'package:alquilafacil/theme/main_theme.dart';
 import 'package:flutter/material.dart';
+
+import '../../public/ui/theme/main_theme.dart';
 
 class SearchSpaces extends StatefulWidget{
   const SearchSpaces({super.key});

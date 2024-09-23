@@ -1,11 +1,12 @@
 
-import 'package:alquilafacil/auth/widgets/auth_text_field.dart';
-import 'package:alquilafacil/auth/widgets/condition_terms.dart';
-import 'package:alquilafacil/theme/main_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../public/widgets/screen_bottom_app_bar.dart';
+import '../../../public/ui/theme/main_theme.dart';
+import '../../../public/widgets/screen_bottom_app_bar.dart';
+import '../widgets/auth_text_field.dart';
+import '../widgets/condition_terms.dart';
+
 
 class Login extends StatefulWidget{
   const Login({super.key});
@@ -39,8 +40,9 @@ class _LoginState extends State<Login>{
                     )
                 ),
                 const SizedBox(height: 10),
-                AuthTextField( textLabel: 'Correo electrónico', textHint: 'Ingrese Correo electrónico', isPassword: false, param: email, onChanged: (newEmail){setState(() {
-                  email = newEmail;
+                AuthTextField( textLabel: 'Correo electrónico', textHint: 'Ingrese Correo electrónico', isPassword: false, param: email,
+                    onChanged: (newEmail){setState(() {
+                      email = newEmail;
                 });},
                   validator: (newEmail){
                        if(email.isEmpty ){
@@ -52,9 +54,10 @@ class _LoginState extends State<Login>{
                   },
                 ),
                 const SizedBox(height: 10),
-                AuthTextField(textLabel: 'Contraseña', textHint: 'Ingrese Contraseña', isPassword: true, param: password, onChanged: (newPassword){
-                  setState(() {
-                    password = newPassword;
+                AuthTextField(textLabel: 'Contraseña', textHint: 'Ingrese Contraseña', isPassword: true, param: password,
+                  onChanged: (newPassword){
+                    setState(() {
+                      password = newPassword;
                   });
                 }, validator: (newPassword){
                   if(password.isEmpty ){

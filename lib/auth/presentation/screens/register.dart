@@ -1,10 +1,11 @@
 import 'dart:ui';
-import 'package:alquilafacil/auth/widgets/auth_text_field.dart';
-import 'package:alquilafacil/auth/widgets/condition_terms.dart';
 import 'package:alquilafacil/public/widgets/screen_bottom_app_bar.dart';
 import 'package:flutter/material.dart';
 
-import '../../theme/main_theme.dart';
+import '../../../public/ui/theme/main_theme.dart';
+import '../widgets/auth_text_field.dart';
+import '../widgets/condition_terms.dart';
+
 
 class Register extends StatefulWidget{
   const Register({super.key});
