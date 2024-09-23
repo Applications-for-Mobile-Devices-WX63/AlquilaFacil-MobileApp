@@ -26,7 +26,7 @@ class SignInProvider extends ChangeNotifier with AuthFilter  {
     return "Por favor ingrese una contraseña valida";
    }
    if(password.length < 8){
-    return "La contrasenña debe tener como minimo 8 caracteres";
+    return "La contraseña debe tener como minimo 8 caracteres";
    }
    return null;
 

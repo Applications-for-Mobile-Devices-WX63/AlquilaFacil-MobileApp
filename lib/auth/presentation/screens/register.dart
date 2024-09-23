@@ -1,32 +1,21 @@
 import 'dart:ui';
+import 'package:alquilafacil/auth/presentation/providers/SignUpProvider.dart';
 import 'package:alquilafacil/public/widgets/screen_bottom_app_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../public/ui/theme/main_theme.dart';
 import '../widgets/auth_text_field.dart';
 import '../widgets/condition_terms.dart';
 
 
-class Register extends StatefulWidget{
+
+
+class Register extends StatelessWidget{
   const Register({super.key});
-
-  @override
-  State<StatefulWidget> createState() => _Register();
-  
-}
-
-
-class _Register extends State<Register>{
-  String firstName = "";
-  String lastName = "";
-  String email = "";
-  String phoneNumber = "";
-  String documentNumber = "";
-  String password = "";
-  String confirmPassword = "";
-
   @override
   Widget build(BuildContext context) {
+    final signUpProvider = context.watch<SignUpProvider>();
     return Scaffold(
        backgroundColor: MainTheme.primary,
        bottomNavigationBar: const BottomAppBar(
@@ -50,16 +39,12 @@ class _Register extends State<Register>{
                    textLabel: "Nombre",
                    textHint: "Ingrese su nombre",
                    isPassword: false,
-                   param: firstName,
+                   param: signUpProvider.firstName,
                    onChanged: (newValue) {
-                     setState(() {
-                       firstName = newValue;
-                     });
+                     signUpProvider.setFirstName(newValue);
                    },
-                   validator: (value) {
-                     if (value == null || value.isEmpty) {
-                       return 'Por favor, ingrese su nombre';
-                     }
+                   validator: (_) {
+                     return signUpProvider.validateFirstName(signUpProvider.firstName);
                    },
                  ),
                  const SizedBox(height: 10),
@@ -67,16 +52,12 @@ class _Register extends State<Register>{
                    textLabel: "Apellidos",
                    textHint: "Ingrese sus apellidos",
                    isPassword: false,
-                   param: lastName,
+                   param: signUpProvider.lastName,
                    onChanged: (newValue) {
-                     setState(() {
-                       lastName = newValue;
-                     });
+                    signUpProvider.setLastName(newValue);
                    },
-                   validator: (value) {
-                     if (value == null || value.isEmpty) {
-                       return 'Por favor, ingrese sus apellidos';
-                     }
+                   validator: (_) {
+                     return signUpProvider.validateLastName(signUpProvider.lastName);
                    },
                  ),
                  const SizedBox(height: 10),
@@ -84,19 +65,12 @@ class _Register extends State<Register>{
                    textLabel: "Correo electrónico",
                    textHint: "Ingrese su correo electrónico",
                    isPassword: false,
-                   param: email,
+                   param: signUpProvider.email,
                    onChanged: (newValue) {
-                     setState(() {
-                       email = newValue;
-                     });
+                    signUpProvider.setEmail(newValue);
                    },
-                   validator: (value) {
-                     if (value == null || value.isEmpty) {
-                       return 'Por favor, ingrese su correo electrónico';
-                     }
-                     if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
-                       return 'Ingrese un correo electrónico válido';
-                     }
+                   validator: (_) {
+                     return signUpProvider.validateEmail(signUpProvider.email);
                    },
                  ),
                  const SizedBox(height: 10),
@@ -104,19 +78,12 @@ class _Register extends State<Register>{
                    textLabel: "Número de Teléfono",
                    textHint: "Ingrese su número de teléfono",
                    isPassword: false,
-                   param: phoneNumber,
+                   param: signUpProvider.phoneNumber,
                    onChanged: (newValue) {
-                     setState(() {
-                       phoneNumber = newValue;
-                     });
+                     signUpProvider.setPhoneNumber(newValue);
                    },
-                   validator: (value) {
-                     if (value == null || value.isEmpty) {
-                       return 'Por favor, ingrese su número de teléfono';
-                     }
-                     if (value.length < 9) {
-                       return 'El número de teléfono debe tener al menos 9 dígitos';
-                     }
+                   validator: (_) {
+                     return signUpProvider.validatePhoneNumber(signUpProvider.phoneNumber);
                    },
                  ),
                  const SizedBox(height: 10),
@@ -124,16 +91,12 @@ class _Register extends State<Register>{
                    textLabel: "Número de documento",
                    textHint: "Ingrese su número de documento",
                    isPassword: false,
-                   param: documentNumber,
+                   param: signUpProvider.documentNumber,
                    onChanged: (newValue) {
-                     setState(() {
-                       documentNumber = newValue;
-                     });
+                     signUpProvider.setDocumentNumber(newValue);
                    },
-                   validator: (value) {
-                     if (value == null || value.isEmpty) {
-                       return 'Por favor, ingrese su número de documento';
-                     }
+                   validator: (_) {
+                      return signUpProvider.validateDocumentNumber(signUpProvider.documentNumber);
                    },
                  ),
                  const SizedBox(height: 10),
@@ -141,19 +104,12 @@ class _Register extends State<Register>{
                    textLabel: "Contraseña",
                    textHint: "Ingrese su contraseña",
                    isPassword: true,
-                   param: password,
+                   param: signUpProvider.password,
                    onChanged: (newValue) {
-                     setState(() {
-                       password = newValue;
-                     });
+                     signUpProvider.setPassword(newValue);
                    },
-                   validator: (value) {
-                     if (value == null || value.isEmpty) {
-                       return 'Por favor, ingrese una contraseña';
-                     }
-                     if (value.length < 8) {
-                       return 'La contraseña debe tener al menos 8 caracteres';
-                     }
+                   validator: (_) {
+                     return signUpProvider.validatePassword(signUpProvider.password);
                    },
                  ),
                  const SizedBox(height: 10),
@@ -161,20 +117,12 @@ class _Register extends State<Register>{
                    textLabel: "Escriba nuevamente su contraseña",
                    textHint: "Escriba nuevamente su contraseña",
                    isPassword: true,
-                   param: confirmPassword,
+                   param: signUpProvider.confirmPassword,
                    onChanged: (newValue) {
-                     setState(() {
-                       confirmPassword = newValue;
-                     });
+                     signUpProvider.setConfirmPassword(newValue);
                    },
-                   validator: (value) {
-                     if (value == null || value.isEmpty) {
-                       return 'Por favor, confirme su contraseña';
-                     }
-                     if (value != password) {
-                       return 'Las contraseñas no coinciden';
-                     }
-
+                   validator: (_) {
+                     return signUpProvider.validateConfirmPassword(signUpProvider.confirmPassword);
                    },
                  ),
                  const SizedBox(height: 10),
