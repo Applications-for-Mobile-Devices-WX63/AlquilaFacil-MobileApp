@@ -17,6 +17,8 @@ class Login extends StatefulWidget{
 
 class _LoginState extends State<Login>{
   bool isAccepted = false;
+  String email = "";
+  String password = "";
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -37,9 +39,31 @@ class _LoginState extends State<Login>{
                     )
                 ),
                 const SizedBox(height: 10),
-                const AuthTextField( textLabel: 'Correo electrónico', textHint: 'Ingrese Correo electrónico', isPassword: false,),
+                AuthTextField( textLabel: 'Correo electrónico', textHint: 'Ingrese Correo electrónico', isPassword: false, param: email, onChanged: (newEmail){setState(() {
+                  email = newEmail;
+                });},
+                  validator: (newEmail){
+                       if(email.isEmpty ){
+                         return "El email es requerido";
+                       }
+                       if(!email.contains('@')){
+                         return "Por favor, ingrese un email valido";
+                       }
+                  },
+                ),
                 const SizedBox(height: 10),
-                const AuthTextField(textLabel: 'Contrasenña', textHint: 'Ingrese Contraseña', isPassword: true),
+                AuthTextField(textLabel: 'Contraseña', textHint: 'Ingrese Contraseña', isPassword: true, param: password, onChanged: (newPassword){
+                  setState(() {
+                    password = newPassword;
+                  });
+                }, validator: (newPassword){
+                  if(password.isEmpty ){
+                    return "Por favor ingrese una contraseña valida";
+                  }
+                  if(password.length < 8){
+                    return "La contrasenña debe tener como minimo 8 caracteres";
+                  }
+                },),
                 const SizedBox(height: 20),
                 const ConditionsTerms(),
                 const SizedBox(height: 10.0),
