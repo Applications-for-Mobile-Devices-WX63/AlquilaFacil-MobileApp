@@ -1,6 +1,8 @@
 
+import 'package:alquilafacil/auth/presentation/providers/SignInPovider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../public/ui/theme/main_theme.dart';
 import '../../../public/widgets/screen_bottom_app_bar.dart';
@@ -18,10 +20,9 @@ class Login extends StatefulWidget{
 
 class _LoginState extends State<Login>{
   bool isAccepted = false;
-  String email = "";
-  String password = "";
   @override
   Widget build(BuildContext context) {
+    final signInProvider = context.watch<SignInProvider>();
     return  Scaffold(
       backgroundColor: MainTheme.primary,
       bottomNavigationBar: const BottomAppBar(
@@ -40,30 +41,28 @@ class _LoginState extends State<Login>{
                     )
                 ),
                 const SizedBox(height: 10),
-                AuthTextField( textLabel: 'Correo electrónico', textHint: 'Ingrese Correo electrónico', isPassword: false, param: email,
-                    onChanged: (newEmail){setState(() {
-                      email = newEmail;
-                });},
-                  validator: (newEmail){
-                       if(email.isEmpty ){
+                AuthTextField( textLabel: 'Correo electrónico', textHint: 'Ingrese Correo electrónico', isPassword: false, param: signInProvider.email,
+                    onChanged: (newEmail){
+                      signInProvider.setEmail(newEmail);
+                },
+                  validator: (_){
+                       if(signInProvider.email.isEmpty ){
                          return "El email es requerido";
                        }
-                       if(!email.contains('@')){
+                       if(!signInProvider.email.contains('@')){
                          return "Por favor, ingrese un email valido";
                        }
                   },
                 ),
                 const SizedBox(height: 10),
-                AuthTextField(textLabel: 'Contraseña', textHint: 'Ingrese Contraseña', isPassword: true, param: password,
+                AuthTextField(textLabel: 'Contraseña', textHint: 'Ingrese Contraseña', isPassword: true, param: signInProvider.password,
                   onChanged: (newPassword){
-                    setState(() {
-                      password = newPassword;
-                  });
-                }, validator: (newPassword){
-                  if(password.isEmpty ){
+                      signInProvider.setPassword(newPassword);
+                }, validator: (_){
+                  if(signInProvider.password.isEmpty ){
                     return "Por favor ingrese una contraseña valida";
                   }
-                  if(password.length < 8){
+                  if(signInProvider.password.length < 8){
                     return "La contrasenña debe tener como minimo 8 caracteres";
                   }
                 },),
