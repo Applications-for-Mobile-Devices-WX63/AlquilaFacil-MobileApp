@@ -2,7 +2,6 @@
 import 'package:alquilafacil/auth/widgets/auth_text_field.dart';
 import 'package:alquilafacil/auth/widgets/condition_terms.dart';
 import 'package:alquilafacil/theme/main_theme.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../public/widgets/screen_bottom_app_bar.dart';
