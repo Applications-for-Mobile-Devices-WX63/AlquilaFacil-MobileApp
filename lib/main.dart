@@ -9,15 +9,14 @@ import 'package:alquilafacil/spaces/presentation/screens/filter_spaces.dart';
 import 'package:alquilafacil/spaces/presentation/screens/register_space_steps.dart';
 import 'package:alquilafacil/spaces/presentation/screens/search_spaces.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/date_symbol_data_local.dart'; // Cambié la importación aquí
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
 import 'auth/presentation/screens/login.dart';
 import 'auth/presentation/screens/register.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await initializeDateFormatting(
-      'es_ES'); // No es necesario el 'null' en la versión correcta
+  await initializeDateFormatting('es_ES');
   runApp(const MyApp());
 }
 
@@ -32,7 +31,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         theme: MainTheme.lightTheme,
-        initialRoute: "/",
+        initialRoute: "/login",
         routes: {
           "/login": (context) => const Login(),
           "/sign-up": (context) => const Register(),
