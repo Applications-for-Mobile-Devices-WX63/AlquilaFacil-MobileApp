@@ -19,7 +19,6 @@ class _LoginState extends State<Login> {
     final signInProvider = context.watch<SignInProvider>();
     return Scaffold(
       backgroundColor: MainTheme.primary,
-      bottomNavigationBar: const BottomAppBar(child: ScreenBottomAppBar()),
       body: Center(
           child: SingleChildScrollView(
         child: Column(

@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
         theme: MainTheme.lightTheme,
         initialRoute: "/",
         routes: {
-          "/": (context) => const Login(),
+          "/login": (context) => const Login(),
           "/sign-up": (context) => const Register(),
           "/search-space": (context) => const SearchSpaces(),
           "/tutorial-space": (context) => const RegisterSpaceSteps(),

@@ -37,7 +37,7 @@ class ProfileScreen extends StatelessWidget {
               Divider(),
               NavigationRow(
                 title: 'Cerrar sesión',
-                routeName: '/add',
+                routeName: '/login',
               ),
             ],
           ),
