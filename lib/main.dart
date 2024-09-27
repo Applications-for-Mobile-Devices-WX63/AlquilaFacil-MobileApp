@@ -13,7 +13,6 @@ import 'package:intl/date_symbol_data_local.dart'; // Cambié la importación aq
 import 'package:provider/provider.dart';
 import 'auth/presentation/screens/login.dart';
 import 'auth/presentation/screens/register.dart';
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeDateFormatting(

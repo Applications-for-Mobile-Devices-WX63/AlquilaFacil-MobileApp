@@ -2,7 +2,7 @@ import 'package:alquilafacil/public/presentation/widgets/screen_bottom_app_bar.d
 import 'package:flutter/material.dart';
 
 class DetailsScreen extends StatelessWidget {
-  const DetailsScreen({Key? key});
+  const DetailsScreen({super.key});
 
   static const details = ['WiFi', 'TV', 'Cocina', 'Baño', 'Estacionamiento', 'Piscina', 'Gimnasio', 'Aire acondicionado', 'Calefacción', 'Mascotas'];
 
@@ -39,7 +39,7 @@ class DetailsScreen extends StatelessWidget {
                       ],
                     ),
                   );
-                }).toList(),
+                }),
                 const SizedBox(height: 16.0),
                 const Text(
                   'Políticas de cancelación:',
