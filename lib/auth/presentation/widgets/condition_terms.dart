@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 
-import '../../theme/main_theme.dart';
+import '../../../public/ui/theme/main_theme.dart';
 
-class ConditionsTerms extends StatefulWidget{
+class ConditionsTerms extends StatefulWidget {
   const ConditionsTerms({super.key});
 
   @override
-  State<StatefulWidget> createState()=> _ConditionTerms();
-
+  State<StatefulWidget> createState() => _ConditionTerms();
 }
 
 class _ConditionTerms extends State<ConditionsTerms> {
@@ -16,16 +15,13 @@ class _ConditionTerms extends State<ConditionsTerms> {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget> [
+      children: <Widget>[
         Checkbox(
             value: isAccepted,
-            side: BorderSide(
-                color: MainTheme.secondary,
-                width: 2.0
-            ),
+            side: BorderSide(color: MainTheme.secondary, width: 2.0),
             activeColor: MainTheme.transparent,
             checkColor: MainTheme.secondary,
-            onChanged: (bool? value){
+            onChanged: (bool? value) {
               setState(() {
                 isAccepted = value ?? false;
               });
@@ -33,13 +29,11 @@ class _ConditionTerms extends State<ConditionsTerms> {
         const SizedBox(width: 10.0),
         const SizedBox(
             width: 200,
-            child: Text("Al registrarse, acepta los Términos y uso y la Política de Privacidad de AlquilaFácil",
-              style: TextStyle(
-                  fontSize: 10.0
-              ),)
-        )
+            child: Text(
+              "Al registrarse, acepta los Términos y uso y la Política de Privacidad de AlquilaFácil",
+              style: TextStyle(fontSize: 10.0),
+            ))
       ],
     );
   }
-
 }
