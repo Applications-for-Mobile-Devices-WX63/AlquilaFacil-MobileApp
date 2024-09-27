@@ -13,9 +13,7 @@ class _SearchSpaces extends State<SearchSpaces> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: const BottomAppBar(
-        child: ScreenBottomAppBar(),
-      ),
+      bottomNavigationBar: const ScreenBottomAppBar(),
       backgroundColor: MainTheme.background,
       body: SingleChildScrollView(
         child: Center(
