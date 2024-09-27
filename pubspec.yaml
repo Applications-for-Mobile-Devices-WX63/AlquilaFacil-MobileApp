@@ -94,6 +94,6 @@ flutter:
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
   assets:
-    - lib/public/data/fake_spaces_data.json
+    - lib/public/data/fakes_spaces_data.json
     - lib/public/data/fake_users_data.json
     - lib/public/data/fake_comments_data.json

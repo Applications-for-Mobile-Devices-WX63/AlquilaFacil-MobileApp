@@ -16,11 +16,11 @@ class ScreenBottomAppBar extends StatelessWidget {
               child: NavigationButton(
             buttonIcon: Icons.search_outlined,
             onNavigate: () =>
-                Navigator.pushReplacementNamed(context, '/search'),
-            iconColor: currentRoute == '/search'
+                Navigator.pushReplacementNamed(context, '/search-space'),
+            iconColor: currentRoute == '/search-space'
                 ? MainTheme.background
                 : Colors.orangeAccent,
-            backgroundColor: currentRoute == '/search'
+            backgroundColor: currentRoute == '/search-space'
                 ? Colors.orangeAccent
                 : MainTheme.background,
           )),
@@ -39,11 +39,12 @@ class ScreenBottomAppBar extends StatelessWidget {
           Expanded(
               child: NavigationButton(
             buttonIcon: Icons.add,
-            onNavigate: () => Navigator.pushReplacementNamed(context, '/add'),
-            iconColor: currentRoute == '/add'
+            onNavigate: () =>
+                Navigator.pushReplacementNamed(context, '/tutorial-space'),
+            iconColor: currentRoute == '/tutorial-space'
                 ? MainTheme.background
                 : Colors.orangeAccent,
-            backgroundColor: currentRoute == '/add'
+            backgroundColor: currentRoute == '/tutorial-space'
                 ? Colors.orangeAccent
                 : MainTheme.background,
             size: 60.0,
