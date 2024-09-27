@@ -4,7 +4,7 @@ import 'package:alquilafacil/auth/widgets/condition_terms.dart';
 import 'package:alquilafacil/theme/main_theme.dart';
 import 'package:flutter/material.dart';
 
-import '../../public/widgets/screen_bottom_app_bar.dart';
+import '../../public/presentation/widgets/screen_bottom_app_bar.dart';
 
 class Login extends StatefulWidget{
   const Login({super.key});
