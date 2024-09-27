@@ -15,9 +15,7 @@ class FilterScreen extends StatelessWidget {
                   style:
                       TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold))),
         ),
-        bottomNavigationBar: const BottomAppBar(
-          child: ScreenBottomAppBar(),
-        ),
+        bottomNavigationBar: const ScreenBottomAppBar(),
         body: const SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
