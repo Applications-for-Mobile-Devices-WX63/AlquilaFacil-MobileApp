@@ -26,9 +26,7 @@ class _RegisterSpaceStepsState extends State<RegisterSpaceSteps> {
         title: const Text('Registrar Espacio'),
         backgroundColor: Colors.white,
       ),
-      bottomNavigationBar: const BottomAppBar(
-        child: ScreenBottomAppBar(),
-      ),
+      bottomNavigationBar: const ScreenBottomAppBar(),
       body: PageView(
         controller: _pageController,
         onPageChanged: (int page) {
