@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:alquilafacil/spaces/domain/model/comment.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:path_provider/path_provider.dart';
 
 class CommentService {
   List<Comment> comments = [];

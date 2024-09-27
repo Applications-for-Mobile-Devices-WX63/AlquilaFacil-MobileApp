@@ -1,4 +1,4 @@
-import 'package:alquilafacil/public/widgets/screen_bottom_app_bar.dart';
+import 'package:alquilafacil/public/presentation/widgets/screen_bottom_app_bar.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/navigation_row.dart';

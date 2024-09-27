@@ -1,4 +1,6 @@
-import 'package:alquilafacil/public/widgets/screen_bottom_app_bar.dart';
+import 'package:alquilafacil/profile/domain/model/user.dart';
+import 'package:alquilafacil/profile/infrastructure/services/users_service.dart';
+import 'package:alquilafacil/public/presentation/widgets/screen_bottom_app_bar.dart';
 import 'package:alquilafacil/spaces/domain/model/comment.dart';
 import 'package:alquilafacil/spaces/presentation/widgets/space_comment.dart'; // Asegúrate de que esto esté bien importado
 import 'package:alquilafacil/spaces/infrastructure/services/comments_service.dart';

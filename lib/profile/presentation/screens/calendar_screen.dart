@@ -1,5 +1,7 @@
-import 'package:alquilafacil/public/widgets/screen_bottom_app_bar.dart';
+import 'package:alquilafacil/public/presentation/widgets/default_calendar_day.dart';
+import 'package:alquilafacil/public/presentation/widgets/screen_bottom_app_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:table_calendar/table_calendar.dart';
 import '../widgets/event_type_indicator.dart';
 import '../widgets/highlighted_calendar_day.dart';
 

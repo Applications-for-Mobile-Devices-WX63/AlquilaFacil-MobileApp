@@ -1,5 +1,5 @@
 import 'package:alquilafacil/contact/presentation/widgets/notification_preview.dart';
-import 'package:alquilafacil/public/widgets/screen_bottom_app_bar.dart';
+import 'package:alquilafacil/public/presentation/widgets/screen_bottom_app_bar.dart';
 import 'package:flutter/material.dart';
 
 class NotificationsScreen extends StatelessWidget {
