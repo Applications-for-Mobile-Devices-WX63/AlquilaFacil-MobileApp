@@ -1,9 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:path_provider/path_provider.dart';
 import 'package:alquilafacil/spaces/domain/model/space.dart';
 import 'package:flutter/services.dart' show rootBundle;
-
 
 class SpaceService {
   List<Space> spaces = [];
@@ -19,7 +17,8 @@ class SpaceService {
 
   Future<List<Space>> loadSpaces() async {
     try {
-      String contents = await rootBundle.loadString('lib/public/data/fake_spaces_data.json');
+      String contents =
+          await rootBundle.loadString('lib/public/data/fake_spaces_data.json');
       print(rootBundle.toString());
       List<dynamic> jsonData = json.decode(contents);
       return jsonData.map((space) => Space.fromJson(space)).toList();
@@ -33,7 +32,8 @@ class SpaceService {
     try {
       final path = await _getFilePath();
       final file = File(path);
-      String jsonData = json.encode(spaces.map((space) => space.toJson()).toList());
+      String jsonData =
+          json.encode(spaces.map((space) => space.toJson()).toList());
       await file.writeAsString(jsonData);
     } catch (e) {
       print("Error al guardar el archivo JSON: $e");
@@ -49,7 +49,15 @@ class SpaceService {
   Future<Space?> getSpaceById(int id) async {
     try {
       List<Space> spaces = await loadSpaces();
-      return spaces.firstWhere((space) => space.id == id, orElse: () => Space(id: -1, name: '', location: '', capacity: 0, description: '', price: 0, ownerId: -1));
+      return spaces.firstWhere((space) => space.id == id,
+          orElse: () => Space(
+              id: -1,
+              name: '',
+              location: '',
+              capacity: 0,
+              description: '',
+              price: 0,
+              ownerId: -1));
     } catch (e) {
       print("Error al obtener el espacio por ID: $e");
       return null;

@@ -1,6 +1,4 @@
-import 'package:alquilafacil/profile/domain/model/user.dart';
-import 'package:alquilafacil/profile/infrastructure/services/users_service.dart';
-import 'package:alquilafacil/public/presentation/widgets/screen_bottom_app_bar.dart';
+import 'package:alquilafacil/public/widgets/screen_bottom_app_bar.dart';
 import 'package:alquilafacil/spaces/domain/model/comment.dart';
 import 'package:alquilafacil/spaces/presentation/widgets/space_comment.dart'; // Asegúrate de que esto esté bien importado
 import 'package:alquilafacil/spaces/infrastructure/services/comments_service.dart';
@@ -39,7 +37,8 @@ class _CommentsScreenState extends State<CommentsScreen> {
     try {
       await commentService.init();
       await userService.init(); // Inicializa el UserService
-      List<Comment> loadedComments = await commentService.getCommentsBySpaceId(spaceId!);
+      List<Comment> loadedComments =
+          await commentService.getCommentsBySpaceId(spaceId!);
       setState(() {
         comments = loadedComments;
       });
@@ -53,7 +52,8 @@ class _CommentsScreenState extends State<CommentsScreen> {
 
   Future<String> _getAuthorName(int authorId) async {
     User? user = await userService.getUserById(authorId);
-    return user?.name ?? 'Desconocido'; // Retorna 'Desconocido' si no se encuentra el usuario
+    return user?.name ??
+        'Desconocido'; // Retorna 'Desconocido' si no se encuentra el usuario
   }
 
   @override
@@ -89,7 +89,8 @@ class _CommentsScreenState extends State<CommentsScreen> {
                     return Text('Error al cargar el autor: ${snapshot.error}');
                   } else {
                     String authorName = snapshot.data ?? 'Desconocido';
-                    return SpaceComment( // Asegúrate de que estás usando el widget correcto para mostrar comentarios
+                    return SpaceComment(
+                      // Asegúrate de que estás usando el widget correcto para mostrar comentarios
                       author: authorName,
                       text: comment.text,
                       rating: comment.rating,

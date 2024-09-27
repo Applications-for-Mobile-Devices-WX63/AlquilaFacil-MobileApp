@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_rating/flutter_rating.dart';
 
 class SpaceComment extends StatelessWidget {
   final String author;
@@ -41,12 +40,16 @@ class SpaceComment extends StatelessWidget {
                     Expanded(
                       child: Text(
                         author,
-                        style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                        style: const TextStyle(
+                            color: Colors.black, fontWeight: FontWeight.bold),
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
                     const SizedBox(width: 10),
-                    StarRating(rating: rating, allowHalfRating: false, color: Colors.orangeAccent),
+                    StarRating(
+                        rating: rating,
+                        allowHalfRating: false,
+                        color: Colors.orangeAccent),
                   ],
                 ),
                 const SizedBox(height: 4.0),
