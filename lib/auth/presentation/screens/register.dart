@@ -3,7 +3,6 @@ import 'package:alquilafacil/auth/presentation/providers/SignUpProvider.dart';
 import 'package:alquilafacil/public/presentation/widgets/screen_bottom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../../../public/ui/theme/main_theme.dart';
 import '../widgets/auth_text_field.dart';
 import '../widgets/condition_terms.dart';
@@ -15,9 +14,6 @@ class Register extends StatelessWidget {
     final signUpProvider = context.watch<SignUpProvider>();
     return Scaffold(
         backgroundColor: MainTheme.primary,
-        bottomNavigationBar: const BottomAppBar(
-          child: ScreenBottomAppBar(),
-        ),
         body: Padding(
             padding: const EdgeInsets.only(top: 100.0),
             child: SingleChildScrollView(

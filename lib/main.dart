@@ -4,6 +4,7 @@ import 'package:alquilafacil/contact/presentation/screens/notifications_screen.d
 import 'package:alquilafacil/profile/presentation/screens/calendar_screen.dart';
 import 'package:alquilafacil/profile/presentation/screens/profile_screen.dart';
 import 'package:alquilafacil/public/ui/theme/main_theme.dart';
+import 'package:alquilafacil/reservation/presentation/screens/reservation_screen.dart';
 import 'package:alquilafacil/spaces/presentation/screens/filter_screen.dart';
 import 'package:alquilafacil/spaces/presentation/screens/filter_spaces.dart';
 import 'package:alquilafacil/spaces/presentation/screens/register_space_steps.dart';
@@ -42,6 +43,7 @@ class MyApp extends StatelessWidget {
           "/notifications": (context) => const NotificationsScreen(),
           "/calendar": (context) => const CalendarScreen(),
           "/profile": (context) => const ProfileScreen(),
+          "/detail-space": (context) => const ReservationScreen(),
         },
         debugShowCheckedModeBanner: false,
       ),
