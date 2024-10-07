@@ -59,8 +59,11 @@ class _LoginState extends State<Login> {
               width: 330,
               height: 50,
               child: TextButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, "/search-space");
+                onPressed: () async  {
+                  await signInProvider.signIn();
+                  if(signInProvider.token.isNotEmpty){
+                    Navigator.pushNamed(context, "/search-space");
+                  }
                 },
                 child: const Text("Iniciar Sesión"),
               ),
