@@ -25,30 +25,17 @@ class Register extends StatelessWidget {
                     style:
                         TextStyle(fontWeight: FontWeight.bold, fontSize: 30.0),
                   ),
-                  const SizedBox(height: 30),
-                  AuthTextField(
-                    textLabel: "Nombre",
-                    textHint: "Ingrese su nombre",
-                    isPassword: false,
-                    param: signUpProvider.firstName,
-                    onChanged: (newValue) {
-                      signUpProvider.setFirstName(newValue);
-                    },
-                    validator: (_) {
-                      return signUpProvider.validateFirstName();
-                    },
-                  ),
                   const SizedBox(height: 10),
                   AuthTextField(
-                    textLabel: "Apellidos",
-                    textHint: "Ingrese sus apellidos",
+                    textLabel: "Nombre de Usuario",
+                    textHint: "Ingrese su nombre de usuario",
                     isPassword: false,
-                    param: signUpProvider.lastName,
+                    param: signUpProvider.username,
                     onChanged: (newValue) {
-                      signUpProvider.setLastName(newValue);
+                      signUpProvider.setUsername(newValue);
                     },
                     validator: (_) {
-                      return signUpProvider.validateLastName();
+                      return signUpProvider.validateUsername();
                     },
                   ),
                   const SizedBox(height: 10),
@@ -61,33 +48,7 @@ class Register extends StatelessWidget {
                       signUpProvider.setEmail(newValue);
                     },
                     validator: (_) {
-                      return signUpProvider.validateEmail();
-                    },
-                  ),
-                  const SizedBox(height: 10),
-                  AuthTextField(
-                    textLabel: "Número de Teléfono",
-                    textHint: "Ingrese su número de teléfono",
-                    isPassword: false,
-                    param: signUpProvider.phoneNumber,
-                    onChanged: (newValue) {
-                      signUpProvider.setPhoneNumber(newValue);
-                    },
-                    validator: (_) {
-                      return signUpProvider.validatePhoneNumber();
-                    },
-                  ),
-                  const SizedBox(height: 10),
-                  AuthTextField(
-                    textLabel: "Número de documento",
-                    textHint: "Ingrese su número de documento",
-                    isPassword: false,
-                    param: signUpProvider.documentNumber,
-                    onChanged: (newValue) {
-                      signUpProvider.setDocumentNumber(newValue);
-                    },
-                    validator: (_) {
-                      return signUpProvider.validateDocumentNumber();
+                      return signUpProvider.validateUsername();
                     },
                   ),
                   const SizedBox(height: 10),
@@ -123,7 +84,12 @@ class Register extends StatelessWidget {
                       width: 330,
                       height: 50,
                       child: TextButton(
-                          onPressed: () => {},
+                          onPressed: () async {
+                            await signUpProvider.signUp();
+                            if(signUpProvider.successFullMessage.isNotEmpty){
+                              Navigator.pushNamed(context, "/login");
+                            }
+                          },
                           child: const Text("Registrate ahora"))),
                   const SizedBox(height: 10),
                   const Text(

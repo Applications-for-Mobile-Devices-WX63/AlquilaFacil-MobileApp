@@ -53,7 +53,6 @@ class _LoginState extends State<Login> {
               },
             ),
             const SizedBox(height: 20),
-            const ConditionsTerms(),
             const SizedBox(height: 10.0),
             SizedBox(
               width: 330,
