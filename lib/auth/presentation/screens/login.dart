@@ -15,7 +15,7 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   bool isAccepted = false;
-  Future<void> _showDialog(String dialogTitle) async {
+  Future<void> _showDialog(String dialogTitle, String route) async {
     return showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -36,7 +36,7 @@ class _LoginState extends State<Login> {
                     child: TextButton(
                       child: const Text('Confirmar'),
                       onPressed: () {
-                        Navigator.of(context).pop();
+                        Navigator.pushNamed(context, route);
                       },
                     ),
                   ),
@@ -101,11 +101,10 @@ class _LoginState extends State<Login> {
                 onPressed: () async  {
                   await signInProvider.signIn();
                   if(signInProvider.token.isNotEmpty){
-                    await _showDialog("Inicio de sesión exitoso");
-                    Navigator.pushNamed(context, "/search-space");
+                    await _showDialog("Inicio de sesión exitoso","/search-space");
                   }
                   else {
-                    await _showDialog("Correo electrónico o contraseña incorrectos");
+                    await _showDialog("Correo electrónico o contraseña incorrectos","/login");
                   }
                 },
                 child: const Text("Iniciar Sesión"),

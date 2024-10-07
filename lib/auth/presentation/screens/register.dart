@@ -12,7 +12,7 @@ class Register extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final signUpProvider = context.watch<SignUpProvider>();
-    Future<void> _showDialog(String dialogTitle) async {
+    Future<void> _showDialog(String dialogTitle, String route) async {
       return showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -33,7 +33,7 @@ class Register extends StatelessWidget {
                     child: TextButton(
                       child: const Text('Confirmar'),
                       onPressed: () {
-                        Navigator.of(context).pop();
+                        Navigator.pushNamed(context, route);
                       },
                     ),
                   ),
@@ -126,10 +126,9 @@ class Register extends StatelessWidget {
                           onPressed: () async {
                             await signUpProvider.signUp();
                             if(signUpProvider.successFulMessage.isNotEmpty){
-                              await _showDialog("Registro Exitoso");
-                              Navigator.pushNamed(context, "/login");
+                              await _showDialog("Registro Exitoso", "/login");
                             } else {
-                              await _showDialog("Usuario ya existente o datos incorrectos");
+                              await _showDialog("Usuario ya existente o datos incorrectos", "/sign-up");
                             }
                           },
                           child: const Text("Registrate ahora"))),
