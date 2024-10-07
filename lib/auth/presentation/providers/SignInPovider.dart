@@ -6,15 +6,11 @@ import 'package:alquilafacil/auth/shared/AuthFilter.dart';
 import 'package:flutter/cupertino.dart';
 
 class SignInProvider extends ChangeNotifier with AuthFilter {
-  String _email = "";
-  String _password = "";
-  String _token = " ";
-  final AuthServiceHelper _serviceHelper =  AuthServiceHelper();
+  String email = "";
+  String password = "";
+  String token = " ";
+  final AuthServiceHelper serviceHelper =  AuthServiceHelper();
 
-  String get email => _email;
-  String get password => _password;
-  String get token => _token;
-  AuthServiceHelper get serviceHelper => _serviceHelper;
 
   @override
   String? validateEmail() {
@@ -39,16 +35,16 @@ class SignInProvider extends ChangeNotifier with AuthFilter {
   }
 
   void setEmail(String email) {
-    _email = email;
+    email = email;
     notifyListeners();
   }
 
   void setToken(String token){
-    _token = token;
+    token = token;
     notifyListeners();
   }
   void setPassword(String password) {
-    _password = password;
+    password = password;
     notifyListeners();
   }
 

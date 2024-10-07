@@ -4,19 +4,13 @@ import 'package:flutter/material.dart';
 import '../../data/remote/helpers/auth_service_helper.dart';
 
 class SignUpProvider extends ChangeNotifier with AuthFilter {
-  String _username = " ";
-  String _email = "";
-  String _password = "";
-  String _confirmPassword = "";
-  String _successFulMessage = "";
-  final AuthServiceHelper _serviceHelper =  AuthServiceHelper();
+  String username = "";
+  String email = "";
+  String password = "";
+  String confirmPassword = "";
+  String successFulMessage = "";
+  final AuthServiceHelper serviceHelper =  AuthServiceHelper();
 
-  String get email => _email;
-  String get password => _password;
-  String get username => _username;
-  String get confirmPassword => _confirmPassword;
-  String get successFullMessage => _successFulMessage;
-  AuthServiceHelper get serviceHelper => _serviceHelper;
 
   @override
   String? validateEmail() {
@@ -68,27 +62,27 @@ class SignUpProvider extends ChangeNotifier with AuthFilter {
   }
 
   void setEmail(String newEmail) {
-    _email = newEmail;
+    email = newEmail;
     notifyListeners();
   }
 
   void setPassword(String newPassword) {
-    _password = newPassword;
+    password = newPassword;
     notifyListeners();
   }
 
   void setUsername(String newUsername){
-    _username = newUsername;
+    username = newUsername;
     notifyListeners();
   }
 
   void setSuccessfulMessage(String messageResponse){
-    _successFulMessage = messageResponse;
+    successFulMessage = messageResponse;
     notifyListeners();
   }
 
   void setConfirmPassword(String newConfirmPassword) {
-    _confirmPassword = newConfirmPassword;
+    confirmPassword = newConfirmPassword;
     notifyListeners();
   }
 

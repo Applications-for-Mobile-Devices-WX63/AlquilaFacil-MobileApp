@@ -86,7 +86,7 @@ class Register extends StatelessWidget {
                       child: TextButton(
                           onPressed: () async {
                             await signUpProvider.signUp();
-                            if(signUpProvider.successFullMessage.isNotEmpty){
+                            if(signUpProvider.successFulMessage.isNotEmpty){
                               Navigator.pushNamed(context, "/login");
                             }
                           },
