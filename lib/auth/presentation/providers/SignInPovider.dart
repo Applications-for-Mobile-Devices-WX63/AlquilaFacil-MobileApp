@@ -8,7 +8,7 @@ import 'package:flutter/cupertino.dart';
 class SignInProvider extends ChangeNotifier with AuthFilter {
   String email = "";
   String password = "";
-  String token = " ";
+  String token = "";
   final AuthServiceHelper serviceHelper =  AuthServiceHelper();
 
 
@@ -34,17 +34,17 @@ class SignInProvider extends ChangeNotifier with AuthFilter {
     return null;
   }
 
-  void setEmail(String email) {
-    email = email;
+  void setEmail(String newEmail) {
+    email = newEmail;
     notifyListeners();
   }
 
-  void setToken(String token){
-    token = token;
+  void setToken(String newToken){
+    token = newToken;
     notifyListeners();
   }
-  void setPassword(String password) {
-    password = password;
+  void setPassword(String newPassword) {
+    password = newPassword;
     notifyListeners();
   }
 

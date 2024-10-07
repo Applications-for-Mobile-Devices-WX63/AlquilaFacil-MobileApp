@@ -8,12 +8,52 @@ import '../widgets/condition_terms.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
+
   @override
   State<StatefulWidget> createState() => _LoginState();
 }
 
 class _LoginState extends State<Login> {
   bool isAccepted = false;
+  Future<void> _showDialog(String dialogTitle) async {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+              dialogTitle,
+            style: TextStyle(
+              color: MainTheme.contrast,
+              fontSize: 15.0
+            ),
+          ),
+          actions: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 10.0),
+                    child: TextButton(
+                      child: const Text('Confirmar'),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ),
+                  TextButton(
+                    child: const Text('Cancelar'),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              ),
+          ],
+        );
+      },
+
+    );
+  }
   @override
   Widget build(BuildContext context) {
     final signInProvider = context.watch<SignInProvider>();
@@ -61,7 +101,11 @@ class _LoginState extends State<Login> {
                 onPressed: () async  {
                   await signInProvider.signIn();
                   if(signInProvider.token.isNotEmpty){
+                    await _showDialog("Inicio de sesión exitoso");
                     Navigator.pushNamed(context, "/search-space");
+                  }
+                  else {
+                    await _showDialog("Correo electrónico o contraseña incorrectos");
                   }
                 },
                 child: const Text("Iniciar Sesión"),

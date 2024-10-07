@@ -12,6 +12,45 @@ class Register extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final signUpProvider = context.watch<SignUpProvider>();
+    Future<void> _showDialog(String dialogTitle) async {
+      return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text(
+              dialogTitle,
+              style: TextStyle(
+                  color: MainTheme.contrast,
+                  fontSize: 15.0
+              ),
+            ),
+            actions: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 10.0),
+                    child: TextButton(
+                      child: const Text('Confirmar'),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ),
+                  TextButton(
+                    child: const Text('Cancelar'),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              ),
+            ],
+          );
+        },
+
+      );
+    }
     return Scaffold(
         backgroundColor: MainTheme.primary,
         body: Padding(
@@ -87,7 +126,10 @@ class Register extends StatelessWidget {
                           onPressed: () async {
                             await signUpProvider.signUp();
                             if(signUpProvider.successFulMessage.isNotEmpty){
+                              await _showDialog("Registro Exitoso");
                               Navigator.pushNamed(context, "/login");
+                            } else {
+                              await _showDialog("Usuario ya existente o datos incorrectos");
                             }
                           },
                           child: const Text("Registrate ahora"))),

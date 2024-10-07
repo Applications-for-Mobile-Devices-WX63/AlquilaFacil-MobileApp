@@ -6,6 +6,7 @@ class MainTheme{
   static Color transparent = Colors.transparent;
   static Color helper = Colors.grey;
   static Color secondary = Colors.orangeAccent;
+  static Color contrast = Colors.black;
   static ThemeData lightTheme = ThemeData.light().copyWith(
     bottomAppBarTheme: BottomAppBarTheme(
       color: primary

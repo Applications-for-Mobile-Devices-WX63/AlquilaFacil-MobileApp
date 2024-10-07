@@ -24,7 +24,10 @@ class AuthServiceHelper extends AuthService{
         var responseBody = await response.transform(utf8.decoder).join();
         var token = jsonDecode(responseBody)["token"];
         return token;
-      } else {
+      }
+      if (response.statusCode == HttpStatus.internalServerError){
+        return "";
+      }else {
         throw Exception(messageHandler.reject(response.statusCode));
       }
     } finally {
@@ -51,7 +54,10 @@ class AuthServiceHelper extends AuthService{
         var responseBody = await response.transform(utf8.decoder).join();
         var successMessage = jsonDecode(responseBody)["message"];
         return successMessage;
-      } else {
+      }
+      if (response.statusCode == HttpStatus.internalServerError){
+        return "";
+      }else {
         throw Exception(messageHandler.reject(response.statusCode));
       }
     } finally {
