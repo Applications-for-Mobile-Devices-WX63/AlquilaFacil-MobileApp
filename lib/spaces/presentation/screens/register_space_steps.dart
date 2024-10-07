@@ -315,7 +315,7 @@ class _RegisterSpaceStepsState extends State<RegisterSpaceSteps> {
                 // Acción al hacer clic en el botón
               },
               child: Container(
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(color: Colors.grey.shade300),

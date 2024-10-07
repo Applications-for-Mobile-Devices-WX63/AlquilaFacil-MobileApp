@@ -65,6 +65,24 @@ class _LoginState extends State<Login> {
                 child: const Text("Iniciar Sesión"),
               ),
             ),
+            const SizedBox(height: 10),
+            const Text(
+                "¿Aun no tienes cuenta? Registrate",
+              style: TextStyle(
+                fontSize: 10.0
+              )
+            ),
+            const SizedBox(height: 10),
+            SizedBox(
+              width: 330,
+              height: 50,
+              child: TextButton(
+                  onPressed: (){
+                    Navigator.pushNamed(context, "/sign-up");
+                  },
+                  child: const Text("Registrate")
+              )
+            ),
             const SizedBox(height: 20.0),
             Container(
               width: 330,

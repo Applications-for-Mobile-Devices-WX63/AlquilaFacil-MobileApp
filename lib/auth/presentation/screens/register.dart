@@ -126,6 +126,22 @@ class Register extends StatelessWidget {
                           onPressed: () => {},
                           child: const Text("Registrate ahora"))),
                   const SizedBox(height: 10),
+                  const Text(
+                      "¿Ya tienes cuenta? Inicia sesión",
+                      style: TextStyle(
+                          fontSize: 10.0
+                      )
+                  ),
+                  const SizedBox(height: 10),
+                  SizedBox(
+                    width: 330,
+                    height: 50,
+                    child: TextButton(
+                      onPressed: ()=>{ Navigator.pushNamed(context, "/login")},
+                      child: const Text("Inicia sesión"),
+                    )
+                  ),
+                  const SizedBox(height: 10),
                   Container(
                     width: 330,
                     height: 1,
