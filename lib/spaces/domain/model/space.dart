@@ -1,43 +1,60 @@
 class Space {
   final int id;
-  final String name;
-  final String location;
+  final String streetAddress;
+  final String localName;
+  final String cityPlace;
+  final double nightPrice;
+  final String photoUrl;
+  final String descriptionMessage;
+  final int localCategoryId;
+  final int userId;
+  final String features;
   final int capacity;
-  final String description;
-  final double price;
-  final int ownerId;
 
   Space({
     required this.id,
-    required this.name,
-    required this.location,
+    required this.streetAddress,
+    required this.localName,
+    required this.cityPlace,
+    required this.nightPrice,
+    required this.photoUrl,
+    required this.descriptionMessage,
+    required this.localCategoryId,
+    required this.userId,
+    required this.features,
     required this.capacity,
-    required this.description,
-    required this.price,
-    required this.ownerId,
   });
 
   factory Space.fromJson(Map<String, dynamic> json) {
     return Space(
       id: json['id'],
-      name: json['name'],
-      location: json['location'],
+      streetAddress: json['streetAddress'],
+      localName: json['localName'],
+      cityPlace: json['cityPlace'],
+      nightPrice: json['nightPrice'].toDouble(),
+      photoUrl: json['photoUrl'],
+      descriptionMessage: json['descriptionMessage'],
+      localCategoryId: json['localCategoryId'],
+      userId: json['userId'],
+      features: json['features'],
       capacity: json['capacity'],
-      description: json['description'],
-      price: json['price'],
-      ownerId: json['ownerId'],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
-      'name': name,
-      'location': location,
+      'district': streetAddress.split(", ")[1],
+      'street': streetAddress.split(", ")[0],
+      'localName': localName,
+      'country': cityPlace.split(", ")[1],
+      'city': cityPlace.split(", ")[0],
+      'price': nightPrice,
+      'photoUrl': photoUrl,
+      'descriptionMessage': descriptionMessage,
+      'localCategoryId': localCategoryId,
+      'userId': userId,
+      'features': features,
       'capacity': capacity,
-      'description': description,
-      'price': price,
-      'ownerId': ownerId,
     };
   }
 }

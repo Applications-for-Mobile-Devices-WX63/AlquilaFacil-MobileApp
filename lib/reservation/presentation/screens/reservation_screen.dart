@@ -1,12 +1,14 @@
+/*
 import 'package:alquilafacil/profile/domain/model/user.dart';
 import 'package:alquilafacil/profile/infrastructure/services/users_service.dart';
 import 'package:alquilafacil/public/presentation/widgets/default_calendar_day.dart';
 import 'package:alquilafacil/public/presentation/widgets/screen_bottom_app_bar.dart';
 import 'package:alquilafacil/spaces/domain/model/space.dart';
-import 'package:alquilafacil/spaces/infrastructure/services/spaces_service.dart';
 import 'package:alquilafacil/reservation/model/reservation_arguments.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
+
+import '../../../spaces/data/remote/services/spaces_service.dart';
 
 class ReservationScreen extends StatefulWidget {
   const ReservationScreen({super.key});
@@ -244,4 +246,4 @@ class _ReservationScreen extends State<ReservationScreen> {
       bottomNavigationBar: const ScreenBottomAppBar(),
     );
   }
-}
+}*/

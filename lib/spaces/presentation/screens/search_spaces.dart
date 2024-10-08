@@ -1,8 +1,12 @@
 import 'package:alquilafacil/public/presentation/widgets/screen_bottom_app_bar.dart';
 import 'package:alquilafacil/public/ui/theme/main_theme.dart';
+import 'package:alquilafacil/spaces/presentation/providers/space_provider.dart';
 import 'package:alquilafacil/spaces/presentation/widgets/card.dart';
 import 'package:alquilafacil/spaces/presentation/widgets/search_space_button.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 
 class SearchSpaces extends StatefulWidget {
   const SearchSpaces({super.key});
@@ -12,7 +16,16 @@ class SearchSpaces extends StatefulWidget {
 
 class _SearchSpaces extends State<SearchSpaces> {
   @override
+  void initState(){
+    super.initState();
+    final spaceProvider = context.read<SpaceProvider>();
+    () async {
+       await spaceProvider.getAllSpaces();
+    }();
+
+  }
   Widget build(BuildContext context) {
+    final spaceProvider = context.watch<SpaceProvider>();
     return Scaffold(
       bottomNavigationBar: const ScreenBottomAppBar(),
       backgroundColor: MainTheme.background,
@@ -41,23 +54,18 @@ class _SearchSpaces extends State<SearchSpaces> {
                 ),
               ),
               const SizedBox(height: 20.0),
-              const Padding(
+             Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Column(
-                  children: [
-                    SpaceCard(
-                      location: 'San Miguel, Perú',
-                      price: '1,555',
-                      imageUrl:
-                          'https://images.adsttc.com/media/images/5d34/e507/284d/d109/5600/0240/newsletter/_FI.jpg?1563747560',
-                    ),
-                    SpaceCard(
-                      location: 'Miraflores, Lima',
-                      price: '2,000',
-                      imageUrl:
-                          'https://images.adsttc.com/media/images/5d34/e507/284d/d109/5600/0240/newsletter/_FI.jpg?1563747560',
-                    ),
-                  ],
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemBuilder: (BuildContext context, int index) {
+                   return  SpaceCard(
+                      location: spaceProvider.spaces[index].cityPlace,
+                      price: spaceProvider.spaces[index].nightPrice.toString(),
+                      imageUrl: spaceProvider.spaces[index].photoUrl,
+                    );
+                  },
+                  itemCount: spaceProvider.spaces.length,
                 ),
               ),
             ],
