@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:alquilafacil/auth/presentation/providers/ConditionTermsProvider.dart';
 import 'package:alquilafacil/auth/presentation/providers/SignUpProvider.dart';
 import 'package:alquilafacil/public/presentation/widgets/screen_bottom_app_bar.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,7 @@ class Register extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final signUpProvider = context.watch<SignUpProvider>();
+    final conditionTermsProvider = context.watch<ConditionTermsProvider>();
     Future<void> _showDialog(String dialogTitle, String route) async {
       return showDialog(
         context: context,
@@ -127,7 +129,11 @@ class Register extends StatelessWidget {
                             await signUpProvider.signUp();
                             if(signUpProvider.successFulMessage.isNotEmpty){
                               await _showDialog("Registro Exitoso", "/login");
-                            } else {
+                            }
+                            else if (!conditionTermsProvider.isChecked){
+                              await _showDialog("Por favor, acepte nuestras politicas de uso", "/sign-up");
+                            }
+                            else {
                               await _showDialog("Usuario ya existente o datos incorrectos", "/sign-up");
                             }
                           },

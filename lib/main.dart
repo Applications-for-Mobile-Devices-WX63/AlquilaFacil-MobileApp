@@ -1,3 +1,4 @@
+import 'package:alquilafacil/auth/presentation/providers/ConditionTermsProvider.dart';
 import 'package:alquilafacil/auth/presentation/providers/SignInPovider.dart';
 import 'package:alquilafacil/auth/presentation/providers/SignUpProvider.dart';
 import 'package:alquilafacil/contact/presentation/screens/notifications_screen.dart';
@@ -28,7 +29,8 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => SignInProvider()),
-        ChangeNotifierProvider(create: (_) => SignUpProvider())
+        ChangeNotifierProvider(create: (_) => SignUpProvider()),
+        ChangeNotifierProvider(create: (_) => ConditionTermsProvider())
       ],
       child: MaterialApp(
         theme: MainTheme.lightTheme,
