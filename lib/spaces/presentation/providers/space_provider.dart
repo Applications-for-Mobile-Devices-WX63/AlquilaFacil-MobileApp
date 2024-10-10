@@ -7,6 +7,8 @@ import '../../domain/model/space.dart';
 class SpaceProvider extends ChangeNotifier{
 
   List<Space> spaces = [];
+  List<Space> currentSpaces = [];
+  String cityPlace= "";
 
   Future<void> getAllSpaces() async{
     var spaceService = SpaceServiceHelper();
@@ -16,5 +18,16 @@ class SpaceProvider extends ChangeNotifier{
       spaces = [];
     }
     notifyListeners();
+  }
+
+  void setCityPlace(newCityPlace){
+    cityPlace = newCityPlace;
+    notifyListeners();
+  }
+
+
+    void searchSpaceByName()  {
+     currentSpaces= spaces.where((space) => space.streetAddress.toLowerCase().contains(cityPlace.toLowerCase())).toList();
+     notifyListeners();
   }
 }

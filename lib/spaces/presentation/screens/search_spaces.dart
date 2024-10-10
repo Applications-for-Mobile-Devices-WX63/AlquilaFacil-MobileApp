@@ -3,9 +3,7 @@ import 'package:alquilafacil/public/ui/theme/main_theme.dart';
 import 'package:alquilafacil/spaces/presentation/providers/space_provider.dart';
 import 'package:alquilafacil/spaces/presentation/widgets/card.dart';
 import 'package:alquilafacil/spaces/presentation/widgets/search_space_button.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 class SearchSpaces extends StatefulWidget {
@@ -55,17 +53,19 @@ class _SearchSpaces extends State<SearchSpaces> {
               ),
               const SizedBox(height: 20.0),
              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemBuilder: (BuildContext context, int index) {
-                   return  SpaceCard(
-                      location: spaceProvider.spaces[index].cityPlace,
-                      price: spaceProvider.spaces[index].nightPrice.toString(),
-                      imageUrl: spaceProvider.spaces[index].photoUrl,
-                    );
-                  },
-                  itemCount: spaceProvider.spaces.length,
+                padding: const EdgeInsets.symmetric(horizontal: 16.0,vertical: 20.0),
+                child: Expanded(
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemBuilder: (BuildContext context, int index) {
+                     return  SpaceCard(
+                        location: spaceProvider.spaces[index].cityPlace,
+                        price: spaceProvider.spaces[index].nightPrice.toString(),
+                        imageUrl: spaceProvider.spaces[index].photoUrl,
+                      );
+                    },
+                    itemCount: spaceProvider.spaces.length,
+                  ),
                 ),
               ),
             ],
