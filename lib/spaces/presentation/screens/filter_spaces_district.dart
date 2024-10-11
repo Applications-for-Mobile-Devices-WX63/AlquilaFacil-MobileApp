@@ -59,21 +59,29 @@ class _FilterSpacesDistrict extends State<FilterSpacesDistrict> {
                             borderRadius: BorderRadius.circular(10.0),
                             color: MainTheme.primary,
                           ),
-                          child: Icon(
-                            Icons.location_on_sharp,
-                            color: MainTheme.background,
+                          child: IconButton(
+                            icon: const Icon(Icons.location_on_sharp),
+                            color: MainTheme.background, onPressed: () {
+                              Navigator.pushNamed(
+                                  context,
+                                  "/spaces-details",
+                                arguments: {
+                                    "district":  spaceProvider.expectDistricts[index].split(",")[0]
+                                }
+                              );
+                          },
                           ),
                         ),
                         const SizedBox(width: 10),
                         Text(
-                            spaceProvider.districts[index]
+                            spaceProvider.expectDistricts[index]
                         )
                       ],
                     ),
 
                   );
                 },
-                itemCount: spaceProvider.districts.length,
+                itemCount: spaceProvider.expectDistricts.length,
               )
             ],
           ) ,

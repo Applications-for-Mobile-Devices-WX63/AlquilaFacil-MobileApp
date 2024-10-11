@@ -6,9 +6,28 @@ import 'package:provider/provider.dart';
 
 import '../providers/space_provider.dart';
 
-class FilterSpaces extends StatelessWidget {
-  const FilterSpaces({super.key});
+class SpacesDetails extends StatefulWidget {
+  const SpacesDetails({super.key});
+  @override
+  State<StatefulWidget> createState() => _SpaceDetailsState();
+}
 
+class _SpaceDetailsState extends State<SpacesDetails> {
+  @override
+  void initState(){
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final spaceProvider = context.read<SpaceProvider>();
+      final args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+
+      if (args != null) {
+        final district = args['district'];
+        if (district != null) {
+          spaceProvider.searchSpaceByName(district);
+        }
+      }
+    });
+  }
   @override
   Widget build(BuildContext context) {
     final spaceProvider = context.watch<SpaceProvider>();
@@ -17,7 +36,7 @@ class FilterSpaces extends StatelessWidget {
         backgroundColor: MainTheme.background,
         title: const Center(
           child: Text(
-            "Realizar búsqueda",
+            "Espacios Encontrados",
             style: TextStyle(
                 fontWeight: FontWeight.bold, color: Colors.black, fontSize: 20),
           ),
@@ -30,10 +49,6 @@ class FilterSpaces extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const SizedBox(height: 20),
-              const SearchSpaceButton(
-                suffixIcon: Icons.close,
-              ),
               const SizedBox(height: 50),
               ListView.builder(
                 itemBuilder: (BuildContext context, int index) {
@@ -41,24 +56,24 @@ class FilterSpaces extends StatelessWidget {
                     color: MainTheme.background,
                     elevation: 2.0,
                     child: ListTile(
-                      title: Text(
+                        title: Text(
                           spaceProvider.currentSpaces[index].localName,
-                        textAlign: TextAlign.end,
-                      ),
-                      leading:Image.network( spaceProvider.currentSpaces[index].photoUrl),
-                      subtitle: Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text(
+                          textAlign: TextAlign.end,
+                        ),
+                        leading:Image.network( spaceProvider.currentSpaces[index].photoUrl),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Text(
                               spaceProvider.currentSpaces[index].nightPrice.toString(),
-                            textAlign: TextAlign.end,
-                          ),
-                          Text(
+                              textAlign: TextAlign.end,
+                            ),
+                            Text(
                               spaceProvider.currentSpaces[index].cityPlace,
-                            textAlign: TextAlign.end,
-                          )
-                        ],
-                      )
+                              textAlign: TextAlign.end,
+                            )
+                          ],
+                        )
                     ),
                   );
                 },
@@ -72,4 +87,5 @@ class FilterSpaces extends StatelessWidget {
       ),
     );
   }
+
 }

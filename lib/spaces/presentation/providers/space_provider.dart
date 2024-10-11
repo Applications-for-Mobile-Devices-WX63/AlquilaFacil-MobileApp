@@ -12,6 +12,7 @@ class SpaceProvider extends ChangeNotifier{
   List<Space> spaces = [];
   List<Space> currentSpaces = [];
   List<String> districts = [];
+  List<String> expectDistricts = [];
   String cityPlace= "";
   var logger = Logger();
   SpaceProvider(this.spaceService);
@@ -31,9 +32,14 @@ class SpaceProvider extends ChangeNotifier{
   }
 
 
-    void searchSpaceByName()  {
-     currentSpaces= spaces.where((space) => space.streetAddress.toLowerCase().contains(cityPlace.toLowerCase())).toList();
+    void searchSpaceByName(String district)  {
+     currentSpaces= spaces.where((space) => space.streetAddress.toLowerCase().contains(district.toLowerCase())).toList();
      notifyListeners();
+  }
+
+  void searchDistrict(){
+    expectDistricts= districts.where((district) => district.toLowerCase().contains(cityPlace.toLowerCase())).toList();
+    notifyListeners();
   }
 
   Future<void> getAllDistricts() async {
