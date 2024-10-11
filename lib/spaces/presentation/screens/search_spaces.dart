@@ -22,6 +22,7 @@ class _SearchSpaces extends State<SearchSpaces> {
     }();
 
   }
+  @override
   Widget build(BuildContext context) {
     final spaceProvider = context.watch<SpaceProvider>();
     return Scaffold(

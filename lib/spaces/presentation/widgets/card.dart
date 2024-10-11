@@ -1,3 +1,4 @@
+import 'package:alquilafacil/public/ui/theme/main_theme.dart';
 import 'package:flutter/material.dart';
 
 class SpaceCard extends StatelessWidget {
@@ -15,6 +16,7 @@ class SpaceCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: MainTheme.background,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
