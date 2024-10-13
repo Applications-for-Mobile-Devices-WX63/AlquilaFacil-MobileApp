@@ -1,22 +1,17 @@
 import 'package:alquilafacil/auth/shared/AuthFilter.dart';
 import 'package:flutter/material.dart';
 
-class SignUpProvider extends ChangeNotifier with AuthFilter {
-  String _firstName = "";
-  String _lastName = "";
-  String _email = "";
-  String _password = "";
-  String _phoneNumber = "";
-  String _documentNumber = "";
-  String _confirmPassword = "";
+import '../../data/remote/helpers/auth_service_helper.dart';
 
-  String get firstName => _firstName;
-  String get lastName => _lastName;
-  String get email => _email;
-  String get password => _password;
-  String get phoneNumber => _phoneNumber;
-  String get documentNumber => _documentNumber;
-  String get confirmPassword => _confirmPassword;
+class SignUpProvider extends ChangeNotifier with AuthFilter {
+  String username = "";
+  String email = "";
+  String password = "";
+  String confirmPassword = "";
+  String successFulMessage = "";
+  final AuthServiceHelper serviceHelper;
+  SignUpProvider(this.serviceHelper);
+
 
   @override
   String? validateEmail() {
@@ -37,39 +32,12 @@ class SignUpProvider extends ChangeNotifier with AuthFilter {
     if (password.length < 8) {
       return "La contraseña debe tener como minimo 8 caracteres";
     }
-    return null;
-  }
-
-  String? validateFirstName() {
-    if (firstName.isEmpty) {
-      return 'Por favor, ingrese su nombre';
+    if(password == "12345678"){
+      return "La contraseña no puede ser 12345678";
     }
     return null;
   }
 
-  String? validateLastName() {
-    if (lastName.isEmpty) {
-      return 'Por favor, ingrese sus apellidos';
-    }
-    return null;
-  }
-
-  String? validatePhoneNumber() {
-    if (phoneNumber.isEmpty) {
-      return 'Por favor, ingrese su número de teléfono';
-    }
-    if (phoneNumber.length < 9) {
-      return 'El número de teléfono debe tener al menos 9 dígitos';
-    }
-    return null;
-  }
-
-  String? validateDocumentNumber() {
-    if (documentNumber.isEmpty) {
-      return 'Por favor, ingrese su número de documento';
-    }
-    return null;
-  }
 
   String? validateConfirmPassword() {
     if (confirmPassword != password) {
@@ -81,41 +49,47 @@ class SignUpProvider extends ChangeNotifier with AuthFilter {
     if (confirmPassword.length < 8) {
       return "La contraseña debe tener como minimo 8 caracteres";
     }
+    if(confirmPassword == "12345678"){
+      return "La contraseña no puede ser 12345678";
+    }
     return null;
   }
 
-  void setFirstName(String newFirstName) {
-    _firstName = newFirstName;
-    notifyListeners();
-  }
-
-  void setLastName(String newLastName) {
-    _lastName = newLastName;
-    notifyListeners();
+  String? validateUsername(){
+    if(username.isEmpty){
+      return "Por favor ingrese un nombre de usuario";
+    }
+    return null;
   }
 
   void setEmail(String newEmail) {
-    _email = newEmail;
+    email = newEmail;
     notifyListeners();
   }
 
   void setPassword(String newPassword) {
-    _password = newPassword;
+    password = newPassword;
     notifyListeners();
   }
 
-  void setPhoneNumber(String newPhoneNumber) {
-    _phoneNumber = newPhoneNumber;
+  void setUsername(String newUsername){
+    username = newUsername;
     notifyListeners();
   }
 
-  void setDocumentNumber(String newDocumentNumber) {
-    _documentNumber = newDocumentNumber;
+  void setSuccessfulMessage(String messageResponse){
+    successFulMessage = messageResponse;
     notifyListeners();
   }
 
   void setConfirmPassword(String newConfirmPassword) {
-    _confirmPassword = newConfirmPassword;
+    confirmPassword = newConfirmPassword;
+    notifyListeners();
+  }
+
+  Future signUp() async {
+    var message = await serviceHelper.signUp(username, password, email);
+    setSuccessfulMessage(message);
     notifyListeners();
   }
 }

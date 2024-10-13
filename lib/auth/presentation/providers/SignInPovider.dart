@@ -1,13 +1,16 @@
+import 'dart:ffi';
+import 'dart:io';
+
+import 'package:alquilafacil/auth/data/remote/helpers/auth_service_helper.dart';
 import 'package:alquilafacil/auth/shared/AuthFilter.dart';
 import 'package:flutter/cupertino.dart';
 
 class SignInProvider extends ChangeNotifier with AuthFilter {
-  String _email = "";
-  String _password = "";
-
-  String get email => _email;
-  String get password => _password;
-
+  String email = "";
+  String password = "";
+  String token = "";
+  final AuthServiceHelper authServiceHelper;
+  SignInProvider(this.authServiceHelper);
   @override
   String? validateEmail() {
     if (email.isEmpty) {
@@ -30,13 +33,26 @@ class SignInProvider extends ChangeNotifier with AuthFilter {
     return null;
   }
 
-  void setEmail(String email) {
-    _email = email;
+
+  void setEmail(String newEmail) {
+    email = newEmail;
     notifyListeners();
   }
 
-  void setPassword(String password) {
-    _password = password;
+  void setToken(String newToken) {
+    token = newToken;
+    notifyListeners();
+  }
+
+  void setPassword(String newPassword) {
+    password = newPassword;
+    notifyListeners();
+  }
+
+
+  Future<void> signIn() async {
+    var tokenResponse = await authServiceHelper.signIn(email, password);
+    setToken(tokenResponse);
     notifyListeners();
   }
 }

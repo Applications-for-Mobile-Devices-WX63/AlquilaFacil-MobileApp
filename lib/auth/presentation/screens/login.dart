@@ -8,18 +8,57 @@ import '../widgets/condition_terms.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
+
   @override
   State<StatefulWidget> createState() => _LoginState();
 }
 
 class _LoginState extends State<Login> {
   bool isAccepted = false;
+  Future<void> _showDialog(String dialogTitle, String route) async {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+              dialogTitle,
+            style: TextStyle(
+              color: MainTheme.contrast,
+              fontSize: 15.0
+            ),
+          ),
+          actions: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 10.0),
+                    child: TextButton(
+                      child: const Text('Confirmar'),
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(context, route);
+                      },
+                    ),
+                  ),
+                  TextButton(
+                    child: const Text('Cancelar'),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              ),
+          ],
+        );
+      },
+
+    );
+  }
   @override
   Widget build(BuildContext context) {
     final signInProvider = context.watch<SignInProvider>();
     return Scaffold(
       backgroundColor: MainTheme.primary,
-      bottomNavigationBar: const BottomAppBar(child: ScreenBottomAppBar()),
       body: Center(
           child: SingleChildScrollView(
         child: Column(
@@ -54,17 +93,40 @@ class _LoginState extends State<Login> {
               },
             ),
             const SizedBox(height: 20),
-            const ConditionsTerms(),
             const SizedBox(height: 10.0),
             SizedBox(
               width: 330,
               height: 50,
               child: TextButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, "/search-space");
+                onPressed: () async  {
+                  await signInProvider.signIn();
+                  if(signInProvider.token.isNotEmpty){
+                    await _showDialog("Inicio de sesión exitoso","/search-space");
+                  }
+                  else {
+                    await _showDialog("Correo electrónico o contraseña incorrectos","/login");
+                  }
                 },
                 child: const Text("Iniciar Sesión"),
               ),
+            ),
+            const SizedBox(height: 10),
+            const Text(
+                "¿Aun no tienes cuenta? Registrate",
+              style: TextStyle(
+                fontSize: 10.0
+              )
+            ),
+            const SizedBox(height: 10),
+            SizedBox(
+              width: 330,
+              height: 50,
+              child: TextButton(
+                  onPressed: (){
+                    Navigator.pushNamed(context, "/sign-up");
+                  },
+                  child: const Text("Registrate")
+              )
             ),
             const SizedBox(height: 20.0),
             Container(

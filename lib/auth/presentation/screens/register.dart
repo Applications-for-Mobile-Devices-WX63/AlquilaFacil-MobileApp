@@ -1,9 +1,9 @@
 import 'dart:ui';
+import 'package:alquilafacil/auth/presentation/providers/ConditionTermsProvider.dart';
 import 'package:alquilafacil/auth/presentation/providers/SignUpProvider.dart';
 import 'package:alquilafacil/public/presentation/widgets/screen_bottom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../../../public/ui/theme/main_theme.dart';
 import '../widgets/auth_text_field.dart';
 import '../widgets/condition_terms.dart';
@@ -13,11 +13,48 @@ class Register extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final signUpProvider = context.watch<SignUpProvider>();
+    final conditionTermsProvider = context.watch<ConditionTermsProvider>();
+    Future<void> _showDialog(String dialogTitle, String route) async {
+      return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text(
+              dialogTitle,
+              style: TextStyle(
+                  color: MainTheme.contrast,
+                  fontSize: 15.0
+              ),
+            ),
+            actions: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 10.0),
+                    child: TextButton(
+                      child: const Text('Confirmar'),
+                      onPressed: () {
+                        Navigator.pushNamed(context, route);
+                      },
+                    ),
+                  ),
+                  TextButton(
+                    child: const Text('Cancelar'),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              ),
+            ],
+          );
+        },
+
+      );
+    }
     return Scaffold(
         backgroundColor: MainTheme.primary,
-        bottomNavigationBar: const BottomAppBar(
-          child: ScreenBottomAppBar(),
-        ),
         body: Padding(
             padding: const EdgeInsets.only(top: 100.0),
             child: SingleChildScrollView(
@@ -29,30 +66,17 @@ class Register extends StatelessWidget {
                     style:
                         TextStyle(fontWeight: FontWeight.bold, fontSize: 30.0),
                   ),
-                  const SizedBox(height: 30),
-                  AuthTextField(
-                    textLabel: "Nombre",
-                    textHint: "Ingrese su nombre",
-                    isPassword: false,
-                    param: signUpProvider.firstName,
-                    onChanged: (newValue) {
-                      signUpProvider.setFirstName(newValue);
-                    },
-                    validator: (_) {
-                      return signUpProvider.validateFirstName();
-                    },
-                  ),
                   const SizedBox(height: 10),
                   AuthTextField(
-                    textLabel: "Apellidos",
-                    textHint: "Ingrese sus apellidos",
+                    textLabel: "Nombre de Usuario",
+                    textHint: "Ingrese su nombre de usuario",
                     isPassword: false,
-                    param: signUpProvider.lastName,
+                    param: signUpProvider.username,
                     onChanged: (newValue) {
-                      signUpProvider.setLastName(newValue);
+                      signUpProvider.setUsername(newValue);
                     },
                     validator: (_) {
-                      return signUpProvider.validateLastName();
+                      return signUpProvider.validateUsername();
                     },
                   ),
                   const SizedBox(height: 10),
@@ -65,33 +89,7 @@ class Register extends StatelessWidget {
                       signUpProvider.setEmail(newValue);
                     },
                     validator: (_) {
-                      return signUpProvider.validateEmail();
-                    },
-                  ),
-                  const SizedBox(height: 10),
-                  AuthTextField(
-                    textLabel: "Número de Teléfono",
-                    textHint: "Ingrese su número de teléfono",
-                    isPassword: false,
-                    param: signUpProvider.phoneNumber,
-                    onChanged: (newValue) {
-                      signUpProvider.setPhoneNumber(newValue);
-                    },
-                    validator: (_) {
-                      return signUpProvider.validatePhoneNumber();
-                    },
-                  ),
-                  const SizedBox(height: 10),
-                  AuthTextField(
-                    textLabel: "Número de documento",
-                    textHint: "Ingrese su número de documento",
-                    isPassword: false,
-                    param: signUpProvider.documentNumber,
-                    onChanged: (newValue) {
-                      signUpProvider.setDocumentNumber(newValue);
-                    },
-                    validator: (_) {
-                      return signUpProvider.validateDocumentNumber();
+                      return signUpProvider.validateUsername();
                     },
                   ),
                   const SizedBox(height: 10),
@@ -127,8 +125,35 @@ class Register extends StatelessWidget {
                       width: 330,
                       height: 50,
                       child: TextButton(
-                          onPressed: () => {},
+                          onPressed: () async {
+                            await signUpProvider.signUp();
+                            if(signUpProvider.successFulMessage.isNotEmpty){
+                              await _showDialog("Registro Exitoso", "/login");
+                            }
+                            else if (!conditionTermsProvider.isChecked){
+                              await _showDialog("Por favor, acepte nuestras politicas de uso", "/sign-up");
+                            }
+                            else {
+                              await _showDialog("Usuario ya existente o datos incorrectos", "/sign-up");
+                            }
+                          },
                           child: const Text("Registrate ahora"))),
+                  const SizedBox(height: 10),
+                  const Text(
+                      "¿Ya tienes cuenta? Inicia sesión",
+                      style: TextStyle(
+                          fontSize: 10.0
+                      )
+                  ),
+                  const SizedBox(height: 10),
+                  SizedBox(
+                    width: 330,
+                    height: 50,
+                    child: TextButton(
+                      onPressed: ()=>{ Navigator.pushNamed(context, "/login")},
+                      child: const Text("Inicia sesión"),
+                    )
+                  ),
                   const SizedBox(height: 10),
                   Container(
                     width: 330,

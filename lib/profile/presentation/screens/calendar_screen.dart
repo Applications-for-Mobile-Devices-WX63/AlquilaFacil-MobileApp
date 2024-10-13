@@ -9,13 +9,11 @@ class CalendarScreen extends StatefulWidget {
   const CalendarScreen({super.key});
 
   @override
-  State<StatefulWidget> createState() => _CalendarScreenState();
-
-
+  _CalendarScreenState createState() => _CalendarScreenState();
 }
 
 class _CalendarScreenState extends State<CalendarScreen> {
-  final DateTime _focusedDay = DateTime.now();
+  DateTime _focusedDay = DateTime.now();
 
   // Listas de días a resaltar
   final List<DateTime> redDays = [

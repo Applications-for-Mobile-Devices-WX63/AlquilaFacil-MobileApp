@@ -20,9 +20,7 @@ class FilterSpaces extends StatelessWidget {
         ),
       ),
       backgroundColor: MainTheme.background,
-      bottomNavigationBar: const BottomAppBar(
-        child: ScreenBottomAppBar(),
-      ),
+      bottomNavigationBar: const ScreenBottomAppBar(),
       body: const SingleChildScrollView(
         child: Center(
           child: Column(
