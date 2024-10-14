@@ -6,6 +6,7 @@ import 'package:alquilafacil/spaces/presentation/widgets/search_space_button.dar
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+
 class SearchSpaces extends StatefulWidget {
   const SearchSpaces({super.key});
   @override
@@ -56,16 +57,17 @@ class _SearchSpaces extends State<SearchSpaces> {
                 padding: const EdgeInsets.symmetric(horizontal: 16.0,vertical: 20.0),
                 child: Expanded(
                   child: ListView.builder(
-                    shrinkWrap: true,
-                    itemBuilder: (BuildContext context, int index) {
-                     return  SpaceCard(
-                        location: spaceProvider.spaces[index].cityPlace,
-                        price: spaceProvider.spaces[index].nightPrice.toString(),
-                        imageUrl: spaceProvider.spaces[index].photoUrl,
-                      );
-                    },
-                    itemCount: spaceProvider.spaces.length,
-                  ),
+                  shrinkWrap: true,
+                  itemBuilder: (BuildContext context, int index) {
+                    return SpaceCard(
+                      location: spaceProvider.spaces[index].cityPlace,
+                      price: spaceProvider.spaces[index].nightPrice.toString(),
+                      imageUrl: spaceProvider.spaces[index].photoUrl,
+                      id: spaceProvider.spaces[index].id,  
+                    );
+                  },
+                  itemCount: spaceProvider.spaces.length,
+                )
                 ),
               ),
             ],

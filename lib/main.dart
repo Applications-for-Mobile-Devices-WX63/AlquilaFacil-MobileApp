@@ -5,7 +5,6 @@ import 'package:alquilafacil/contact/presentation/screens/notifications_screen.d
 import 'package:alquilafacil/profile/presentation/screens/calendar_screen.dart';
 import 'package:alquilafacil/profile/presentation/screens/profile_screen.dart';
 import 'package:alquilafacil/public/ui/theme/main_theme.dart';
-import 'package:alquilafacil/reservation/presentation/screens/reservation_screen.dart';
 import 'package:alquilafacil/spaces/presentation/providers/space_provider.dart';
 import 'package:alquilafacil/spaces/presentation/screens/filter_screen.dart';
 import 'package:alquilafacil/spaces/presentation/screens/filter_spaces.dart';
@@ -25,6 +24,7 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
