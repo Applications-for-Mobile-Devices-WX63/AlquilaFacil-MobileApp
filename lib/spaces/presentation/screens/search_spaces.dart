@@ -23,6 +23,7 @@ class _SearchSpaces extends State<SearchSpaces> {
     }();
 
   }
+  @override
   Widget build(BuildContext context) {
     final spaceProvider = context.watch<SpaceProvider>();
     return Scaffold(
@@ -55,7 +56,6 @@ class _SearchSpaces extends State<SearchSpaces> {
               const SizedBox(height: 20.0),
              Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0,vertical: 20.0),
-                child: Expanded(
                   child: ListView.builder(
                   shrinkWrap: true,
                   itemBuilder: (BuildContext context, int index) {
@@ -69,7 +69,6 @@ class _SearchSpaces extends State<SearchSpaces> {
                   itemCount: spaceProvider.spaces.length,
                 )
                 ),
-              ),
             ],
           ),
         ),

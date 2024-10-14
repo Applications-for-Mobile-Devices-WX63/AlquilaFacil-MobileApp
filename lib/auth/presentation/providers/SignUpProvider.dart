@@ -9,7 +9,8 @@ class SignUpProvider extends ChangeNotifier with AuthFilter {
   String password = "";
   String confirmPassword = "";
   String successFulMessage = "";
-  final AuthServiceHelper serviceHelper =  AuthServiceHelper();
+  final AuthServiceHelper serviceHelper;
+  SignUpProvider(this.serviceHelper);
 
 
   @override

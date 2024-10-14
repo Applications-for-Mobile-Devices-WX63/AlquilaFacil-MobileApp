@@ -1,167 +1,139 @@
 import 'package:alquilafacil/public/presentation/widgets/screen_bottom_app_bar.dart';
 import 'package:alquilafacil/public/ui/theme/main_theme.dart';
+import 'package:alquilafacil/spaces/presentation/providers/local_category_provider.dart';
+import 'package:alquilafacil/spaces/presentation/widgets/capacity_filters.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class FilterScreen extends StatelessWidget {
+class FilterScreen extends StatefulWidget {
   const FilterScreen({super.key});
+
+
+  @override
+  State<StatefulWidget> createState()  => _FilterScreenState();
+}
+
+class _FilterScreenState extends State<FilterScreen>{
+  int? selectedIndex;
+  @override
+  void initState(){
+    super.initState();
+    final localCategoryProvider = context.read<LocalCategoryProvider>();
+    () async {
+      await localCategoryProvider.getAllLocalCategories();
+    }();
+  }
   @override
   Widget build(BuildContext context) {
+    final localCategoryProvider = context.watch<LocalCategoryProvider>();
+    final ranges = ["5-10","10-25","25-50","50-100"];
+    int minRange = 0;
+    int maxRange = 0;
     return Scaffold(
+      backgroundColor: MainTheme.background,
+      appBar: AppBar(
         backgroundColor: MainTheme.background,
-        appBar: AppBar(
-          backgroundColor: MainTheme.background,
-          title: const Center(
-              child: Text("Filtros",
-                  style:
-                      TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold))),
-        ),
-        bottomNavigationBar: const ScreenBottomAppBar(),
-        body: const SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: EdgeInsets.only(top: 20.0, left: 10.0),
-                child: Text("Tipo de espacio",
-                    style: TextStyle(
-                        color: Colors.black, fontWeight: FontWeight.bold)),
-              ),
-              Column(
-                children: [
-                  SizedBox(height: 50),
-                  Row(
-                    children: [
-                      SizedBox(width: 10),
-                      SpaceTypeCard(
-                          spaceImageType:
-                              "https://tse4.mm.bing.net/th?id=OIP.N62R-B5j13QHIL9OhcdJ1wHaHa&pid=Api&P=0&h=180",
-                          spaceTypeTitle: "Casa de playa"),
-                      SizedBox(width: 20),
-                      SpaceTypeCard(
-                          spaceImageType:
-                              "https://tse1.mm.bing.net/th?id=OIP.LnALBZ2Bu7Mnw46vjKeMYAHaHa&pid=Api&P=0&h=180",
-                          spaceTypeTitle: "Casa urbana"),
-                    ],
+        title: const Center(
+            child: Text("Filtros",
+                style:
+                TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold))),
+      ),
+      bottomNavigationBar: const ScreenBottomAppBar(),
+      body:
+          SingleChildScrollView(
+             child: Column(
+               crossAxisAlignment: CrossAxisAlignment.start,
+               children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Text(
+                     "Tipo de espacio",
+                     style: TextStyle(
+                       color: MainTheme.contrast,
+                       fontSize: 20.0,
+                       fontWeight: FontWeight.bold
+                     ),
+                     textAlign: TextAlign.start,
+                                     ),
                   ),
-                  SizedBox(height: 50),
-                  Row(
-                    children: [
-                      SizedBox(width: 10),
-                      SpaceTypeCard(
-                          spaceImageType:
-                              "https://cdn3.iconfinder.com/data/icons/beauty-cosmetics-1-line/128/beauty-salon_beauty_salon_barbershop_glamour-512.png",
-                          spaceTypeTitle: "Salones elegantes"),
-                      SizedBox(width: 20),
-                      SpaceTypeCard(
-                          spaceImageType:
-                              "https://cdn-icons-png.flaticon.com/512/74/74951.png",
-                          spaceTypeTitle: "Casa de campo"),
-                    ],
-                  ),
-                ],
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 30, left: 10),
-                child: Text(
-                  "Capacidad de Personas",
-                  style: TextStyle(
-                      fontSize: 12.0,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black),
-                ),
-              ),
-              SizedBox(height: 20),
-              Column(
-                children: [
-                  SizedBox(height: 20),
-                  PersonCapacityFilter(filterRange: "5-10"),
-                  SizedBox(height: 20),
-                  PersonCapacityFilter(filterRange: "10-25"),
-                  SizedBox(height: 20),
-                  PersonCapacityFilter(filterRange: "25-50"),
-                  SizedBox(height: 20),
-                  PersonCapacityFilter(filterRange: "50-100")
-                ],
-              )
-            ],
-          ),
-        ));
-  }
-}
-
-class SpaceTypeCard extends StatelessWidget {
-  final String spaceImageType;
-  final String spaceTypeTitle;
-  const SpaceTypeCard(
-      {super.key, required this.spaceImageType, required this.spaceTypeTitle});
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          children: [
-            SizedBox(
-              width: 170,
-              height: 190,
-              child: Card(
-                color: MainTheme.background,
-                elevation: 10.0,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.network(
-                      spaceImageType,
-                      width: 50.0,
-                    ),
-                    Text(
-                      spaceTypeTitle,
-                      style: const TextStyle(
-                        color: Colors.black,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      ],
+                  GridView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: localCategoryProvider.localCategories.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      bool isSelected  = selectedIndex == index;
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
+                          child: GestureDetector(
+                            onTap: (){
+                              setState(() {
+                                selectedIndex = index;
+                              });
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: isSelected ? MainTheme.primary : Colors.transparent,
+                                  width: 2.0,
+                                ),
+                                borderRadius: BorderRadius.circular(20.0),
+                              ),
+                              child: Card(
+                                elevation: 10.0,
+                                color: MainTheme.background,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(30.0),
+                                  child: Column(
+                                    children: [
+                                      Image.network(
+                                        localCategoryProvider.localCategories[index].photoUrl,
+                                        width: 65,
+                                      ),
+                                      Text(
+                                        localCategoryProvider.localCategories[index].name,
+                                        style: TextStyle(
+                                            color: MainTheme.contrast,
+                                            fontSize: 10.0
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                      );
+                    },
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2
+                    )
+                         ),
+                 Padding(
+                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                   child: Text(
+                     "Capacidad de Personas",
+                     style: TextStyle(
+                         color: MainTheme.contrast,
+                         fontSize: 20.0,
+                         fontWeight: FontWeight.bold
+                     ),
+                     textAlign: TextAlign.start,
+                   ),
+                 ),
+                 ListView.builder(
+                   itemBuilder: (BuildContext context, int index){
+                         return CapacityFilters(
+                             range: ranges[index]
+                         );
+                   },
+                   itemCount: 4,
+                   shrinkWrap: true,
+                   physics: const NeverScrollableScrollPhysics(),
+                 )
+              ],
+             ),
+           )
     );
   }
-}
 
-class PersonCapacityFilter extends StatefulWidget {
-  final String filterRange;
-  const PersonCapacityFilter({super.key, required this.filterRange});
-  @override
-  State<StatefulWidget> createState() => _PersonCapacityFilter();
-}
-
-class _PersonCapacityFilter extends State<PersonCapacityFilter> {
-  bool isChecked = false;
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        const SizedBox(width: 10),
-        Checkbox(
-          side: const BorderSide(color: Colors.black),
-          shape: const CircleBorder(),
-          value: isChecked,
-          checkColor: Colors.transparent,
-          activeColor: Colors.black,
-          onChanged: (bool? newValue) {
-            setState(() {
-              isChecked = newValue ?? false;
-            });
-          },
-        ),
-        const SizedBox(width: 10),
-        Text(
-          widget.filterRange,
-          style: const TextStyle(color: Colors.black),
-        )
-      ],
-    );
-  }
 }

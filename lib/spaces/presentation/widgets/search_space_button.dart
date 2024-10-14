@@ -38,7 +38,7 @@ class _SearchSpaceButton extends State<SearchSpaceButton> {
                   borderSide: BorderSide(color: MainTheme.transparent)),
               hintText: "Busca tu espacio ideal",
               prefixIcon: IconButton(
-                  onPressed: () => {spaceProvider.searchSpaceByName()}, icon: const Icon(Icons.search_outlined)),
+                  onPressed: () => {spaceProvider.searchDistrict()}, icon: const Icon(Icons.search_outlined)),
               suffixIcon: IconButton(
                   onPressed: () => {Navigator.pushNamed(context, "/search-space")}, icon: Icon(widget.suffixIcon))),
         ),

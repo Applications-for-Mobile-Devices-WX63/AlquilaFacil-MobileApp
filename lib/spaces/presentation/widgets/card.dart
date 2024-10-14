@@ -1,4 +1,5 @@
 import 'package:alquilafacil/reservation/presentation/screens/details_screen.dart';
+import 'package:alquilafacil/public/ui/theme/main_theme.dart';
 import 'package:flutter/material.dart';
 
 class SpaceCard extends StatelessWidget {
@@ -19,15 +20,15 @@ class SpaceCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        
         Navigator.push(
           context,
-          MaterialPageRoute( //MATHI HELP
-            builder: (context) => DetailsScreen(id: id, token:"eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjkyMjAzMDUsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL3NpZCI6IjEiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoicm9kMmFjIiwiaWF0IjoxNzI4NjE1NTA1LCJuYmYiOjE3Mjg2MTU1MDV9.hZrBDnxeemGSFfOR020zDGFCL02JA5c7kVoLXBJBALw"),
+          MaterialPageRoute(
+            builder: (context) => DetailsScreen(id: id, token: "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjkyMjAzMDUsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL3NpZCI6IjEiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoicm9kMmFjIiwiaWF0IjoxNzI4NjE1NTA1LCJuYmYiOjE3Mjg2MTU1MDV9.hZrBDnxeemGSFfOR020zDGFCL02JA5c7kVoLXBJBALw"),
           ),
         );
       },
       child: Card(
+        color: MainTheme.background, 
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -68,13 +69,13 @@ class SpaceCard extends StatelessWidget {
               ),
             ),
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+              padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   IconButton(
                     onPressed: () {
+                      // Acción para el primer ícono
                     },
                     icon: const Icon(Icons.military_tech_rounded),
                     color: Colors.orange,
@@ -85,8 +86,8 @@ class SpaceCard extends StatelessWidget {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute( //MATHI HELP
-                          builder: (context) => DetailsScreen(id: id, token:"eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjkyMjAzMDUsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL3NpZCI6IjEiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoicm9kMmFjIiwiaWF0IjoxNzI4NjE1NTA1LCJuYmYiOjE3Mjg2MTU1MDV9.hZrBDnxeemGSFfOR020zDGFCL02JA5c7kVoLXBJBALw"),
+                        MaterialPageRoute(
+                          builder: (context) => DetailsScreen(id: id, token: "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjkyMjAzMDUsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL3NpZCI6IjEiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoicm9kMmFjIiwiaWF0IjoxNzI4NjE1NTA1LCJuYmYiOjE3Mjg2MTU1MDV9.hZrBDnxeemGSFfOR020zDGFCL02JA5c7kVoLXBJBALw"),
                         ),
                       );
                     },

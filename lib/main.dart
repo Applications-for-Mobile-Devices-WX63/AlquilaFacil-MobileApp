@@ -1,3 +1,4 @@
+import 'package:alquilafacil/auth/data/remote/helpers/auth_service_helper.dart';
 import 'package:alquilafacil/auth/presentation/providers/ConditionTermsProvider.dart';
 import 'package:alquilafacil/auth/presentation/providers/SignInPovider.dart';
 import 'package:alquilafacil/auth/presentation/providers/SignUpProvider.dart';
@@ -5,9 +6,13 @@ import 'package:alquilafacil/contact/presentation/screens/notifications_screen.d
 import 'package:alquilafacil/profile/presentation/screens/calendar_screen.dart';
 import 'package:alquilafacil/profile/presentation/screens/profile_screen.dart';
 import 'package:alquilafacil/public/ui/theme/main_theme.dart';
+import 'package:alquilafacil/spaces/data/remote/helpers/local_categories_service_helper.dart';
+import 'package:alquilafacil/spaces/data/remote/helpers/space_service_helper.dart';
+import 'package:alquilafacil/spaces/presentation/providers/local_category_provider.dart';
 import 'package:alquilafacil/spaces/presentation/providers/space_provider.dart';
 import 'package:alquilafacil/spaces/presentation/screens/filter_screen.dart';
-import 'package:alquilafacil/spaces/presentation/screens/filter_spaces.dart';
+import 'package:alquilafacil/spaces/presentation/screens/spaces_details.dart';
+import 'package:alquilafacil/spaces/presentation/screens/filter_spaces_district.dart';
 import 'package:alquilafacil/spaces/presentation/screens/register_space_steps.dart';
 import 'package:alquilafacil/spaces/presentation/screens/search_spaces.dart';
 import 'package:flutter/material.dart';
@@ -27,12 +32,23 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authServiceHelper = AuthServiceHelper();
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => SignInProvider()),
-        ChangeNotifierProvider(create: (_) => SignUpProvider()),
+        ChangeNotifierProvider(create: (_) => SignInProvider(authServiceHelper)),
+        ChangeNotifierProvider(create: (_) => SignUpProvider(authServiceHelper)),
         ChangeNotifierProvider(create: (_) => ConditionTermsProvider()),
-        ChangeNotifierProvider(create: (_) => SpaceProvider())
+
+        ChangeNotifierProxyProvider<SignInProvider, SpaceProvider>(
+          create: (_) => SpaceProvider(SpaceServiceHelper(SignInProvider(authServiceHelper))),
+          update: (context, signInProvider, previousSpaceProvider) =>
+              SpaceProvider(SpaceServiceHelper(signInProvider)),
+        ),
+        ChangeNotifierProxyProvider<SignInProvider, LocalCategoryProvider>(
+          create: (_) => LocalCategoryProvider(LocalCategoriesServiceHelper(SignInProvider(authServiceHelper))),
+          update: (context, signInProvider, previousLocalCategoryProvider) => 
+            LocalCategoryProvider(LocalCategoriesServiceHelper(signInProvider))
+        )
       ],
       child: MaterialApp(
         theme: MainTheme.lightTheme,
@@ -42,7 +58,8 @@ class MyApp extends StatelessWidget {
           "/sign-up": (context) => const Register(),
           "/search-space": (context) => const SearchSpaces(),
           "/tutorial-space": (context) => const RegisterSpaceSteps(),
-          "/filter-spaces": (context) => const FilterSpaces(),
+          "/filter-spaces": (context) => const FilterSpacesDistrict(),
+          "/spaces-details": (context) => const SpacesDetails(),
           "/filter-screen": (context) => const FilterScreen(),
           "/notifications": (context) => const NotificationsScreen(),
           "/calendar": (context) => const CalendarScreen(),
