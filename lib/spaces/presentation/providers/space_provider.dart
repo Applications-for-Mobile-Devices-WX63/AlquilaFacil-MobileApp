@@ -13,6 +13,8 @@ class SpaceProvider extends ChangeNotifier{
   List<Space> currentSpaces = [];
   List<String> districts = [];
   List<String> expectDistricts = [];
+  List<String> capacitiesSelected = [];
+  String categorySelected = "";
   String cityPlace= "";
   var logger = Logger();
   SpaceProvider(this.spaceService);
