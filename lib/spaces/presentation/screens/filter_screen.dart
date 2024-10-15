@@ -1,6 +1,7 @@
 import 'package:alquilafacil/public/presentation/widgets/screen_bottom_app_bar.dart';
 import 'package:alquilafacil/public/ui/theme/main_theme.dart';
 import 'package:alquilafacil/spaces/presentation/providers/local_category_provider.dart';
+import 'package:alquilafacil/spaces/presentation/providers/space_provider.dart';
 import 'package:alquilafacil/spaces/presentation/widgets/capacity_filters.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -26,9 +27,8 @@ class _FilterScreenState extends State<FilterScreen>{
   @override
   Widget build(BuildContext context) {
     final localCategoryProvider = context.watch<LocalCategoryProvider>();
+    final spaceProvider = context.watch<SpaceProvider>();
     final ranges = ["5-10","10-25","25-50","50-100"];
-    int minRange = 0;
-    int maxRange = 0;
     return Scaffold(
       backgroundColor: MainTheme.background,
       appBar: AppBar(
@@ -68,6 +68,7 @@ class _FilterScreenState extends State<FilterScreen>{
                             onTap: (){
                               setState(() {
                                 selectedIndex = index;
+                                spaceProvider.categorySelected = localCategoryProvider.localCategories[index].id;
                               });
                             },
                             child: Container(
@@ -129,6 +130,17 @@ class _FilterScreenState extends State<FilterScreen>{
                    itemCount: 4,
                    shrinkWrap: true,
                    physics: const NeverScrollableScrollPhysics(),
+                 ),
+                 Center(
+                   child: TextButton(onPressed: (){
+                       spaceProvider.getFilterRanges();
+                       spaceProvider.searchDistrictsByCategoryIdAndRange();
+                       Navigator.pushNamed(
+                           context, "/spaces-details"
+                       );
+                     },
+                       child: const Text("Buscar")
+                   ),
                  )
               ],
              ),

@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../public/ui/theme/main_theme.dart';
+import '../providers/space_provider.dart';
 
 class CapacityFilters extends StatefulWidget {
   final String range;
@@ -15,6 +17,7 @@ class _CapacityFiltersState extends State<CapacityFilters> {
   bool isChecked = false;
   @override
   Widget build(BuildContext context) {
+    final spaceProvider = context.watch<SpaceProvider>();
     return Row(
         children:[
           Checkbox(
@@ -26,6 +29,7 @@ class _CapacityFiltersState extends State<CapacityFilters> {
             onChanged: (bool? newValue) {
               setState(() {
                 isChecked = newValue ?? false;
+                spaceProvider.ranges.add(widget.range);
               });
             },
           ),

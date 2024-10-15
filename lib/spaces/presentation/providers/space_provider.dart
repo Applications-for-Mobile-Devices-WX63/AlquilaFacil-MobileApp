@@ -13,8 +13,10 @@ class SpaceProvider extends ChangeNotifier{
   List<Space> currentSpaces = [];
   List<String> districts = [];
   List<String> expectDistricts = [];
-  List<String> capacitiesSelected = [];
-  String categorySelected = "";
+  List<String> ranges = [];
+  int maxRange = 0;
+  int minRange = 0;
+  int categorySelected = 0;
   String cityPlace= "";
   var logger = Logger();
   SpaceProvider(this.spaceService);
@@ -49,6 +51,23 @@ class SpaceProvider extends ChangeNotifier{
       var districtsResponse = await spaceService.getAllDistricts();
       districts = districtsResponse.toList();
     } catch (e){
+      logger.e("Error while trying to fetch spaces districts, please check the service request");
+    }
+    notifyListeners();
+  }
+
+  void getFilterRanges(){
+    var rangesCaught = spaceService.getFilterRanges(ranges);
+    minRange = rangesCaught[0];
+    maxRange = rangesCaught[1];
+    notifyListeners();
+  }
+
+  Future<void> searchDistrictsByCategoryIdAndRange() async {
+    try{
+      var districtsResponse = await spaceService.getAllSpacesByCategoryIdAndCapacityRange(categorySelected, minRange, maxRange);
+      currentSpaces = districtsResponse.toList();
+    }catch (e){
       logger.e("Error while trying to fetch spaces districts, please check the service request");
     }
     notifyListeners();

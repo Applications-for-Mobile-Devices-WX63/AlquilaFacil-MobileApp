@@ -1,10 +1,12 @@
 import 'dart:collection';
 import 'dart:convert';
+import 'dart:ffi';
 import 'dart:io';
 
 import 'package:alquilafacil/auth/presentation/providers/SignInPovider.dart';
 import 'package:alquilafacil/shared/handlers/concrete_response_message_handler.dart';
 import 'package:alquilafacil/spaces/data/remote/services/spaces_service.dart';
+import 'package:alquilafacil/spaces/presentation/providers/local_category_provider.dart';
 import 'package:logger/logger.dart';
 
 import '../../../../shared/constants/constant.dart';
@@ -60,6 +62,47 @@ class SpaceServiceHelper extends SpaceService{
       client.close();
     }
   }
+
+  @override
+  Future<List<Space>> getAllSpacesByCategoryIdAndCapacityRange(int categoryId, int minRange, int maxRange) async {
+    var client = HttpClient();
+    try {
+      var url = Uri.parse("${Constant.BASE_URL}${Constant.RESOURCE_PATH}locals/search-by-category-id-capacity-range/$categoryId/$minRange/$maxRange");
+      var token = signInProvider.token;
+      logger.i("Current token: $token");
+      var request = await client.getUrl(url);
+      request.headers.set(HttpHeaders.authorizationHeader, "Bearer $token");
+      var response = await request.close();
+      if(response.statusCode == HttpStatus.ok){
+        var responseBody = await response.transform(utf8.decoder).join();
+        final List<dynamic> locals =jsonDecode(responseBody);
+        return locals.map((local) => Space.fromJson(local)).toList();
+      }
+      else {
+        throw Exception(errorMessageHandler.reject(response.statusCode));
+      }
+    } finally {
+      client.close();
+    }
+
+  }
+
+  List<int> getFilterRanges(List<String> ranges) {
+    List<int> parsedRanges = [];
+
+    for (int index = 0; index < ranges.length; index++) {
+      List<String> currentRanges = ranges[index].split("-");
+      int min = int.parse(currentRanges[0]);
+      int max = int.parse(currentRanges[1]);
+      parsedRanges.add(min);
+      parsedRanges.add(max);
+    }
+    return parsedRanges;
+  }
+
+
+
+
 
 
 

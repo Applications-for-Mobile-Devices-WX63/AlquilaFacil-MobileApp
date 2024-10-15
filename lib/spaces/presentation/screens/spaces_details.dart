@@ -50,7 +50,8 @@ class _SpaceDetailsState extends State<SpacesDetails> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const SizedBox(height: 50),
-              ListView.builder(
+              spaceProvider.currentSpaces.isNotEmpty
+                  ? ListView.builder(
                 itemBuilder: (BuildContext context, int index) {
                   return Card(
                     color: MainTheme.background,
@@ -80,7 +81,7 @@ class _SpaceDetailsState extends State<SpacesDetails> {
                 itemCount: spaceProvider.currentSpaces.length,
                 shrinkWrap: true,
 
-              )
+              ) : const Text("No existen locales con estos parámetros")
             ],
           ),
         ),
