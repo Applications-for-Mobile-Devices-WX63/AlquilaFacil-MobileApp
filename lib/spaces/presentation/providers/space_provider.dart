@@ -18,6 +18,7 @@ class SpaceProvider extends ChangeNotifier{
   int minRange = 0;
   int categorySelected = 0;
   String cityPlace= "";
+  Space? spaceSelected;
   var logger = Logger();
   SpaceProvider(this.spaceService);
 
@@ -70,6 +71,16 @@ class SpaceProvider extends ChangeNotifier{
     }catch (e){
       logger.e("Error while trying to fetch spaces districts, please check the service request");
     }
+    notifyListeners();
+  }
+
+  void setSelectedSpace(Space currentSpaceSelected){
+    spaceSelected = currentSpaceSelected;
+    notifyListeners();
+  }
+
+  void selectSpace(Space currentSpaceSelected){
+    spaceSelected = currentSpaceSelected;
     notifyListeners();
   }
 }

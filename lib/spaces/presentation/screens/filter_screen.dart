@@ -4,6 +4,7 @@ import 'package:alquilafacil/spaces/presentation/providers/local_category_provid
 import 'package:alquilafacil/spaces/presentation/providers/space_provider.dart';
 import 'package:alquilafacil/spaces/presentation/widgets/capacity_filters.dart';
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
 
 class FilterScreen extends StatefulWidget {
@@ -16,6 +17,46 @@ class FilterScreen extends StatefulWidget {
 
 class _FilterScreenState extends State<FilterScreen>{
   int? selectedIndex;
+
+  Future<void> _showDialog(String dialogTitle, String route) async {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            dialogTitle,
+            style: TextStyle(
+                color: MainTheme.contrast,
+                fontSize: 15.0
+            ),
+          ),
+          actions: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 10.0),
+                  child: TextButton(
+                    child: const Text('Confirmar'),
+                    onPressed: () {
+                      Navigator.pushNamed(context, route);
+                    },
+                  ),
+                ),
+                TextButton(
+                  child: const Text('Cancelar'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            ),
+          ],
+        );
+      },
+
+    );
+  }
   @override
   void initState(){
     super.initState();
@@ -132,14 +173,22 @@ class _FilterScreenState extends State<FilterScreen>{
                    physics: const NeverScrollableScrollPhysics(),
                  ),
                  Center(
-                   child: TextButton(onPressed: (){
-                       spaceProvider.getFilterRanges();
-                       spaceProvider.searchDistrictsByCategoryIdAndRange();
-                       Navigator.pushNamed(
-                           context, "/spaces-details"
-                       );
-                     },
-                       child: const Text("Buscar")
+                   child: SizedBox(
+                     width: 100,
+                     child: TextButton(onPressed: () async {
+                       if(spaceProvider.maxRange != 0 || spaceProvider.minRange != 0 || spaceProvider.categorySelected != 0){
+                          spaceProvider.getFilterRanges();
+                          spaceProvider.searchDistrictsByCategoryIdAndRange();
+                          Navigator.pushNamed(
+                          context, "/spaces-details"
+                         );
+                       }
+                       else{
+                            await _showDialog("Por favor, seleccione los parámetros de búsqueda", "/filter-screen");
+                         }
+                       },
+                         child: const Text("Buscar")
+                     ),
                    ),
                  )
               ],

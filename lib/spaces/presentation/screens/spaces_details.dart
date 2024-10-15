@@ -56,32 +56,47 @@ class _SpaceDetailsState extends State<SpacesDetails> {
                   return Card(
                     color: MainTheme.background,
                     elevation: 2.0,
-                    child: ListTile(
-                        title: Text(
-                          spaceProvider.currentSpaces[index].localName,
-                          textAlign: TextAlign.end,
-                        ),
-                        leading:Image.network( spaceProvider.currentSpaces[index].photoUrl),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Text(
-                              spaceProvider.currentSpaces[index].nightPrice.toString(),
-                              textAlign: TextAlign.end,
+                    child: InkWell(
+                      onTap: (){
+                        spaceProvider.setSelectedSpace(spaceProvider.currentSpaces[index]);
+                        Navigator.pushNamed(
+                            context, "/space-info"
+                        );
+                      },
+                      child: ListTile(
+                          title: Text(
+                            spaceProvider.currentSpaces[index].localName,
+                            textAlign: TextAlign.end,
+                          ),
+                          leading: Image.network(
+                                spaceProvider.currentSpaces[index].photoUrl,
                             ),
-                            Text(
-                              spaceProvider.currentSpaces[index].cityPlace,
-                              textAlign: TextAlign.end,
-                            )
-                          ],
-                        )
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Text(
+                                spaceProvider.currentSpaces[index].nightPrice.toString(),
+                                textAlign: TextAlign.end,
+                              ),
+                              Text(
+                                spaceProvider.currentSpaces[index].cityPlace,
+                                textAlign: TextAlign.end,
+                              )
+                            ],
+                          )
+                      ),
                     ),
                   );
                 },
                 itemCount: spaceProvider.currentSpaces.length,
                 shrinkWrap: true,
 
-              ) : const Text("No existen locales con estos parámetros")
+              ) : Text(
+                  "No existen locales con estos parámetros",
+                style: TextStyle(
+                  color: MainTheme.contrast
+                ),
+              )
             ],
           ),
         ),

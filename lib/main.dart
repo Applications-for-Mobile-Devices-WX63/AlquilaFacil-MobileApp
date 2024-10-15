@@ -11,6 +11,7 @@ import 'package:alquilafacil/spaces/data/remote/helpers/space_service_helper.dar
 import 'package:alquilafacil/spaces/presentation/providers/local_category_provider.dart';
 import 'package:alquilafacil/spaces/presentation/providers/space_provider.dart';
 import 'package:alquilafacil/spaces/presentation/screens/filter_screen.dart';
+import 'package:alquilafacil/spaces/presentation/screens/space_info.dart';
 import 'package:alquilafacil/spaces/presentation/screens/spaces_details.dart';
 import 'package:alquilafacil/spaces/presentation/screens/filter_spaces_district.dart';
 import 'package:alquilafacil/spaces/presentation/screens/register_space_steps.dart';
@@ -64,6 +65,7 @@ class MyApp extends StatelessWidget {
           "/notifications": (context) => const NotificationsScreen(),
           "/calendar": (context) => const CalendarScreen(),
           "/profile": (context) => const ProfileScreen(),
+          "/space-info": (context) => const SpaceInfo()
           //"/detail-space": (context) => const ReservationScreen(),
         },
         debugShowCheckedModeBanner: false,
