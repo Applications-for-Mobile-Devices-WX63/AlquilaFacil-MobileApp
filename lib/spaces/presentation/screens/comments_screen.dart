@@ -1,10 +1,10 @@
-import 'package:alquilafacil/profile/domain/model/user.dart';
-import 'package:alquilafacil/profile/infrastructure/services/users_service.dart';
+/*import 'package:alquilafacil/profile/domain/model/user.dart';
 import 'package:alquilafacil/public/presentation/widgets/screen_bottom_app_bar.dart';
 import 'package:alquilafacil/spaces/domain/model/comment.dart';
 import 'package:alquilafacil/spaces/presentation/widgets/space_comment.dart'; // Asegúrate de que esto esté bien importado
 import 'package:flutter/material.dart';
 
+//import '../../../profile/data/local/services/users_service.dart';
 import '../../data/remote/services/comments_service.dart';
 
 
@@ -17,7 +17,7 @@ class CommentsScreen extends StatefulWidget {
 
 class _CommentsScreenState extends State<CommentsScreen> {
   final CommentService commentService = CommentService();
-  final UserService userService = UserService();
+  //final UserService userService = UserService();
   List<Comment> comments = [];
   int? spaceId;
 
@@ -40,7 +40,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
     });
     try {
       await commentService.init();
-      await userService.init(); // Inicializa el UserService
+      //await userService.init(); // Inicializa el UserService
       List<Comment> loadedComments =
           await commentService.getCommentsBySpaceId(spaceId!);
       setState(() {
@@ -54,11 +54,11 @@ class _CommentsScreenState extends State<CommentsScreen> {
     }
   }
 
-  Future<String> _getAuthorName(int authorId) async {
-    User? user = await userService.getUserById(authorId);
-    return user?.name ??
-        'Desconocido'; // Retorna 'Desconocido' si no se encuentra el usuario
-  }
+  //Future<String> _getAuthorName(int authorId) async {
+    //User? user = await userService.getUserById(authorId);
+    //return user?.name ??
+     //  'Desconocido'; // Retorna 'Desconocido' si no se encuentra el usuario
+  //}
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +84,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: comments.map((comment) {
-              return FutureBuilder<String>(
+              return *//*FutureBuilder<String>(
                 future: _getAuthorName(comment.authorId),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
@@ -102,11 +102,11 @@ class _CommentsScreenState extends State<CommentsScreen> {
                   }
                 },
               );
-            }).toList(),
+            }).toList(),*//*
           ),
         ),
       ),
       bottomNavigationBar: const ScreenBottomAppBar(),
     );
-  }
-}
+  }*/
+//}
