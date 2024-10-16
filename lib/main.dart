@@ -8,6 +8,8 @@ import 'package:alquilafacil/profile/presentation/providers/pofile_provider.dart
 import 'package:alquilafacil/profile/presentation/screens/calendar_screen.dart';
 import 'package:alquilafacil/profile/presentation/screens/profile_screen.dart';
 import 'package:alquilafacil/public/ui/theme/main_theme.dart';
+import 'package:alquilafacil/reservation/data/remote/helpers/reservation_service_helper.dart';
+import 'package:alquilafacil/reservation/presentation/providers/reservation_provider.dart';
 import 'package:alquilafacil/spaces/data/remote/helpers/local_categories_service_helper.dart';
 import 'package:alquilafacil/spaces/data/remote/helpers/space_service_helper.dart';
 import 'package:alquilafacil/spaces/presentation/providers/local_category_provider.dart';
@@ -55,6 +57,11 @@ class MyApp extends StatelessWidget {
           create: (_) => ProfileProvider(UserServiceHelper(SignInProvider(authServiceHelper))),
           update: (context, signInProvider, previousProfileProvider) =>
               ProfileProvider(UserServiceHelper(signInProvider))
+        ),
+        ChangeNotifierProxyProvider<SignInProvider,ReservationProvider>(
+          create: (_) => ReservationProvider(ReservationServiceHelper(SignInProvider(authServiceHelper))), 
+          update: (context, signInProvider, previousReservationProvider) =>
+              ReservationProvider(ReservationServiceHelper(signInProvider))
         ),
       ],
       child: MaterialApp(

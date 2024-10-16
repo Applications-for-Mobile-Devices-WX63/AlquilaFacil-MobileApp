@@ -1,65 +1,45 @@
-import 'dart:convert';
-import 'package:alquilafacil/spaces/domain/model/space.dart';
+
+import 'package:alquilafacil/spaces/presentation/providers/space_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:alquilafacil/shared/constants/constant.dart';
 import 'package:alquilafacil/public/presentation/widgets/screen_bottom_app_bar.dart';
 
-class DetailsScreen extends StatefulWidget {
-  final int id;
-  final String token;
+import '../providers/reservation_provider.dart';
 
-  const DetailsScreen({Key? key, required this.id, required this.token}) : super(key: key);
+class DetailsScreen extends StatefulWidget {
+  final int localId;
+  const DetailsScreen({Key? key, required this.localId}) : super(key: key);
 
   @override
   _DetailsScreenState createState() => _DetailsScreenState();
 }
 
 class _DetailsScreenState extends State<DetailsScreen> {
-  Space? spaceDetails;
-  bool isLoading = true;
-
+  bool isLoading = false;
   DateTime _focusedDay = DateTime.now();
   DateTime? _startDay; 
   DateTime? _endDay;   
 
   TimeOfDay? _startTime; 
-  TimeOfDay? _endTime;   
+  TimeOfDay? _endTime;
+
   @override
   void initState() {
     super.initState();
-    fetchDetails();
-  }
-
-  Future<void> fetchDetails() async {
-    try {
-      final url = Constant.getEndpoint('locals/', widget.id.toString());
-      final response = await http.get(
-        Uri.parse(url),
-        headers: {
-          'Authorization': 'Bearer ${widget.token}',
-          'Content-Type': 'application/json',
-        },
-      );
-
-      if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
+    setState(() {
+      isLoading = true;
+    });
+    final spaceProvider = context.read<SpaceProvider>();
+    () async {
+      try {
+        await spaceProvider.fetchSpaceById(widget.localId);
+      }  finally {
         setState(() {
-          spaceDetails = Space.fromJson(data);
           isLoading = false;
         });
-      } else {
-        throw Exception('Error al obtener los detalles: ${response.statusCode}');
       }
-    } catch (e) {
-      setState(() {
-        isLoading = false;
-      });
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error: $e')),
-      );
-    }
+    }();
   }
 
   Future<void> _selectTime(BuildContext context, bool isStart) async {
@@ -79,70 +59,16 @@ class _DetailsScreenState extends State<DetailsScreen> {
     }
   }
 
-  Future<void> _makeReservation() async {
-    final String url = Constant.getEndpoint('reservation', '');
-
-    if (_startDay == null || _endDay == null || _startTime == null || _endTime == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Por favor selecciona las fechas y horas de inicio y fin válidas')),
-      );
-      return;
-    }
-    final startDateTime = DateTime(
-      _startDay!.year,
-      _startDay!.month,
-      _startDay!.day,
-      _startTime!.hour,
-      _startTime!.minute,
-    );
-    
-    final endDateTime = DateTime(
-      _endDay!.year,
-      _endDay!.month,
-      _endDay!.day,
-      _endTime!.hour,
-      _endTime!.minute,
-    );
-
-    final Map<String, dynamic> reservationData = {
-      'startDate': startDateTime.toIso8601String(),
-      'endDate': endDateTime.toIso8601String(),
-      'userId': 1, // MATHI HELP
-      'localId': widget.id, 
-    };
-
-    try {
-      final response = await http.post(
-        Uri.parse(url),
-        headers: {
-          'Authorization': 'Bearer ${widget.token}',
-          'Content-Type': 'application/json',
-        },
-        body: jsonEncode(reservationData),
-      );
-
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Reserva realizada con éxito')),
-        );
-      } else {
-        throw Exception('Error al realizar la reserva: ${response.statusCode}');
-      }
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error: $e')),
-      );
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
+    final SpaceProvider spaceProvider = context.read<SpaceProvider>();
+    final ReservationProvider reservationProvider = context.read<ReservationProvider>();
     return Scaffold(
       appBar: AppBar(title: const Text('Detalles')),
-      body: isLoading
-          ? const Center(child: CircularProgressIndicator())
-          : spaceDetails == null
-              ? const Center(child: Text('No se encontraron detalles para este local.'))
+      body:
+          isLoading
+              ? const Center(child: CircularProgressIndicator())
               : Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: SingleChildScrollView(
@@ -150,7 +76,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Image.network(
-                          spaceDetails!.photoUrl,
+                          spaceProvider.spaceSelected!.photoUrl,
                           height: 200,
                           width: double.infinity,
                           fit: BoxFit.cover,
@@ -165,7 +91,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         ),
                         const SizedBox(height: 16.0),
                         Text(
-                          spaceDetails!.localName,
+                          spaceProvider.spaceSelected!.localName,
                           style: const TextStyle(
                             fontSize: 24.0,
                             fontWeight: FontWeight.bold,
@@ -174,23 +100,23 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         ),
                         const SizedBox(height: 8.0),
                         Text(
-                          spaceDetails!.cityPlace,
+                          spaceProvider.spaceSelected!.cityPlace,
                           style: const TextStyle(fontSize: 16.0, color: Colors.black),
                         ),
                         const SizedBox(height: 16.0),
                         Text(
-                          'Capacidad: ${spaceDetails!.capacity} personas',
+                          'Capacidad: ${spaceProvider.spaceSelected!.capacity} personas',
                           style: const TextStyle(fontSize: 16.0, color: Colors.black),
                         ),
                         const SizedBox(height: 8.0),
                         Text(
-                          'Precio por noche: S/. ${spaceDetails!.nightPrice}',
+                          'Precio por noche: S/. ${spaceProvider.spaceSelected!.nightPrice}',
                           style: const TextStyle(fontSize: 16.0, color: Colors.black),
                         ),
                         const SizedBox(height: 16.0),
-                        Text(
+                        const Text(
                           'Selecciona el rango de fechas:',
-                          style: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: Colors.black),
+                          style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: Colors.black),
                         ),
                         TableCalendar(
                           locale: "es_ES",
@@ -216,16 +142,16 @@ class _DetailsScreenState extends State<DetailsScreen> {
                             defaultTextStyle: const TextStyle(color: Colors.black),
                             weekendTextStyle: const TextStyle(color: Colors.red),
                             selectedTextStyle: const TextStyle(color: Colors.white),
-                            rangeStartDecoration: BoxDecoration(
+                            rangeStartDecoration: const BoxDecoration(
                               color: Colors.orangeAccent,
                               shape: BoxShape.circle,
                             ),
-                            rangeEndDecoration: BoxDecoration(
+                            rangeEndDecoration: const BoxDecoration(
                               color: Colors.orangeAccent,
                               shape: BoxShape.circle,
                             ),
                             rangeHighlightColor: Colors.orange.shade100,
-                            todayDecoration: BoxDecoration(
+                            todayDecoration: const BoxDecoration(
                               color: Colors.blueAccent,
                               shape: BoxShape.circle,
                             ),
@@ -297,13 +223,50 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         ),
                         const SizedBox(height: 16.0),
                        ElevatedButton(
-                          onPressed: _makeReservation,
-                          child: const Text('Reservar'),
+                          onPressed: () async {
+                            if (_startDay == null || _endDay == null || _startTime == null || _endTime == null) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text('Por favor selecciona las fechas y horas de inicio y fin válidas')),
+                              );
+                              return;
+                            }
+                            final startDateTime = DateTime(
+                              _startDay!.year,
+                              _startDay!.month,
+                              _startDay!.day,
+                              _startTime!.hour,
+                              _startTime!.minute,
+                            );
+
+                            final endDateTime = DateTime(
+                              _endDay!.year,
+                              _endDay!.month,
+                              _endDay!.day,
+                              _endTime!.hour,
+                              _endTime!.minute,
+                            );
+                            try {
+                              await reservationProvider.createReservation(
+                                spaceProvider.spaceSelected!.userId,
+                                spaceProvider.spaceSelected!.id,
+                                startDateTime.toIso8601String(),
+                                endDateTime.toIso8601String(),
+                              );
+
+                            } finally{
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text('Reserva realizada con éxito')),
+                              );
+                            }
+
+
+                          },
                           style: ElevatedButton.styleFrom(
                             minimumSize: const Size(double.infinity, 50),
                             backgroundColor: Colors.orange, 
                             foregroundColor: Colors.white,  
                           ),
+                          child: const Text('Reservar'),
                         )
 
                       ],

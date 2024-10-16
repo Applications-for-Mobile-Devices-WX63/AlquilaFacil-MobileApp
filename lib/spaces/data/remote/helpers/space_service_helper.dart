@@ -100,6 +100,28 @@ class SpaceServiceHelper extends SpaceService{
     return parsedRanges;
   }
 
+  @override
+  Future<Space> getSpaceById(int id) async {
+    var client = HttpClient();
+    try{
+      var url = Uri.parse('${Constant.BASE_URL}${Constant.RESOURCE_PATH}locals/$id');
+      var token = signInProvider.token;
+      var request = await client.getUrl(url);
+      request.headers.set(HttpHeaders.authorizationHeader, "Bearer $token");
+      var response = await request.close();
+      if(response.statusCode == HttpStatus.ok){
+        var responseBody = await response.transform(utf8.decoder).join();
+        final json = jsonDecode(responseBody);
+        return Space.fromJson(json);
+      } else{
+        throw Exception(errorMessageHandler.reject(response.statusCode));
+      }
+
+    } finally{
+      client.close();
+    }
+  }
+
 
 
 

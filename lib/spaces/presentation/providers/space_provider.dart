@@ -83,4 +83,9 @@ class SpaceProvider extends ChangeNotifier{
     spaceSelected = currentSpaceSelected;
     notifyListeners();
   }
+
+  Future<void> fetchSpaceById(int id) async{
+    spaceSelected = await spaceService.getSpaceById(id);
+    notifyListeners();
+  }
 }

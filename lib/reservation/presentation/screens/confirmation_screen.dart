@@ -1,6 +1,7 @@
 import 'package:alquilafacil/public/presentation/widgets/screen_bottom_app_bar.dart';
-import 'package:alquilafacil/reservation/model/reservation_arguments.dart';
 import 'package:flutter/material.dart';
+
+import '../../domain/model/reservation_arguments.dart';
 
 class ConfirmationScreen extends StatelessWidget {
 

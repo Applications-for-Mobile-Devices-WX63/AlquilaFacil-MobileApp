@@ -6,14 +6,14 @@ class SpaceCard extends StatelessWidget {
   final String location;
   final String price;
   final String imageUrl;
-  final int id; 
+  final int id;
 
   const SpaceCard({
     Key? key,
     required this.location,
     required this.price,
     required this.imageUrl,
-    required this.id, 
+    required this.id,
   }) : super(key: key);
 
   @override
@@ -23,7 +23,7 @@ class SpaceCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => DetailsScreen(id: id, token: "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjkyMjAzMDUsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL3NpZCI6IjEiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoicm9kMmFjIiwiaWF0IjoxNzI4NjE1NTA1LCJuYmYiOjE3Mjg2MTU1MDV9.hZrBDnxeemGSFfOR020zDGFCL02JA5c7kVoLXBJBALw"),
+            builder: (context) => DetailsScreen(localId: id),
           ),
         );
       },
@@ -87,7 +87,7 @@ class SpaceCard extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => DetailsScreen(id: id, token: "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjkyMjAzMDUsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL3NpZCI6IjEiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoicm9kMmFjIiwiaWF0IjoxNzI4NjE1NTA1LCJuYmYiOjE3Mjg2MTU1MDV9.hZrBDnxeemGSFfOR020zDGFCL02JA5c7kVoLXBJBALw"),
+                          builder: (context) => DetailsScreen(localId: id),
                         ),
                       );
                     },

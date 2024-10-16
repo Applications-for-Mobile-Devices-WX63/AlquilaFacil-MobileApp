@@ -1,3 +1,4 @@
+import 'package:alquilafacil/public/presentation/widgets/screen_bottom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -106,7 +107,6 @@ class _ReservationScreen extends State<ReservationScreen> {
                     onPressed: () => _selectTime(context, true),
                     child: Text(startTime != null ? startTime!.format(context) : "Hora de inicio"),
                   ),
-                  const Text(" - "),
                   ElevatedButton(
                     onPressed: () => _selectTime(context, false),
                     child: Text(endTime != null ? endTime!.format(context) : "Hora de fin"),
@@ -144,12 +144,6 @@ class _ReservationScreen extends State<ReservationScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomAppBar(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Text('Reservas - Pie de página'),
-        ),
-      ),
-    );
+      bottomNavigationBar: const ScreenBottomAppBar());
   }
 }
