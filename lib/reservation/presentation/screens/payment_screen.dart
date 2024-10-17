@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_paypal_payment/flutter_paypal_payment.dart';
 import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
@@ -59,7 +60,13 @@ class PaymentScreen extends StatelessWidget {
           onSuccess: (Map params) async {
             // Handle successful payment
             Logger().i("Payment Success: $params");
-            await reservationProvider.createReservation(userId, localId, startDate, endDate);
+            try{
+              await reservationProvider.createReservation(userId, localId, startDate, endDate);
+            } finally{
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Reserva realizada con éxito')),
+              );
+            }
             Navigator.pop(context);
           },
           onError: (error) {

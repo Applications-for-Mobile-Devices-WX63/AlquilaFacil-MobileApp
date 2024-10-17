@@ -246,7 +246,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               _endTime!.hour,
                               _endTime!.minute,
                             );
-                            try {
                              Navigator.of(context).push(
                                  MaterialPageRoute(
                                      builder: (BuildContext context) => PaymentScreen(
@@ -258,12 +257,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                        localId:  spaceProvider.spaceSelected!.id,
                                      ))
                              );
-
-                            } finally{
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text('Reserva realizada con éxito')),
-                              );
-                            }
 
 
                           },
