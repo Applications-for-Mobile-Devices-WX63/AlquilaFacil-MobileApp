@@ -1,4 +1,5 @@
 
+import 'package:alquilafacil/reservation/presentation/screens/payment_screen.dart';
 import 'package:alquilafacil/spaces/presentation/providers/space_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -246,12 +247,17 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               _endTime!.minute,
                             );
                             try {
-                              await reservationProvider.createReservation(
-                                spaceProvider.spaceSelected!.userId,
-                                spaceProvider.spaceSelected!.id,
-                                startDateTime.toIso8601String(),
-                                endDateTime.toIso8601String(),
-                              );
+                             Navigator.of(context).push(
+                                 MaterialPageRoute(
+                                     builder: (BuildContext context) => PaymentScreen(
+                                       amount: spaceProvider.spaceSelected!.nightPrice,
+                                       startDate: startDateTime.toIso8601String(),
+                                       endDate:  endDateTime.toIso8601String(),
+                                       localName: spaceProvider.spaceSelected!.localName,
+                                       userId:  spaceProvider.spaceSelected!.userId,
+                                       localId:  spaceProvider.spaceSelected!.id,
+                                     ))
+                             );
 
                             } finally{
                               ScaffoldMessenger.of(context).showSnackBar(
