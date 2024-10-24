@@ -10,10 +10,13 @@ import 'package:alquilafacil/profile/presentation/screens/profile_screen.dart';
 import 'package:alquilafacil/public/ui/theme/main_theme.dart';
 import 'package:alquilafacil/reservation/data/remote/helpers/reservation_service_helper.dart';
 import 'package:alquilafacil/reservation/presentation/providers/reservation_provider.dart';
+import 'package:alquilafacil/spaces/data/remote/helpers/comment_service_helper.dart';
 import 'package:alquilafacil/spaces/data/remote/helpers/local_categories_service_helper.dart';
 import 'package:alquilafacil/spaces/data/remote/helpers/space_service_helper.dart';
+import 'package:alquilafacil/spaces/presentation/providers/comment_provider.dart';
 import 'package:alquilafacil/spaces/presentation/providers/local_category_provider.dart';
 import 'package:alquilafacil/spaces/presentation/providers/space_provider.dart';
+import 'package:alquilafacil/spaces/presentation/screens/comments_screen.dart';
 import 'package:alquilafacil/spaces/presentation/screens/filter_screen.dart';
 import 'package:alquilafacil/spaces/presentation/screens/space_info.dart';
 import 'package:alquilafacil/spaces/presentation/screens/spaces_details.dart';
@@ -63,6 +66,11 @@ class MyApp extends StatelessWidget {
           update: (context, signInProvider, previousReservationProvider) =>
               ReservationProvider(ReservationServiceHelper(signInProvider))
         ),
+        ChangeNotifierProxyProvider<SignInProvider,CommentProvider>(
+            create: (_) => CommentProvider(CommentServiceHelper(SignInProvider(authServiceHelper))),
+            update: (context, signInProvider, previousCommentProvider) =>
+                CommentProvider(CommentServiceHelper(signInProvider))
+        ),
       ],
       child: MaterialApp(
         theme: MainTheme.lightTheme,
@@ -78,7 +86,8 @@ class MyApp extends StatelessWidget {
           "/notifications": (context) => const NotificationsScreen(),
           "/calendar": (context) => const CalendarScreen(),
           "/profile": (context) => const ProfileScreen(),
-          "/space-info": (context) => const SpaceInfo()
+          "/space-info": (context) => const SpaceInfo(),
+          "/comments": (context) => const CommentsScreen()
           //"/detail-space": (context) => const ReservationScreen(),
         },
         debugShowCheckedModeBanner: false,
