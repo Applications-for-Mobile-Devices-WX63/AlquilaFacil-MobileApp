@@ -4,7 +4,7 @@ import 'package:flutter_rating/flutter_rating.dart';
 class SpaceComment extends StatelessWidget {
   final String author;
   final String text;
-  final double rating;
+  final int rating;
 
   const SpaceComment({
     super.key,
@@ -48,7 +48,7 @@ class SpaceComment extends StatelessWidget {
                     ),
                     const SizedBox(width: 10),
                     StarRating(
-                        rating: rating,
+                        starCount: rating,
                         allowHalfRating: false,
                         color: Colors.orangeAccent),
                   ],

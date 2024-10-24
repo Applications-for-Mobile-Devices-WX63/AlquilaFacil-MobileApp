@@ -1,70 +1,62 @@
-/*import 'package:alquilafacil/profile/domain/model/user.dart';
+import 'package:alquilafacil/auth/presentation/screens/login.dart';
+import 'package:alquilafacil/profile/domain/model/user.dart';
+import 'package:alquilafacil/profile/presentation/providers/pofile_provider.dart';
 import 'package:alquilafacil/public/presentation/widgets/screen_bottom_app_bar.dart';
+import 'package:alquilafacil/spaces/data/remote/helpers/comment_service_helper.dart';
 import 'package:alquilafacil/spaces/domain/model/comment.dart';
+import 'package:alquilafacil/spaces/presentation/providers/comment_provider.dart';
+import 'package:alquilafacil/spaces/presentation/providers/space_provider.dart';
 import 'package:alquilafacil/spaces/presentation/widgets/space_comment.dart'; // Asegúrate de que esto esté bien importado
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
+import 'package:provider/provider.dart';
 
 //import '../../../profile/data/local/services/users_service.dart';
 import '../../data/remote/services/comments_service.dart';
 
 
 class CommentsScreen extends StatefulWidget {
-  CommentsScreen({super.key});
+  const CommentsScreen({super.key});
 
   @override
-  _CommentsScreenState createState() => _CommentsScreenState();
+  State<StatefulWidget> createState() => _CommentsScreenState();
 }
 
 class _CommentsScreenState extends State<CommentsScreen> {
-  final CommentService commentService = CommentService();
-  //final UserService userService = UserService();
-  List<Comment> comments = [];
-  int? spaceId;
 
   @override
   void initState() {
     super.initState();
+    var logger = Logger();
+    final commentProvider = context.read<CommentProvider>();
+    final spaceProvider = context.read<SpaceProvider>();
+    final profileProvider = context.read<ProfileProvider>();
+    var authorIds = [];
+    () async {
+      logger.v(spaceProvider.spaceSelected!.id);
+      await commentProvider.getAllCommentsBySpaceId(spaceProvider.spaceSelected!.id);
+      for (int i = 0; i < commentProvider.comments.length; i++){
+        authorIds.add(commentProvider.comments[i].authorId);
+      }
+      await profileProvider.fetchUsernamesExpect(authorIds);
+      for (int i = 0; i < profileProvider.usernamesExpect.length; i++){
+        commentProvider.comments[i].authorName = profileProvider.usernamesExpect[i];
+      }
+    }();
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _loadComments();
   }
-
-  Future<void> _loadComments() async {
-    // Access the ModalRoute here
-    final int id = ModalRoute.of(context)!.settings.arguments as int;
-    setState(() {
-      spaceId = id;
-    });
-    try {
-      await commentService.init();
-      //await userService.init(); // Inicializa el UserService
-      List<Comment> loadedComments =
-          await commentService.getCommentsBySpaceId(spaceId!);
-      setState(() {
-        comments = loadedComments;
-      });
-    } catch (e) {
-      // Manejo de errores al cargar comentarios
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error al cargar los comentarios: $e')),
-      );
-    }
-  }
-
-  //Future<String> _getAuthorName(int authorId) async {
-    //User? user = await userService.getUserById(authorId);
-    //return user?.name ??
-     //  'Desconocido'; // Retorna 'Desconocido' si no se encuentra el usuario
-  //}
 
   @override
   Widget build(BuildContext context) {
+    final commentProvider = context.watch<CommentProvider>();
+    final profileProvider = context.watch<ProfileProvider>();
     return Scaffold(
       appBar: AppBar(
-        title: Text('Comentarios'),
+        title: const Text('Comentarios'),
         leading: Container(
           margin: const EdgeInsets.symmetric(horizontal: 10.0),
           decoration: const BoxDecoration(
@@ -83,30 +75,15 @@ class _CommentsScreenState extends State<CommentsScreen> {
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
           child: Column(
-            children: comments.map((comment) {
-              return *//*FutureBuilder<String>(
-                future: _getAuthorName(comment.authorId),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const CircularProgressIndicator(); // Muestra un indicador de carga
-                  } else if (snapshot.hasError) {
-                    return Text('Error al cargar el autor: ${snapshot.error}');
-                  } else {
-                    String authorName = snapshot.data ?? 'Desconocido';
-                    return SpaceComment(
-                      // Asegúrate de que estás usando el widget correcto para mostrar comentarios
-                      author: authorName,
+            children: commentProvider.comments.map((comment) =>
+                SpaceComment(
+                      author: comment.authorName,
                       text: comment.text,
                       rating: comment.rating,
-                    );
-                  }
-                },
-              );
-            }).toList(),*//*
-          ),
-        ),
-      ),
-      bottomNavigationBar: const ScreenBottomAppBar(),
+                )).toList(),
+          )
+        )
+      )
     );
-  }*/
-//}
+  }
+}
