@@ -3,7 +3,8 @@ class Comment {
   final int authorId;
   final int spaceId;
   final String text;
-  final double rating;
+  final int rating;
+  String authorName;
 
   Comment({
     required this.id,
@@ -11,15 +12,16 @@ class Comment {
     required this.spaceId,
     required this.text,
     required this.rating,
+    this.authorName = ""
   });
 
   factory Comment.fromJson(Map<String, dynamic> json) {
     return Comment(
       id: json['id'],
-      authorId: json['authorId'],
-      spaceId: json['spaceId'],
+      authorId: json['userId'],
+      spaceId: json['localId'],
       text: json['text'],
-      rating: json['rating'].toDouble(),
+      rating: json['rating'],
     );
   }
 
