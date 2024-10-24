@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:alquilafacil/public/presentation/widgets/screen_bottom_app_bar.dart';
 
+import '../../../public/ui/theme/main_theme.dart';
 import '../providers/reservation_provider.dart';
 
 class DetailsScreen extends StatefulWidget {
@@ -266,6 +267,15 @@ class _DetailsScreenState extends State<DetailsScreen> {
                             foregroundColor: Colors.white,  
                           ),
                           child: const Text('Reservar'),
+                        ),
+                        const SizedBox(height: 30,),
+                        TextButton(
+                            onPressed: () => Navigator.pushNamed(context, "/comments"),
+                            child: Text("Comentarios >",
+                                style: TextStyle(
+                                  color: MainTheme.primary,
+                                )
+                            )
                         )
 
                       ],
