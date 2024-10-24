@@ -14,14 +14,14 @@ import 'package:alquilafacil/spaces/data/remote/helpers/comment_service_helper.d
 import 'package:alquilafacil/spaces/data/remote/helpers/local_categories_service_helper.dart';
 import 'package:alquilafacil/spaces/data/remote/helpers/space_service_helper.dart';
 import 'package:alquilafacil/spaces/presentation/providers/comment_provider.dart';
-import 'package:alquilafacil/spaces/presentation/providers/local_category_provider.dart';
+import 'package:alquilafacil/spaces/presentation/providers/local_categories_provider.dart';
 import 'package:alquilafacil/spaces/presentation/providers/space_provider.dart';
 import 'package:alquilafacil/spaces/presentation/screens/comments_screen.dart';
 import 'package:alquilafacil/spaces/presentation/screens/filter_screen.dart';
+import 'package:alquilafacil/spaces/presentation/screens/register_space_steps_screen.dart';
 import 'package:alquilafacil/spaces/presentation/screens/space_info.dart';
 import 'package:alquilafacil/spaces/presentation/screens/spaces_details.dart';
 import 'package:alquilafacil/spaces/presentation/screens/filter_spaces_district.dart';
-import 'package:alquilafacil/spaces/presentation/screens/register_space_steps.dart';
 import 'package:alquilafacil/spaces/presentation/screens/search_spaces.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -51,10 +51,10 @@ class MyApp extends StatelessWidget {
           update: (context, signInProvider, previousSpaceProvider) =>
               SpaceProvider(SpaceServiceHelper(signInProvider)),
         ),
-        ChangeNotifierProxyProvider<SignInProvider, LocalCategoryProvider>(
-          create: (_) => LocalCategoryProvider(LocalCategoriesServiceHelper(SignInProvider(authServiceHelper))),
-          update: (context, signInProvider, previousLocalCategoryProvider) => 
-            LocalCategoryProvider(LocalCategoriesServiceHelper(signInProvider))
+        ChangeNotifierProxyProvider<SignInProvider, LocalCategoriesProvider>(
+          create: (_) => LocalCategoriesProvider(LocalCategoriesServiceHelper(SignInProvider(authServiceHelper))),
+          update: (context, signInProvider, previousLocalCategoryProvider) =>
+              LocalCategoriesProvider(LocalCategoriesServiceHelper(signInProvider))
         ),
         ChangeNotifierProxyProvider<SignInProvider,ProfileProvider>(
           create: (_) => ProfileProvider(UserServiceHelper(SignInProvider(authServiceHelper))),
@@ -79,7 +79,7 @@ class MyApp extends StatelessWidget {
           "/login": (context) => const Login(),
           "/sign-up": (context) => const Register(),
           "/search-space": (context) => const SearchSpaces(),
-          "/tutorial-space": (context) => const RegisterSpaceSteps(),
+          "/tutorial-space": (context) => const RegisterSpaceStepsScreen(),
           "/filter-spaces": (context) => const FilterSpacesDistrict(),
           "/spaces-details": (context) => const SpacesDetails(),
           "/filter-screen": (context) => const FilterScreen(),

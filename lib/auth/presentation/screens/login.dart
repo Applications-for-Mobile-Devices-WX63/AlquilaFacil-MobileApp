@@ -1,10 +1,8 @@
 import 'package:alquilafacil/auth/presentation/providers/SignInPovider.dart';
-import 'package:alquilafacil/public/presentation/widgets/screen_bottom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../public/ui/theme/main_theme.dart';
 import '../widgets/auth_text_field.dart';
-import '../widgets/condition_terms.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});

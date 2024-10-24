@@ -1,13 +1,15 @@
 class Space {
   final int id;
   final String streetAddress;
+  final String district;
   final String localName;
   final String cityPlace;
+  final String country;
   final double nightPrice;
   final String photoUrl;
   final String descriptionMessage;
   final int localCategoryId;
-  final int userId;
+  late  int userId;
   final String features;
   final int capacity;
 
@@ -23,6 +25,8 @@ class Space {
     required this.userId,
     required this.features,
     required this.capacity,
+    this.district = '',
+    this.country = '',
   });
 
   factory Space.fromJson(Map<String, dynamic> json) {
@@ -43,12 +47,12 @@ class Space {
 
   Map<String, dynamic> toJson() {
     return {
-      'district': streetAddress.split(", ")[1],
-      'street': streetAddress.split(", ")[0],
+      'district': district,
+      'street': streetAddress,
       'localName': localName,
-      'country': cityPlace.split(", ")[1],
-      'city': cityPlace.split(", ")[0],
-      'price': nightPrice,
+      'country': country,
+      'city': cityPlace,
+      'price': nightPrice.toInt(),
       'photoUrl': photoUrl,
       'descriptionMessage': descriptionMessage,
       'localCategoryId': localCategoryId,

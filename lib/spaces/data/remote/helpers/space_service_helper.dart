@@ -1,12 +1,11 @@
 import 'dart:collection';
 import 'dart:convert';
-import 'dart:ffi';
 import 'dart:io';
+import 'package:http/http.dart' as http;
 
 import 'package:alquilafacil/auth/presentation/providers/SignInPovider.dart';
 import 'package:alquilafacil/shared/handlers/concrete_response_message_handler.dart';
 import 'package:alquilafacil/spaces/data/remote/services/spaces_service.dart';
-import 'package:alquilafacil/spaces/presentation/providers/local_category_provider.dart';
 import 'package:logger/logger.dart';
 
 import '../../../../shared/constants/constant.dart';
@@ -122,10 +121,86 @@ class SpaceServiceHelper extends SpaceService{
     }
   }
 
+  @override
+  Future<String> createSpace(Space space) async {
+    var client = HttpClient();
+    try {
+      var url = Uri.parse("${Constant.BASE_URL}${Constant.RESOURCE_PATH}locals");
+      var token = signInProvider.token;
+      String userId = _getUserIdFromToken(token);
+      space.userId = int.parse(userId);
+      var request = await client.postUrl(url);
+      request.headers.set(HttpHeaders.contentTypeHeader, "application/json");
+      request.headers.set(HttpHeaders.authorizationHeader, "Bearer $token");
 
+      var requestBody = jsonEncode(space.toJson());
+      request.add(utf8.encode(requestBody));
+      var response = await request.close();
 
+      if (response.statusCode == HttpStatus.created) {
+        return "Espacio creado exitosamente";
+      } else {
+        throw Exception(errorMessageHandler.reject(response.statusCode));
+      }
+    } finally {
+      client.close();
+    }
+  }
 
+  @override
+  Future<String> uploadImage(File image) async {
+    const String cloudName = "ducsr2p2w";
+    const String uploadPreset = "ml_default";
 
+    try {
+      final uri = Uri.parse("https://api.cloudinary.com/v1_1/$cloudName/upload");
+      var request = http.MultipartRequest('POST', uri);
+      request.fields['upload_preset'] = uploadPreset;
+      request.files.add(await http.MultipartFile.fromPath('file', image.path));
+      var response = await request.send();
+      if (response.statusCode == 200) {
+      var responseData = await http.Response.fromStream(response);
+      var jsonData = json.decode(responseData.body);
+      return jsonData['secure_url'];
+      } else {
+      throw Exception("Error al subir la imagen a Cloudinary: ${response.statusCode}, ${response.reasonPhrase}");
+      }
+      } finally {
+      image.delete();
+      }
+  }
 
+String _getUserIdFromToken(String token) {
+  // Dividir el token en partes
+  List<String> parts = token.split('.');
 
+  // Verificar que haya al menos 2 partes
+  if (parts.length < 2) {
+    throw Exception('Token no válido');
+  }
+
+  // Decodificar el cuerpo del token (segunda parte)
+  String payload = parts[1];
+
+  // Rellenar el padding si es necesario
+  switch (payload.length % 4) {
+    case 2:
+      payload += '==';
+      break;
+    case 3:
+      payload += '=';
+      break;
+  }
+
+  // Decodificar Base64
+  String decodedPayload = utf8.decode(base64Url.decode(payload));
+
+  // Convertir a Map
+  Map<String, dynamic> claims = jsonDecode(decodedPayload);
+
+  // Obtener el ID de usuario
+  String userId = claims['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/sid'];
+
+  return userId;
+}
 }

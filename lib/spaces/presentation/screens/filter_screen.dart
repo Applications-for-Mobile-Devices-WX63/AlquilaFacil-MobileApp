@@ -1,6 +1,6 @@
 import 'package:alquilafacil/public/presentation/widgets/screen_bottom_app_bar.dart';
 import 'package:alquilafacil/public/ui/theme/main_theme.dart';
-import 'package:alquilafacil/spaces/presentation/providers/local_category_provider.dart';
+import 'package:alquilafacil/spaces/presentation/providers/local_categories_provider.dart';
 import 'package:alquilafacil/spaces/presentation/providers/space_provider.dart';
 import 'package:alquilafacil/spaces/presentation/widgets/capacity_filters.dart';
 import 'package:flutter/material.dart';
@@ -60,14 +60,14 @@ class _FilterScreenState extends State<FilterScreen>{
   @override
   void initState(){
     super.initState();
-    final localCategoryProvider = context.read<LocalCategoryProvider>();
+    final localCategoryProvider = context.read<LocalCategoriesProvider>();
     () async {
       await localCategoryProvider.getAllLocalCategories();
     }();
   }
   @override
   Widget build(BuildContext context) {
-    final localCategoryProvider = context.watch<LocalCategoryProvider>();
+    final localCategoryProvider = context.watch<LocalCategoriesProvider>();
     final spaceProvider = context.watch<SpaceProvider>();
     final ranges = ["5-10","10-25","25-50","50-100"];
     return Scaffold(

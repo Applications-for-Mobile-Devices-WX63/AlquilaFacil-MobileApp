@@ -1,5 +1,7 @@
 
 
+import 'dart:io';
+
 import 'package:alquilafacil/spaces/data/remote/helpers/space_service_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:logger/logger.dart';
@@ -19,6 +21,7 @@ class SpaceProvider extends ChangeNotifier{
   int categorySelected = 0;
   String cityPlace= "";
   Space? spaceSelected;
+  String spacePhotoUrl = "";
   var logger = Logger();
   SpaceProvider(this.spaceService);
 
@@ -86,6 +89,25 @@ class SpaceProvider extends ChangeNotifier{
 
   Future<void> fetchSpaceById(int id) async{
     spaceSelected = await spaceService.getSpaceById(id);
+    notifyListeners();
+  }
+
+  Future<void> uploadImage(File image) async {
+    try {
+      spacePhotoUrl = await spaceService.uploadImage(image);
+    } catch (e){
+      logger.e("Error while trying to upload image, please check the service request", e);
+    }
+    notifyListeners();
+  }
+
+  Future<void> createSpace(Space space) async {
+    try {
+      logger.i("Creating space with the following data: $space");
+      await spaceService.createSpace(space);
+    } catch (e){
+      logger.e("Error while trying to create space, please check the service request", e);
+    }
     notifyListeners();
   }
 }
