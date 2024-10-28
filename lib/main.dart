@@ -19,7 +19,7 @@ import 'package:alquilafacil/spaces/presentation/providers/space_provider.dart';
 import 'package:alquilafacil/spaces/presentation/screens/comments_screen.dart';
 import 'package:alquilafacil/spaces/presentation/screens/filter_screen.dart';
 import 'package:alquilafacil/spaces/presentation/screens/register_space_steps_screen.dart';
-import 'package:alquilafacil/spaces/presentation/screens/space_info.dart';
+import 'package:alquilafacil/reservation/presentation/screens/space_info.dart';
 import 'package:alquilafacil/spaces/presentation/screens/spaces_details.dart';
 import 'package:alquilafacil/spaces/presentation/screens/filter_spaces_district.dart';
 import 'package:alquilafacil/spaces/presentation/screens/search_spaces.dart';

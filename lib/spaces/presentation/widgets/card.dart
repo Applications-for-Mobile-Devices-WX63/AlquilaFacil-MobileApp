@@ -1,6 +1,11 @@
-import 'package:alquilafacil/reservation/presentation/screens/details_screen.dart';
+
 import 'package:alquilafacil/public/ui/theme/main_theme.dart';
+import 'package:alquilafacil/reservation/presentation/screens/space_info.dart';
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/space_provider.dart';
 
 class SpaceCard extends StatelessWidget {
   final String location;
@@ -9,21 +14,23 @@ class SpaceCard extends StatelessWidget {
   final int id;
 
   const SpaceCard({
-    Key? key,
+    super.key,
     required this.location,
     required this.price,
     required this.imageUrl,
     required this.id,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
+    final spaceProvider = context.watch<SpaceProvider>();
     return GestureDetector(
-      onTap: () {
+      onTap: () async {
+        await spaceProvider.fetchSpaceById(id);
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => DetailsScreen(localId: id),
+            builder: (context) => const SpaceInfo(),
           ),
         );
       },
@@ -83,13 +90,8 @@ class SpaceCard extends StatelessWidget {
                   ),
                   const SizedBox(width: 10),
                   IconButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => DetailsScreen(localId: id),
-                        ),
-                      );
+                    onPressed: ()  {
+
                     },
                     icon: const Icon(Icons.star),
                     color: Colors.orange,
