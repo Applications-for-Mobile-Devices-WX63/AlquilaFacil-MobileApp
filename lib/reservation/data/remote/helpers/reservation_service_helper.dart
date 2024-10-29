@@ -31,10 +31,10 @@ class ReservationServiceHelper extends ReservationService{
       request.add(utf8.encode(requestBody));
       Logger().i("$userId, $localId, $startDate, $endDate");
       var response = await request.close();
-      if (response.statusCode == HttpStatus.ok){
+      if (response.statusCode == HttpStatus.created){
         Logger().i("Reservation added");
       }else{
-        throw Exception(errorMessageHandler.reject(response.statusCode));
+        throw Exception("${errorMessageHandler.reject(response.statusCode)} ${response.statusCode}");
       }
 
     } finally{

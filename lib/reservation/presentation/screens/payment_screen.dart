@@ -1,3 +1,4 @@
+import 'package:alquilafacil/notification/presentation/providers/notification_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_paypal_payment/flutter_paypal_payment.dart';
@@ -26,8 +27,8 @@ class PaymentScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ReservationProvider reservationProvider = context.read<ReservationProvider>();
-
+    final  reservationProvider = context.watch<ReservationProvider>();
+    final notificationProvider = context.watch<NotificationProvider>();
     return CupertinoPageScaffold(
       navigationBar: const CupertinoNavigationBar(
         middle: Text('Finaliza el pago de tu reserva'),
@@ -62,6 +63,11 @@ class PaymentScreen extends StatelessWidget {
             Logger().i("Payment Success: $params");
             try{
               await reservationProvider.createReservation(userId, localId, startDate, endDate);
+              await notificationProvider.createNotification(
+                  "Reserva realizada al espacio $localName",
+                  "Uno de tus espacios acaba de ser reservado",
+                  userId
+              );
             } finally{
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text('Reserva realizada con éxito')),

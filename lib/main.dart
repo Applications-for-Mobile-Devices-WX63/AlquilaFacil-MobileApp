@@ -3,6 +3,8 @@ import 'package:alquilafacil/auth/presentation/providers/ConditionTermsProvider.
 import 'package:alquilafacil/auth/presentation/providers/SignInPovider.dart';
 import 'package:alquilafacil/auth/presentation/providers/SignUpProvider.dart';
 import 'package:alquilafacil/contact/presentation/screens/notifications_screen.dart';
+import 'package:alquilafacil/notification/data/remote/helpers/notification_service_helper.dart';
+import 'package:alquilafacil/notification/presentation/providers/notification_provider.dart';
 import 'package:alquilafacil/profile/data/remote/helpers/user_service_helper.dart';
 import 'package:alquilafacil/profile/presentation/providers/pofile_provider.dart';
 import 'package:alquilafacil/profile/presentation/screens/calendar_screen.dart';
@@ -46,6 +48,12 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => SignInProvider(authServiceHelper)),
         ChangeNotifierProvider(create: (_) => SignUpProvider(authServiceHelper)),
         ChangeNotifierProvider(create: (_) => ConditionTermsProvider()),
+
+        ChangeNotifierProxyProvider<SignInProvider, NotificationProvider>(
+            create: (_) => NotificationProvider(NotificationServiceHelper(SignInProvider(authServiceHelper))),
+             update: (context, sigInProvider, previousNotificationProvider) =>
+                 NotificationProvider(NotificationServiceHelper(sigInProvider)),
+        ),
         ChangeNotifierProxyProvider<SignInProvider, SpaceProvider>(
           create: (_) => SpaceProvider(SpaceServiceHelper(SignInProvider(authServiceHelper))),
           update: (context, signInProvider, previousSpaceProvider) =>

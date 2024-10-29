@@ -10,9 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
-
 import '../../../public/ui/theme/main_theme.dart';
-import '../providers/reservation_provider.dart';
 import 'payment_screen.dart';
 
 class SpaceInfo extends StatefulWidget {
