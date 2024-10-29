@@ -8,6 +8,7 @@ class SignInProvider extends ChangeNotifier with AuthFilter {
   String email = "";
   String password = "";
   String token = "";
+  int userId = 0;
   final AuthServiceHelper authServiceHelper;
   SignInProvider(this.authServiceHelper);
   @override
@@ -38,6 +39,11 @@ class SignInProvider extends ChangeNotifier with AuthFilter {
     notifyListeners();
   }
 
+  void setUserId(int id){
+    userId = id;
+    notifyListeners();
+  }
+
   void setToken(String newToken) {
     token = newToken;
     notifyListeners();
@@ -50,8 +56,9 @@ class SignInProvider extends ChangeNotifier with AuthFilter {
 
 
   Future<void> signIn() async {
-    var tokenResponse = await authServiceHelper.signIn(email, password);
-    setToken(tokenResponse);
+    var json = await authServiceHelper.signIn(email, password);
+    setToken(json["token"]);
+    setUserId(json["id"]);
     notifyListeners();
   }
 }

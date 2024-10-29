@@ -11,7 +11,7 @@ class AlertNotification{
   factory AlertNotification.fromJson(Map<String, dynamic> json){
     return AlertNotification(
         title: json["title"],
-        description: json["description"],
+        description: json["content"],
         userId: json["userId"]
     );
   }
@@ -19,7 +19,7 @@ class AlertNotification{
   Map<String, dynamic> toJson(){
     final Map<String, dynamic> json = {
       "title": title,
-      "description": description,
+      "content": description,
       "userId": userId
     };
     return json;

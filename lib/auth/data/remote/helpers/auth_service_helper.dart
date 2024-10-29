@@ -8,7 +8,7 @@ import 'package:alquilafacil/shared/handlers/concrete_response_message_handler.d
 class AuthServiceHelper extends AuthService{
   var messageHandler = ConcreteResponseMessageHandler();
   @override
-  Future<String> signIn(String email, String password) async {
+  Future<Map<String, dynamic>> signIn(String email, String password) async {
     var client = HttpClient();
     try {
       var url = Uri.parse(Constant.getEndpoint("authentication", "/sign-in"));
@@ -22,12 +22,10 @@ class AuthServiceHelper extends AuthService{
       var response = await request.close();
       if (response.statusCode == HttpStatus.ok) {
         var responseBody = await response.transform(utf8.decoder).join();
-        var token = jsonDecode(responseBody)["token"];
-        return token;
+        var json = jsonDecode(responseBody);
+        return json;
       }
-      if (response.statusCode == HttpStatus.internalServerError){
-        return "";
-      }else {
+      else {
         throw Exception(messageHandler.reject(response.statusCode));
       }
     } finally {

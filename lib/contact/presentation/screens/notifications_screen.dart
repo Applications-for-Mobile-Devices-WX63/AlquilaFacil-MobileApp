@@ -1,31 +1,57 @@
+import 'package:alquilafacil/auth/presentation/providers/SignInPovider.dart';
+import 'package:alquilafacil/auth/presentation/screens/login.dart';
 import 'package:alquilafacil/contact/presentation/widgets/notification_preview.dart';
+import 'package:alquilafacil/notification/presentation/providers/notification_provider.dart';
 import 'package:alquilafacil/public/presentation/widgets/screen_bottom_app_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class NotificationsScreen extends StatelessWidget {
+
+
+
+class NotificationsScreen extends StatefulWidget {
   const NotificationsScreen({super.key});
 
   @override
+  State<NotificationsScreen> createState() => _NotificationsScreenState();
+}
+
+class _NotificationsScreenState extends State<NotificationsScreen> {
+
+  @override
+  void initState(){
+    super.initState();
+    final signInProvider = context.read<SignInProvider>();
+    final notificationProvider = context.read<NotificationProvider>();
+    () async{
+      await notificationProvider.fetchNotificationsByUserId(signInProvider.userId);
+    }();
+  }
+  @override
   Widget build(BuildContext context) {
+    final notificationProvider = context.read<NotificationProvider>();
     return Scaffold(
       appBar: AppBar(title: const Text('Notificaciones')),
-      body: const Column(
-        children: [
-          NotificationPreview(
-            title: 'Augusto quiere reservar tu espacio',
-            message: 'Augusto Pin ha mostrado interés en alquilar tu espacio',
+      body: SingleChildScrollView(
+        child: notificationProvider.notifications.isNotEmpty ? ListView.builder(
+            shrinkWrap: true,
+            itemCount: notificationProvider.notifications.length,
+            itemBuilder: (context, int index){
+              return NotificationPreview(
+                  title: notificationProvider.notifications[index].title,
+                  message: notificationProvider.notifications[index].description
+              );
+            }
+        ) : const Center(child: Text(
+            "No tienes notificaciones",
+          style: TextStyle(
+            color: Colors.black
           ),
-          NotificationPreview(
-            title: 'Nueva notificación',
-            message: 'Tienes una nueva notificación',
-          ),
-          NotificationPreview(
-            title: 'Nueva notificación',
-            message: 'Tienes una nueva notificación',
-          ),
-        ],
+          )
+        ),
       ),
       bottomNavigationBar: const ScreenBottomAppBar(),
     );
   }
 }
+

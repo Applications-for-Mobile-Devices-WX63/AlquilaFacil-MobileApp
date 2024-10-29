@@ -5,8 +5,7 @@ import 'package:alquilafacil/notification/data/remote/service/notification_servi
 import 'package:alquilafacil/notification/domain/model/alertNotification.dart';
 import 'package:alquilafacil/shared/handlers/concrete_response_message_handler.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/services.dart';
-
+import 'package:logger/logger.dart';
 import '../../../../shared/constants/constant.dart';
 
 class NotificationServiceHelper extends NotificationService{
@@ -33,13 +32,19 @@ class NotificationServiceHelper extends NotificationService{
     final url = "${Constant.BASE_URL}${Constant.RESOURCE_PATH}notification/$userId";
     final token = signInProvider.token;
     final options = Options(headers: {'Authorization': 'Bearer $token'});
+
     final response = await request.get(url, options: options);
-    if(response.statusCode != HttpStatus.ok){
+
+    if (response.statusCode != HttpStatus.ok) {
       throw Exception(errorMessageHandler.reject(response.statusCode!));
     }
-    final notifications = response.data;
-    return notifications.map((json) => AlertNotification.fromJson(json)).toList();
+    final notifications = (response.data as List)
+        .map((json) => AlertNotification.fromJson(json))
+        .toList();
 
+    Logger().d(response.data);
+    return notifications;
   }
-  
+
+
 }
