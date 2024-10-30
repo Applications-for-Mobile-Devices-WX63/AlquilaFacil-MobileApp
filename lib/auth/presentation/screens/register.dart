@@ -89,7 +89,7 @@ class Register extends StatelessWidget {
                       signUpProvider.setEmail(newValue);
                     },
                     validator: (_) {
-                      return signUpProvider.validateUsername();
+                      return signUpProvider.validateEmail();
                     },
                   ),
                   const SizedBox(height: 10),
