@@ -1,8 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:alquilafacil/auth/data/remote/helpers/auth_service_helper.dart';
 import 'package:alquilafacil/auth/presentation/providers/SignInPovider.dart';
 import 'package:alquilafacil/profile/data/remote/service/user_service.dart';
+import 'package:alquilafacil/profile/domain/model/profile.dart';
+import 'package:dio/dio.dart';
 import 'package:logger/logger.dart';
 
 import '../../../../shared/constants/constant.dart';
@@ -35,5 +38,48 @@ class UserServiceHelper extends UserService{
       client.close();
     }
   }
+
+  @override
+  Future<Profile> createProfile(String email, String password, String name, String fatherName, String motherName, String documentNumber, String dateOfBirth, String phoneNumber) async {
+    final dio = Dio();
+    final signInService = AuthServiceHelper();
+    var token = signInProvider.token;
+    int userId;
+
+    try {
+      final signInResponse = await signInService.signIn(email, password);
+      userId = signInResponse["id"];
+      token = signInResponse["token"];
+      final profileToAdd = Profile(
+        id: 0,
+        name: name,
+        phoneNumber: phoneNumber,
+        fatherName: fatherName,
+        motherName: motherName,
+        userId: userId,
+        documentNumber: documentNumber,
+        dateOfBirth: dateOfBirth,
+      ).toJson();
+
+      Logger().d(profileToAdd);
+      final options = Options(headers: {'Authorization': 'Bearer $token'});
+      final request = await dio.post(
+        "${Constant.BASE_URL}${Constant.RESOURCE_PATH}profiles",
+        data: profileToAdd,
+        options: options,
+      );
+      if (request.statusCode == HttpStatus.created) {
+        final json = request.data;
+        final profile = Profile.fromJson(json);
+        return profile;
+      } else {
+        throw Exception(errorMessageHandler.reject(request.statusCode!));
+      }
+    } catch (e) {
+      Logger().e("Error while creating profile: $e");
+      rethrow;
+    }
+  }
+
 
 }

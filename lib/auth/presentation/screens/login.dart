@@ -1,4 +1,5 @@
 import 'package:alquilafacil/auth/presentation/providers/SignInPovider.dart';
+import 'package:alquilafacil/spaces/presentation/screens/search_spaces.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../public/ui/theme/main_theme.dart';
@@ -33,9 +34,14 @@ class _LoginState extends State<Login> {
                     padding: const EdgeInsets.only(right: 10.0),
                     child: TextButton(
                       child: const Text('Confirmar'),
-                      onPressed: () {
-                        Navigator.pushNamed(context, route);
-                      },
+                       onPressed: (){
+                         Navigator.push(
+                           context,
+                           MaterialPageRoute(
+                             builder: (context) => const SearchSpaces(),
+                           ),
+                         );
+                       },
                     ),
                   ),
                   TextButton(
@@ -121,7 +127,7 @@ class _LoginState extends State<Login> {
               height: 50,
               child: TextButton(
                   onPressed: (){
-                    Navigator.pushNamed(context, "/sign-up");
+                    Navigator.pushReplacementNamed(context, "/sign-up");
                   },
                   child: const Text("Registrate")
               )
