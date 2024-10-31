@@ -22,7 +22,7 @@ class ProfileScreen extends StatelessWidget {
             children: [
               NavigationRow(
                 title: 'Modificar perfil',
-                routeName: '/search',
+                routeName: '/profile-details',
               ),
               Divider(),
               NavigationRow(

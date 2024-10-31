@@ -81,5 +81,25 @@ class UserServiceHelper extends UserService{
     }
   }
 
+  @override
+  Future<Profile> getProfileByUserId(int userId)async {
+    final dio = Dio();
+    final token = signInProvider.token;
+    final options = Options(headers: {'Authorization': 'Bearer $token'});
+    try {
+      final request = await dio.get("${Constant.BASE_URL}${Constant.RESOURCE_PATH}profiles/user/$userId", options: options);
+    if (request.statusCode == HttpStatus.ok){
+      final json = request.data;
+      final profile = Profile.fromJson(json);
+      return profile;
+    }else {
+      throw Exception(errorMessageHandler.reject(request.statusCode!));
+    }
+  } catch (e) {
+      Logger().e("Error while creating profile: $e");
+      rethrow;
+    }
+  }
+
 
 }

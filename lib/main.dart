@@ -8,6 +8,7 @@ import 'package:alquilafacil/notification/presentation/providers/notification_pr
 import 'package:alquilafacil/profile/data/remote/helpers/user_service_helper.dart';
 import 'package:alquilafacil/profile/presentation/providers/pofile_provider.dart';
 import 'package:alquilafacil/profile/presentation/screens/calendar_screen.dart';
+import 'package:alquilafacil/profile/presentation/screens/profile_details.dart';
 import 'package:alquilafacil/profile/presentation/screens/profile_screen.dart';
 import 'package:alquilafacil/public/ui/theme/main_theme.dart';
 import 'package:alquilafacil/reservation/data/remote/helpers/reservation_service_helper.dart';
@@ -95,7 +96,8 @@ class MyApp extends StatelessWidget {
           "/calendar": (context) => const CalendarScreen(),
           "/profile": (context) => const ProfileScreen(),
           "/space-info": (context) => const SpaceInfo(),
-          "/comments": (context) => const CommentsScreen()
+          "/comments": (context) => const CommentsScreen(),
+          "/profile-details": (context) => const ProfileDetails()
           //"/detail-space": (context) => const ReservationScreen(),
         },
         debugShowCheckedModeBanner: false,

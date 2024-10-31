@@ -117,6 +117,15 @@ class ProfileProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void>fetchProfileByUserId(int userId) async {
+    try {
+      currentProfile = await userServiceHelper.getProfileByUserId(userId);
+    } catch (_){
+      Logger().e("Error while trying to fecth profile by user id");
+    }
+    notifyListeners();
+  }
+
   Future<void> fetchUsernameExpect(int userId) async {
     try {
       usernameExpect = await userServiceHelper.getUsernameByUserId(userId);

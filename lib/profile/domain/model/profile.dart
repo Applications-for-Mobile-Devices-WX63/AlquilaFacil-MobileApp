@@ -34,9 +34,9 @@ class Profile {
     return Profile(
       id: json['id'],
       phoneNumber: json['phone'],
-      name: json['fullName'].split("")[0],
-      fatherName: json['fullName'].split("")[1],
-      motherName: json['fullName'].split("")[2],
+      name: json['fullName'].split(" ")[0],
+      fatherName: json['fullName'].split(" ")[1],
+      motherName: json['fullName'].split(" ")[2],
       documentNumber: json['documentNumber'],
       dateOfBirth: json['dateOfBirth'],
       userId: json['userId']
