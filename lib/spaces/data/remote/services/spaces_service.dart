@@ -11,4 +11,5 @@ abstract class SpaceService{
   Future<List<Space>> getAllSpacesByCategoryIdAndCapacityRange(int categoryId, int minRange, int maxRange);
   Future<String> uploadImage(File image);
   Future<String> createSpace(Space space);
+  Future<List<Space>> getSpacesByUserId(int userId);
 }

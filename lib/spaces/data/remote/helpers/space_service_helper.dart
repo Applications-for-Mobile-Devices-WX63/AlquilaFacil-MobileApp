@@ -1,6 +1,7 @@
 import 'dart:collection';
 import 'dart:convert';
 import 'dart:io';
+import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:alquilafacil/auth/presentation/providers/SignInPovider.dart';
@@ -203,4 +204,24 @@ String _getUserIdFromToken(String token) {
 
   return userId;
 }
+
+  @override
+  Future<List<Space>> getSpacesByUserId(int userId) async {
+    final dio = Dio();
+    var token = signInProvider.token;
+    var options = Options(headers: {'Authorization': 'Bearer $token'});
+
+    final request = await dio.get(
+      "${Constant.BASE_URL}${Constant.RESOURCE_PATH}locals/get-user-locals/$userId",
+      options: options,
+    );
+
+    if (request.statusCode == HttpStatus.ok) {
+      final List<dynamic> json = request.data;
+      return json.map((space) => Space.fromJson(space)).toList().cast<Space>();
+    } else {
+      throw Exception(errorMessageHandler.reject(request.statusCode!));
+    }
+  }
+
 }

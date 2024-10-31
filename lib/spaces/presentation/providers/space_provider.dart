@@ -77,6 +77,15 @@ class SpaceProvider extends ChangeNotifier{
     notifyListeners();
   }
 
+  Future<void> fetchMySpaces(int userId) async{
+    try{
+      currentSpaces = await spaceService.getSpacesByUserId(userId);
+    }catch (e){
+      logger.e("Error while trying to fetch my spaces, please check the params");
+    }
+    notifyListeners();
+  }
+
   void setSelectedSpace(Space currentSpaceSelected){
     spaceSelected = currentSpaceSelected;
     notifyListeners();
@@ -110,4 +119,5 @@ class SpaceProvider extends ChangeNotifier{
     }
     notifyListeners();
   }
+
 }

@@ -1,6 +1,7 @@
 import 'package:alquilafacil/public/presentation/widgets/screen_bottom_app_bar.dart';
 import 'package:flutter/material.dart';
 
+import '../../../public/ui/theme/main_theme.dart';
 import '../widgets/navigation_row.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -9,7 +10,11 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Panel de control')),
+      backgroundColor: MainTheme.background,
+      appBar: AppBar(
+          backgroundColor: MainTheme.background,
+          title: const Text('Panel de control')
+      ),
       body: const Center(
           child: Card(
         margin: EdgeInsets.all(16.0),
@@ -31,8 +36,8 @@ class ProfileScreen extends StatelessWidget {
               ),
               Divider(),
               NavigationRow(
-                title: 'Gestionar espacios',
-                routeName: '/calendar',
+                title: 'Ver mis espacios',
+                routeName: '/my-spaces',
               ),
               Divider(),
               NavigationRow(
