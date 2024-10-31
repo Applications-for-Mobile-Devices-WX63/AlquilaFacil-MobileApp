@@ -1,11 +1,11 @@
 class Profile {
   final int id;
-  final String name;
-  final String fatherName;
-  final String motherName;
-  final String documentNumber;
-  final String dateOfBirth;
-  final String phoneNumber;
+  late final String name;
+  late final String fatherName;
+  late final String motherName;
+  late final String documentNumber;
+  late final String dateOfBirth;
+  late final String phoneNumber;
   final int userId;
   Profile({
     required this.id,

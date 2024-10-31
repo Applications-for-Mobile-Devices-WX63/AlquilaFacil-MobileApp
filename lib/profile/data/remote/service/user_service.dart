@@ -4,4 +4,5 @@ abstract class UserService {
   Future<String> getUsernameByUserId(int userId);
   Future<Profile> createProfile(String email, String password,String name, String fatherName, String motherName, String documentNumber, String dateOfBirth, String phoneNumber);
   Future<Profile> getProfileByUserId(int userId);
+  Future<Profile> updateProfile(int id, Map<String, dynamic> profileToUpdate);
 }

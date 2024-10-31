@@ -12,12 +12,27 @@ class ProfileProvider extends ChangeNotifier {
   String dateOfBirth = "";
   String phoneNumber = "";
   int userId = 0;
+  bool isEditMode = false;
+
+
+  String currentName = "";
+  String currentFatherName = "";
+  String currentMotherName = "";
+  String currentDocumentNumber = "";
+  String currentPhoneNumber = "";
+  String currentDateOfBirth = "";
 
   Profile? currentProfile;
   List<dynamic> usernamesExpect = [];
   final UserServiceHelper userServiceHelper;
 
   ProfileProvider(this.userServiceHelper);
+
+  void setIsEditMode(){
+    isEditMode = !isEditMode;
+    notifyListeners();
+  }
+
 
   void setName(String value) {
     name = value;
@@ -50,10 +65,42 @@ class ProfileProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setCurrentName(String value) {
+    currentName = value;
+    notifyListeners();
+  }
+
+  void setCurrentFatherName(String value) {
+    currentFatherName = value;
+    notifyListeners();
+  }
+
+  void setCurrentMotherName(String value) {
+    currentMotherName = value;
+    notifyListeners();
+  }
+
+
+  void setCurrentDocumentNumber(String value) {
+    currentDocumentNumber = value;
+    notifyListeners();
+  }
+
+  void setCurrentDateOfBirth(String value) {
+    currentDateOfBirth = value;
+    notifyListeners();
+  }
+
+  void setCurrentPhoneNumber(String value) {
+    currentPhoneNumber = value;
+    notifyListeners();
+  }
+
   void setUserId(int value) {
     userId = value;
     notifyListeners();
   }
+
 
   String? validatePhoneNumber(){
     if (phoneNumber.length != 9){
@@ -114,6 +161,32 @@ class ProfileProvider extends ChangeNotifier {
       dateOfBirth,
       phoneNumber
     );
+    notifyListeners();
+  }
+
+  void loadCurrentInfo(){
+    currentName = currentProfile!.name;
+    currentFatherName = currentProfile!.fatherName;
+    currentMotherName = currentProfile!.motherName;
+    currentDocumentNumber = currentProfile!.documentNumber;
+    currentPhoneNumber = currentProfile!.phoneNumber;
+    currentDateOfBirth = currentProfile!.dateOfBirth;
+    notifyListeners();
+  }
+
+
+  Future<void> updateProfile() async {
+    var profileId = currentProfile!.id;
+    var profileToUpdate = {
+      "name": currentName,
+      "fatherName": currentFatherName,
+      "motherName": currentMotherName,
+      "phone":currentPhoneNumber,
+      "documentNumber": currentDocumentNumber,
+      "dateOfBirth": currentDateOfBirth,
+      "userId": currentProfile!.userId
+    };
+    currentProfile = await userServiceHelper.updateProfile(profileId, profileToUpdate);
     notifyListeners();
   }
 
