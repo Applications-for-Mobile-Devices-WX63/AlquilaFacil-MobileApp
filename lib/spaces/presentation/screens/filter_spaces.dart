@@ -22,9 +22,9 @@ class FilterSpaces extends StatelessWidget {
       backgroundColor: MainTheme.background,
       bottomNavigationBar: const ScreenBottomAppBar(),
       body: const SingleChildScrollView(
-        child: Center(
+        child: Padding(
+          padding: EdgeInsets.all(10.0),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(height: 20),
               SearchSpaceButton(

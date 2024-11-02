@@ -278,7 +278,7 @@ class Register extends StatelessWidget {
                   Column(
                     children: <Widget>[
                       const Text(
-                        "o registrate con",
+                        "o regístrate con",
                         style: TextStyle(fontSize: 10.0),
                       ),
                       const SizedBox(height: 20.0),

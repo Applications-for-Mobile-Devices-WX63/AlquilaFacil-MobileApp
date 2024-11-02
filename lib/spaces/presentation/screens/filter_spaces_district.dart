@@ -38,7 +38,7 @@ class _FilterSpacesDistrict extends State<FilterSpacesDistrict> {
       bottomNavigationBar: const ScreenBottomAppBar(),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -73,9 +73,13 @@ class _FilterSpacesDistrict extends State<FilterSpacesDistrict> {
                           ),
                         ),
                         const SizedBox(width: 10),
-                        Text(
-                            spaceProvider.expectDistricts[index]
-                        )
+                        Expanded(
+                          child: Text(
+                            spaceProvider.expectDistricts[index],
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          ),
+                        ),
                       ],
                     ),
 

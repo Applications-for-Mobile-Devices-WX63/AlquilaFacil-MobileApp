@@ -30,18 +30,42 @@ class _SearchSpaces extends State<SearchSpaces> {
       bottomNavigationBar: const ScreenBottomAppBar(),
       backgroundColor: MainTheme.background,
       body: SingleChildScrollView(
-        child: Center(
+
           child: Column(
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.only(top: 100.0, right: 10.0),
+                padding: const EdgeInsets.only(top: 60.0, left: 10.0, right: 10.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    const SearchSpaceButton(routeToRedirect: 'filter-spaces'),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, '/filter-spaces');
+                      },
+                      child: Container(
+                        width: 250,
+                        padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
+                        decoration: BoxDecoration(
+                          color: Colors.black12,
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Icon(Icons.search_outlined, color: Colors.black),
+                            SizedBox(width: 10),
+                            Text(
+                              'Buscar espacio',
+                              style: TextStyle(color: Colors.black, fontSize: 16.0),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 10.0),
                     Container(
                       decoration: BoxDecoration(
-                          color: MainTheme.helper,
+                          color: Colors.black12,
                           borderRadius: BorderRadius.circular(25.0)),
                       child: IconButton(
                           onPressed: () =>
@@ -72,7 +96,6 @@ class _SearchSpaces extends State<SearchSpaces> {
             ],
           ),
         ),
-      ),
     );
   }
 }

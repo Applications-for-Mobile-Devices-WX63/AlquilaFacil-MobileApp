@@ -1,6 +1,5 @@
 import 'package:alquilafacil/public/presentation/widgets/screen_bottom_app_bar.dart';
 import 'package:alquilafacil/public/ui/theme/main_theme.dart';
-import 'package:alquilafacil/spaces/presentation/widgets/search_space_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
