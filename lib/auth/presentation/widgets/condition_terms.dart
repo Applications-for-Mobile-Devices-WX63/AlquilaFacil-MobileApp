@@ -30,12 +30,12 @@ class _ConditionTerms extends State<ConditionsTerms> {
             },
         ),
         const SizedBox(width: 10.0),
-        const SizedBox(
-            width: 200,
-            child: Text(
-              "Al registrarse, acepta los Términos y uso y la Política de Privacidad de AlquilaFácil",
-              style: TextStyle(fontSize: 10.0),
-            ))
+        const Expanded(
+          child: Text(
+            "Al registrarse, acepta los Términos de uso y la Política de Privacidad de AlquilaFácil",
+            style: TextStyle(fontSize: 10.0),
+          ),
+        )
       ],
     );
   }

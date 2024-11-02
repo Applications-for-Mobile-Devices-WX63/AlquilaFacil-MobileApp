@@ -1,8 +1,6 @@
-import 'dart:ui';
 import 'package:alquilafacil/auth/presentation/providers/ConditionTermsProvider.dart';
 import 'package:alquilafacil/auth/presentation/providers/SignUpProvider.dart';
 import 'package:alquilafacil/profile/presentation/providers/pofile_provider.dart';
-import 'package:alquilafacil/public/presentation/widgets/screen_bottom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
@@ -59,19 +57,19 @@ class Register extends StatelessWidget {
     return Scaffold(
         backgroundColor: MainTheme.primary,
         body: Padding(
-            padding: const EdgeInsets.only(top: 100.0),
+            padding: const EdgeInsets.symmetric(vertical: 60, horizontal: 10),
             child: SingleChildScrollView(
-                child: Center(
+              child: Center(
               child: Column(
                 children: <Widget>[
                   const Text(
-                    "REGISTRATE",
+                    "REGÍSTRATE",
                     style:
                         TextStyle(fontWeight: FontWeight.bold, fontSize: 30.0),
                   ),
                   const SizedBox(height: 10),
                   AuthTextField(
-                    textLabel: "Nombre de Usuario",
+                    textLabel: "Nombre de usuario",
                     textHint: "Ingrese su nombre de usuario",
                     isPassword: false,
                     param: signUpProvider.username,
@@ -96,53 +94,73 @@ class Register extends StatelessWidget {
                     },
                   ),
                   const SizedBox(height: 10),
-                  AuthTextField(
-                    textLabel: "Apellido paterno",
-                    textHint: "Ingrese su apellido paterno:",
-                    isPassword: false,
-                    param: profileProvider.fatherName,
-                    onChanged: (newValue) {
-                      profileProvider.setFatherName(newValue);
-                    },
-                    validator: (_) {
-                      return profileProvider.validateName();
-                    },
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                        flex: 1,
+                        child: AuthTextField(
+                          textLabel: "Apellido paterno",
+                          textHint: "Ingrese su apellido paterno:",
+                          isPassword: false,
+                          param: profileProvider.fatherName,
+                          onChanged: (newValue) {
+                            profileProvider.setFatherName(newValue);
+                          },
+                          validator: (_) {
+                            return profileProvider.validateName();
+                          },
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        flex: 1,
+                        child: AuthTextField(
+                          textLabel: "Apellido materno",
+                          textHint: "Ingrese su apellido materno:",
+                          isPassword: false,
+                          param: profileProvider.motherName,
+                          onChanged: (newValue) {
+                            profileProvider.setMotherName(newValue);
+                          },
+                          validator: (_) {
+                            return profileProvider.validateName();
+                          },
+                        ),
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 10),
-                  AuthTextField(
-                    textLabel: "Apellido Materno",
-                    textHint: "Ingrese su apellido materno:",
-                    isPassword: false,
-                    param: profileProvider.motherName,
-                    onChanged: (newValue) {
-                      profileProvider.setMotherName(newValue);
-                    },
-                    validator: (_) {
-                      return profileProvider.validateName();
-                    },
-                  ),
-                  const SizedBox(height: 10),
-                  AuthTextField(
-                    textLabel: "Número de telefono",
-                    textHint: "Ingrese su número de telefono",
-                    isPassword: false,
-                    param: profileProvider.phoneNumber,
-                    onChanged: (newValue) {
-                      profileProvider.setPhoneNumber(newValue);
-                    },
-                    validator: (_) {
-                      return profileProvider.validatePhoneNumber();
-                    },
-                  ),
-                  const SizedBox(height: 10),
-                  AuthTextField(
-                    textLabel: "Número de documento",
-                    textHint: "Ingrese su número de documento",
-                    isPassword: false,
-                    param: profileProvider.documentNumber,
-                    onChanged: (newValue) {
-                      profileProvider.setDocumentNumber(newValue);
-                    },
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                        flex: 1,
+                        child: AuthTextField(
+                          textLabel: "Número de telefono",
+                          textHint: "Ingrese su número de telefono",
+                          isPassword: false,
+                          param: profileProvider.phoneNumber,
+                          onChanged: (newValue) {
+                            profileProvider.setPhoneNumber(newValue);
+                          },
+                          validator: (_) {
+                            return profileProvider.validatePhoneNumber();
+                          },
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        flex: 1,
+                        child: AuthTextField(
+                          textLabel: "Número de documento",
+                          textHint: "Ingrese su número de documento",
+                          isPassword: false,
+                          param: profileProvider.documentNumber,
+                          onChanged: (newValue) {
+                            profileProvider.setDocumentNumber(newValue);
+                          },
+                        ),
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 10),
                   AuthTextField(
@@ -171,30 +189,40 @@ class Register extends StatelessWidget {
                     },
                   ),
                   const SizedBox(height: 10),
-                  AuthTextField(
-                    textLabel: "Contraseña",
-                    textHint: "Ingrese su contraseña",
-                    isPassword: true,
-                    param: signUpProvider.password,
-                    onChanged: (newValue) {
-                      signUpProvider.setPassword(newValue);
-                    },
-                    validator: (_) {
-                      return signUpProvider.validatePassword();
-                    },
-                  ),
-                  const SizedBox(height: 10),
-                  AuthTextField(
-                    textLabel: "Escriba nuevamente su contraseña",
-                    textHint: "Escriba nuevamente su contraseña",
-                    isPassword: true,
-                    param: signUpProvider.confirmPassword,
-                    onChanged: (newValue) {
-                      signUpProvider.setConfirmPassword(newValue);
-                    },
-                    validator: (_) {
-                      return signUpProvider.validateConfirmPassword();
-                    },
+                  Row(
+                    children: <Widget> [
+                      Expanded(
+                        flex: 1,
+                        child: AuthTextField(
+                          textLabel: "Contraseña",
+                          textHint: "Ingrese su contraseña",
+                          isPassword: true,
+                          param: signUpProvider.password,
+                          onChanged: (newValue) {
+                            signUpProvider.setPassword(newValue);
+                          },
+                          validator: (_) {
+                            return signUpProvider.validatePassword();
+                          },
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        flex: 1,
+                        child: AuthTextField(
+                          textLabel: "Escriba nuevamente su contraseña",
+                          textHint: "Escriba nuevamente su contraseña",
+                          isPassword: true,
+                          param: signUpProvider.confirmPassword,
+                          onChanged: (newValue) {
+                            signUpProvider.setConfirmPassword(newValue);
+                          },
+                          validator: (_) {
+                            return signUpProvider.validateConfirmPassword();
+                          },
+                        ),
+                      ),
+                    ]
                   ),
                   const SizedBox(height: 10),
                   const ConditionsTerms(),
@@ -206,7 +234,6 @@ class Register extends StatelessWidget {
                         onPressed: () async {
                           try {
                             await signUpProvider.signUp();
-
                             if (signUpProvider.successFulMessage.isNotEmpty) {
                               await profileProvider.createProfile(
                                 signUpProvider.email,
@@ -225,9 +252,9 @@ class Register extends StatelessWidget {
                         },
                         child: const Text("Regístrate ahora"),
                       )),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 25),
                   const Text(
-                      "¿Ya tienes cuenta? Inicia sesión",
+                      "¿Ya tienes cuenta?",
                       style: TextStyle(
                           fontSize: 10.0
                       )

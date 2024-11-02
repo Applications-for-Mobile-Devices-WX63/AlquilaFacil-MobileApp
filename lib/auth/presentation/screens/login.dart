@@ -73,7 +73,7 @@ class _LoginState extends State<Login> {
             const SizedBox(height: 10),
             AuthTextField(
               textLabel: 'Correo electrónico',
-              textHint: 'Ingrese Correo electrónico',
+              textHint: 'Ingrese correo electrónico',
               isPassword: false,
               param: signInProvider.email,
               onChanged: (newEmail) {
@@ -86,7 +86,7 @@ class _LoginState extends State<Login> {
             const SizedBox(height: 10),
             AuthTextField(
               textLabel: 'Contraseña',
-              textHint: 'Ingrese Contraseña',
+              textHint: 'Ingrese contraseña',
               isPassword: true,
               param: signInProvider.password,
               onChanged: (newPassword) {
@@ -96,8 +96,7 @@ class _LoginState extends State<Login> {
                 return signInProvider.validatePassword();
               },
             ),
-            const SizedBox(height: 20),
-            const SizedBox(height: 10.0),
+            const SizedBox(height: 15),
             SizedBox(
               width: 330,
               height: 50,
@@ -111,12 +110,12 @@ class _LoginState extends State<Login> {
                     await _showDialog("Correo electrónico o contraseña incorrectos","/login");
                   }
                 },
-                child: const Text("Iniciar Sesión"),
+                child: const Text("Iniciar sesión"),
               ),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 30),
             const Text(
-                "¿Aun no tienes cuenta? Registrate",
+                "¿Aún no tienes cuenta?",
               style: TextStyle(
                 fontSize: 10.0
               )
@@ -129,7 +128,7 @@ class _LoginState extends State<Login> {
                   onPressed: (){
                     Navigator.pushReplacementNamed(context, "/sign-up");
                   },
-                  child: const Text("Registrate")
+                  child: const Text("Regístrate")
               )
             ),
             const SizedBox(height: 20.0),
@@ -142,7 +141,7 @@ class _LoginState extends State<Login> {
             Column(
               children: <Widget>[
                 const Text(
-                  "o registrate con",
+                  "o regístrate con",
                   style: TextStyle(fontSize: 10.0),
                 ),
                 const SizedBox(height: 20.0),
