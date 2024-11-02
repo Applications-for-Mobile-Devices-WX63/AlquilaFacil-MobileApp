@@ -2,6 +2,8 @@ import 'package:alquilafacil/auth/data/remote/helpers/auth_service_helper.dart';
 import 'package:alquilafacil/auth/presentation/providers/ConditionTermsProvider.dart';
 import 'package:alquilafacil/auth/presentation/providers/SignInPovider.dart';
 import 'package:alquilafacil/auth/presentation/providers/SignUpProvider.dart';
+import 'package:alquilafacil/auth/presentation/screens/privacy-policy.dart';
+import 'package:alquilafacil/auth/presentation/screens/terms.dart';
 import 'package:alquilafacil/contact/presentation/screens/notifications_screen.dart';
 import 'package:alquilafacil/notification/data/remote/helpers/notification_service_helper.dart';
 import 'package:alquilafacil/notification/presentation/providers/notification_provider.dart';
@@ -88,6 +90,8 @@ class MyApp extends StatelessWidget {
         routes: {
           "/login": (context) => const Login(),
           "/sign-up": (context) => const Register(),
+          "/terms": (context) => const TermsScreen(),
+          "/privacy-policy": (context) => const PrivacyPolicyScreen(),
           "/search-space": (context) => const SearchSpaces(),
           "/tutorial-space": (context) => const RegisterSpaceStepsScreen(),
           "/filter-spaces": (context) => const FilterSpacesDistrict(),
