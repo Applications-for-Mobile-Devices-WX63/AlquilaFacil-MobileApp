@@ -32,8 +32,8 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     final notificationProvider = context.read<NotificationProvider>();
     return Scaffold(
       appBar: AppBar(title: const Text('Notificaciones')),
-      body: SingleChildScrollView(
-        child: notificationProvider.notifications.isNotEmpty ? ListView.builder(
+      body: notificationProvider.notifications.isNotEmpty ? SingleChildScrollView(
+        child: ListView.builder(
             shrinkWrap: true,
             itemCount: notificationProvider.notifications.length,
             itemBuilder: (context, int index){
@@ -42,14 +42,19 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                   message: notificationProvider.notifications[index].description
               );
             }
-        ) : const Center(child: Text(
-            "No tienes notificaciones",
-          style: TextStyle(
-            color: Colors.black
-          ),
           )
+      ) : const Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Text(
+                "No tienes notificaciones",
+                style: TextStyle(color: Colors.black),
+              ),
+            ],
+          ),
         ),
-      ),
       bottomNavigationBar: const ScreenBottomAppBar(),
     );
   }
