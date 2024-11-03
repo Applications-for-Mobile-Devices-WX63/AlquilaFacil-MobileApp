@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class MainTheme{
-  static Color primary = Colors.red;
+  static Color primary = const Color(0xFFD13333);
   static Color background = Colors.white;
   static Color transparent = Colors.transparent;
   static Color helper = Colors.grey;

@@ -40,7 +40,7 @@ class SpaceInfoDetails extends StatelessWidget {
             textAlign: TextAlign.start,
             style: TextStyle(
               color: MainTheme.contrast,
-              fontSize: 20.0
+              fontSize: 18.0
           ),
         ),
      Text(
@@ -51,29 +51,44 @@ class SpaceInfoDetails extends StatelessWidget {
           fontSize: 15.0
           ),
         ),
-     const SizedBox(height: 30),
-     Text(
-     "Propietario: $username",
-        textAlign: TextAlign.start,
-       style: TextStyle(
-          color: MainTheme.contrast,
-          fontSize: 15.0
+     const SizedBox(height: 20),
+        RichText(
+          text: TextSpan(
+            children: [
+              TextSpan(
+                text: "Propietario: ",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: MainTheme.contrast,
+                  fontSize: 18.0,
+                ),
+              ),
+              TextSpan(
+                text: username,
+                style: TextStyle(
+                  fontWeight: FontWeight.normal,
+                  color: MainTheme.contrast,
+                  fontSize: 18.0,
+                ),
+              ),
+            ],
+          ),
+          textAlign: TextAlign.start,
         ),
-      ),
-     const SizedBox(height: 30),
+     const SizedBox(height: 20),
      Text(
        "Descripción:",
         style: TextStyle(
           color: MainTheme.contrast,
           fontWeight: FontWeight.bold,
-          fontSize: 20.0
+          fontSize: 17.0
        ),
     ),
     Text(
       description,
       style: TextStyle(
           color: MainTheme.contrast,
-          fontSize: 20.0
+          fontSize: 17.0
          ),
        )
      ]

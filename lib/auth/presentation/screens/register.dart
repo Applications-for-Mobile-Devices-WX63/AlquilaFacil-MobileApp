@@ -239,7 +239,7 @@ class Register extends StatelessWidget {
                                 signUpProvider.email,
                                 signUpProvider.password,
                               );
-                              await _showDialog("Registro Exitoso", "/login");
+                              await _showDialog("Registro exitoso", "/login");
                             } else if (!conditionTermsProvider.isChecked) {
                               await _showDialog("Por favor, acepte nuestras políticas de uso", "/sign-up");
                             } else {

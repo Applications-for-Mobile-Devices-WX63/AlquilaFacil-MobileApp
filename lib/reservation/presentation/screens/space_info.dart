@@ -42,6 +42,13 @@ class _SpaceInfoState  extends State<SpaceInfo> {
     final TimeOfDay? picked = await showTimePicker(
       context: context,
       initialTime: isStart ? (_startTime ?? TimeOfDay.now()) : (_endTime ?? TimeOfDay.now()),
+      builder: (BuildContext context, Widget? child) {
+        return Theme(data: ThemeData(
+            primaryColor: MainTheme.primary,
+            colorScheme: ColorScheme.light(primary: MainTheme.secondary, secondary: MainTheme.secondary, onSurface: MainTheme.secondary),
+
+        ), child: child!);
+      },
     );
 
     if (picked != null) {
@@ -63,8 +70,14 @@ class _SpaceInfoState  extends State<SpaceInfo> {
     return Scaffold(
         backgroundColor: MainTheme.background,
         appBar: AppBar(
-          backgroundColor: MainTheme.background,
-          title: const Text("Información del espacio"),
+          backgroundColor: MainTheme.primary,
+          title: Text("Información del espacio", style: TextStyle(color: MainTheme.background, fontSize: 18)),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back, color: Colors.white),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
         ),
         bottomNavigationBar: const ScreenBottomAppBar(),
         body: SingleChildScrollView(
@@ -78,7 +91,7 @@ class _SpaceInfoState  extends State<SpaceInfo> {
                 fit: BoxFit.cover,
                 repeat: ImageRepeat.noRepeat,
               ),
-              const SizedBox(height: 30),
+              const SizedBox(height: 15),
               Container(
                 margin: const EdgeInsets.symmetric(
                     horizontal: 10, vertical: 10),
@@ -101,14 +114,16 @@ class _SpaceInfoState  extends State<SpaceInfo> {
                         "Fecha:",
                       style: TextStyle(
                         color: Colors.black,
-                        fontSize: 20
+                        fontSize: 17
                       )
                     ),
+                    const SizedBox(height: 10),
                     TableCalendar(
                       locale: "es_ES",
-                      firstDay: DateTime.utc(2023, 1, 1),
-                      lastDay: DateTime.utc(2025, 1, 1),
+                      daysOfWeekHeight: 40.0,
                       focusedDay: _focusedDay,
+                      firstDay: DateTime.utc(2024, 09, 01),
+                      lastDay: DateTime.utc(2025, 09, 30),
                       selectedDayPredicate: (day) {
                         return _startDay != null &&
                             _endDay != null &&
@@ -124,6 +139,18 @@ class _SpaceInfoState  extends State<SpaceInfo> {
                           _focusedDay = focusedDay;
                         });
                       },
+                      headerStyle: const HeaderStyle(
+                        decoration: BoxDecoration(
+                          border: Border(
+                            top: BorderSide(color: Colors.grey),
+                            left: BorderSide(color: Colors.grey),
+                            right: BorderSide(color: Colors.grey),
+                          ),
+                        ),
+                        titleTextStyle: TextStyle(color: Colors.black),
+                        formatButtonVisible: false,
+                        titleCentered: true,
+                      ),
                       calendarStyle: CalendarStyle(
                         defaultTextStyle: const TextStyle(color: Colors.black),
                         selectedTextStyle: const TextStyle(color: Colors.orange),
@@ -154,6 +181,14 @@ class _SpaceInfoState  extends State<SpaceInfo> {
                           shape: BoxShape.rectangle,
                           border:  Border.all(color: Colors.red, width: 1)
                         ),
+                        withinRangeTextStyle: const TextStyle(
+                            color: Colors.orange
+                        ),
+                        withinRangeDecoration: BoxDecoration(
+                            color: Colors.transparent,
+                            shape: BoxShape.rectangle,
+                            border:  Border.all(color: Colors.red, width: 1)
+                        ),
                         rangeEndDecoration: BoxDecoration(
                             color: Colors.transparent,
                             shape: BoxShape.rectangle,
@@ -161,7 +196,6 @@ class _SpaceInfoState  extends State<SpaceInfo> {
                         ),
 
                       ),
-                      headerVisible: false,
                       daysOfWeekStyle:const  DaysOfWeekStyle(
                         weekdayStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
                         weekendStyle: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
@@ -225,7 +259,6 @@ class _SpaceInfoState  extends State<SpaceInfo> {
                       'Horario:',
                       style: TextStyle(
                         fontSize: 18.0,
-                        fontWeight: FontWeight.bold,
                         color: Colors.black,
                       ),
                     ),
