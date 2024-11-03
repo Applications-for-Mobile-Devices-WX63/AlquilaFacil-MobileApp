@@ -2,17 +2,15 @@ class Reservation {
   final int id;
   final int userId;
   final int spaceId;
-  final String date;
-  final String startTime;
-  final String endTime;
+  final DateTime startDate;
+  final DateTime endDate;
 
   Reservation({
     required this.id,
     required this.userId,
     required this.spaceId,
-    required this.date,
-    required this.startTime,
-    required this.endTime,
+    required this.startDate,
+    required this.endDate,
   });
 
   // Método para crear un objeto Reservation desde un JSON
@@ -20,10 +18,9 @@ class Reservation {
     return Reservation(
       id: json['id'] as int,
       userId: json['userId'] as int,
-      spaceId: json['spaceId'] as int,
-      date: json['date'] as String,
-      startTime: json['startTime'] as String,
-      endTime: json['endTime'] as String,
+      spaceId: json['localId'] as int,
+      startDate: json['date'] as DateTime,
+      endDate: json['startTime'] as DateTime,
     );
   }
 
@@ -32,10 +29,9 @@ class Reservation {
     return {
       'id': id,
       'userId': userId,
-      'spaceId': spaceId,
-      'date': date,
-      'startTime': startTime,
-      'endTime': endTime,
+      'localId': spaceId,
+      'startDate': startDate,
+      'endDate': endDate,
     };
   }
 }
