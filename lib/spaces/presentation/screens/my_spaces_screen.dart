@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../public/presentation/widgets/screen_bottom_app_bar.dart';
 import '../../../public/ui/theme/main_theme.dart';
 
 
@@ -32,51 +33,76 @@ class _MySpacesScreenState extends State<MySpacesScreen> {
     return  Scaffold(
         backgroundColor: MainTheme.background,
         appBar: AppBar(
-          backgroundColor: MainTheme.background,
-          title: const Text("Mis espacios"),
+          backgroundColor: MainTheme.primary,
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back, color: MainTheme.background),
+            onPressed: (){
+              Navigator.pop(context);
+            },
+          ),
+          title: Text("Mis espacios", style: TextStyle(color: MainTheme.background),),
         ),
         body: spaceProvider.currentSpaces.isNotEmpty ?
-        SingleChildScrollView(
-          child: ListView.builder(
-            shrinkWrap: true,
-            itemCount: spaceProvider.currentSpaces.length,
-            itemBuilder: (BuildContext context, int index){
-              return Card(
-                color: MainTheme.background,
-                elevation: 2.0,
-                child: InkWell(
-                  onTap: (){
-                    spaceProvider.setSelectedSpace(spaceProvider.currentSpaces[index]);
-                    Navigator.pushNamed(
-                        context, "/space-info"
-                    );
-                  },
-                  child: ListTile(
-                      title: Text(
-                        spaceProvider.currentSpaces[index].localName,
-                        textAlign: TextAlign.end,
-                      ),
-                      leading: Image.network(
-                        spaceProvider.currentSpaces[index].photoUrl,
-                      ),
-                      subtitle: Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text(
-                            spaceProvider.currentSpaces[index].nightPrice.toString(),
-                            textAlign: TextAlign.end,
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10.0),
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: spaceProvider.currentSpaces.length,
+                    itemBuilder: (BuildContext context, int index){
+                      return Card(
+                        color: index % 2 == 0 ? MainTheme.background : MainTheme.secondary,
+                        elevation: 2.0,
+                        child: InkWell(
+                          onTap: (){
+                            spaceProvider.setSelectedSpace(spaceProvider.currentSpaces[index]);
+                            Navigator.pushNamed(
+                                context, "/space-info"
+                            );
+                          },
+                          child: ListTile(
+                              title: Text(
+                                spaceProvider.currentSpaces[index].localName,
+                                textAlign: TextAlign.end,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: index % 2 == 0 ? MainTheme.contrast : MainTheme.background,
+                                ),
+                              ),
+                              leading: Image.network(
+                                spaceProvider.currentSpaces[index].photoUrl,
+                              ),
+                              subtitle: Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Text("S/. ${spaceProvider.currentSpaces[index].nightPrice.toString()}",
+                                    textAlign: TextAlign.end,
+                                    style: TextStyle(
+                                      color: index % 2 == 0 ? MainTheme.contrast : MainTheme.background,
+                                    )
+                                  ),
+                                  Text(
+                                    spaceProvider.currentSpaces[index].cityPlace,
+                                    textAlign: TextAlign.end,
+                                      style: TextStyle(
+                                        color: index % 2 == 0 ? MainTheme.contrast : MainTheme.background,
+                                      )
+                                  )
+                                ],
+                              ),
                           ),
-                          Text(
-                            spaceProvider.currentSpaces[index].cityPlace,
-                            textAlign: TextAlign.end,
-                          )
-                        ],
-                      )
+                        ),
+                      );
+                    }
                   ),
                 ),
-              );
-            }
-          ) ,
+              ],
+            ) ,
+          ),
         ) : Center(
           child: CircularProgressIndicator(
             color: MainTheme.secondary,
