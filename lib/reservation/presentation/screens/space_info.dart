@@ -5,7 +5,6 @@ import 'package:alquilafacil/public/presentation/widgets/screen_bottom_app_bar.d
 import 'package:alquilafacil/reservation/presentation/widgets/space_info_actions.dart';
 import 'package:alquilafacil/reservation/presentation/widgets/space_info_details.dart';
 import 'package:alquilafacil/spaces/presentation/providers/space_provider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';

@@ -1,5 +1,6 @@
 import 'package:alquilafacil/public/presentation/widgets/screen_bottom_app_bar.dart';
 import 'package:alquilafacil/public/ui/theme/main_theme.dart';
+import 'package:alquilafacil/spaces/presentation/widgets/card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -35,7 +36,7 @@ class _SpaceDetailsState extends State<SpacesDetails> {
         backgroundColor: MainTheme.background,
         title: const Center(
           child: Text(
-            "Espacios Encontrados",
+            "Espacios encontrados",
             style: TextStyle(
                 fontWeight: FontWeight.bold, color: Colors.black, fontSize: 20),
           ),
@@ -44,52 +45,27 @@ class _SpaceDetailsState extends State<SpacesDetails> {
       backgroundColor: MainTheme.background,
       bottomNavigationBar: const ScreenBottomAppBar(),
       body: SingleChildScrollView(
-        child: Center(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const SizedBox(height: 50),
               spaceProvider.currentSpaces.isNotEmpty
-                  ? ListView.builder(
+                  ? ListView.separated(
+                shrinkWrap: true,
                 itemBuilder: (BuildContext context, int index) {
-                  return Card(
-                    color: MainTheme.background,
-                    elevation: 2.0,
-                    child: InkWell(
-                      onTap: (){
-                        spaceProvider.setSelectedSpace(spaceProvider.currentSpaces[index]);
-                        Navigator.pushNamed(
-                            context, "/space-info"
-                        );
-                      },
-                      child: ListTile(
-                          title: Text(
-                            spaceProvider.currentSpaces[index].localName,
-                            textAlign: TextAlign.end,
-                          ),
-                          leading: Image.network(
-                                spaceProvider.currentSpaces[index].photoUrl,
-                            ),
-                          subtitle: Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Text(
-                                spaceProvider.currentSpaces[index].nightPrice.toString(),
-                                textAlign: TextAlign.end,
-                              ),
-                              Text(
-                                spaceProvider.currentSpaces[index].cityPlace,
-                                textAlign: TextAlign.end,
-                              )
-                            ],
-                          )
-                      ),
-                    ),
+                  return SpaceCard(
+                    location: spaceProvider.currentSpaces[index].cityPlace,
+                    price: spaceProvider.currentSpaces[index].nightPrice.toString(),
+                    imageUrl: spaceProvider.currentSpaces[index].photoUrl,
+                    id: spaceProvider.currentSpaces[index].id,
                   );
                 },
                 itemCount: spaceProvider.currentSpaces.length,
-                shrinkWrap: true,
-
+                separatorBuilder: (BuildContext context, int index) {
+                  return const SizedBox(height: 10);
+                },
               ) : Text(
                   "No existen locales con estos parámetros",
                 style: TextStyle(

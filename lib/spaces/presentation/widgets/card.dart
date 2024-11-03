@@ -35,7 +35,8 @@ class SpaceCard extends StatelessWidget {
         );
       },
       child: Card(
-        color: MainTheme.background, 
+        color: MainTheme.background,
+        elevation: 3,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -50,56 +51,66 @@ class SpaceCard extends StatelessWidget {
                 height: 180,
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    location,
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          constraints: const BoxConstraints(maxWidth: 150),
+                          child: Text(
+                            location,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w400,
+                            )
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          'S/. $price',
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  const SizedBox(height: 4),
-                  Text(
-                    'S/. $price',
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  IconButton(
-                    onPressed: () {
-                      // Acción para el primer ícono
-                    },
-                    icon: const Icon(Icons.military_tech_rounded),
-                    color: Colors.orange,
-                    iconSize: 30.0,
-                  ),
-                  const SizedBox(width: 10),
-                  IconButton(
-                    onPressed: ()  {
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            // Acción para el primer ícono
+                          },
+                          icon: const Icon(Icons.military_tech_rounded),
+                          color: Colors.orange,
+                          iconSize: 30.0,
+                        ),
+                        const SizedBox(width: 10),
+                        IconButton(
+                          onPressed: ()  {
 
-                    },
-                    icon: const Icon(Icons.star),
-                    color: Colors.orange,
-                    iconSize: 30.0,
+                          },
+                          icon: const Icon(Icons.star),
+                          color: Colors.orange,
+                          iconSize: 30.0,
+                        ),
+                      ],
+                    ),
                   ),
                 ],
-              ),
-            ),
+            )
           ],
         ),
       ),

@@ -77,10 +77,10 @@ class _SearchSpaces extends State<SearchSpaces> {
                   ],
                 ),
               ),
-              const SizedBox(height: 20.0),
+              const SizedBox(height: 10.0),
              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0,vertical: 20.0),
-                  child: ListView.builder(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+                  child: ListView.separated(
                   shrinkWrap: true,
                   itemBuilder: (BuildContext context, int index) {
                     return SpaceCard(
@@ -91,6 +91,9 @@ class _SearchSpaces extends State<SearchSpaces> {
                     );
                   },
                   itemCount: spaceProvider.spaces.length,
+                  separatorBuilder: (BuildContext context, int index) {
+                    return const SizedBox(height: 10);
+                  },
                 )
                 ),
             ],
