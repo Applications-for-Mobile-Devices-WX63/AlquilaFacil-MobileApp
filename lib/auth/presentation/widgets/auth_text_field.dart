@@ -45,8 +45,8 @@ class _AuthTextField extends State<AuthTextField> {
           autovalidateMode: AutovalidateMode.onUserInteraction,
           validator: widget.validator,
           obscureText: widget.isPassword,
-          cursorColor: MainTheme.primary,
-          style: TextStyle(color: MainTheme.primary, fontSize: 12.0),
+          cursorColor: MainTheme.contrast,
+          style: TextStyle(color: MainTheme.contrast, fontSize: 12.0),
           decoration: InputDecoration(
               enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: MainTheme.transparent)),
