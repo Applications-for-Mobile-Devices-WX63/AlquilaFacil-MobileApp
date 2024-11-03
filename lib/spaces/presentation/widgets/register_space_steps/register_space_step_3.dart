@@ -65,7 +65,8 @@ class _RegisterSpaceStep3State extends State<RegisterSpaceStep3> {
                   id: category.id,
                   name: category.name,
                   photoUrl: category.photoUrl,
-                  isSelected: _selectedCategoryId == category.id, onSelect: () => _selectCategory(category.id)
+                  isSelected: _selectedCategoryId == category.id,
+                    onSelect: () => _selectCategory(category.id)
                 );
               },
             ),

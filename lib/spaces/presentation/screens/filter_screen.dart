@@ -3,6 +3,7 @@ import 'package:alquilafacil/public/ui/theme/main_theme.dart';
 import 'package:alquilafacil/spaces/presentation/providers/local_categories_provider.dart';
 import 'package:alquilafacil/spaces/presentation/providers/space_provider.dart';
 import 'package:alquilafacil/spaces/presentation/widgets/capacity_filters.dart';
+import 'package:alquilafacil/spaces/presentation/widgets/local_category_card.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
@@ -60,16 +61,16 @@ class _FilterScreenState extends State<FilterScreen>{
   @override
   void initState(){
     super.initState();
-    final localCategoryProvider = context.read<LocalCategoriesProvider>();
+    final localCategoriesProvider = context.read<LocalCategoriesProvider>();
     () async {
-      await localCategoryProvider.getAllLocalCategories();
+      await localCategoriesProvider.getAllLocalCategories();
     }();
   }
   @override
   Widget build(BuildContext context) {
-    final localCategoryProvider = context.watch<LocalCategoriesProvider>();
+    final localCategoriesProvider = context.watch<LocalCategoriesProvider>();
     final spaceProvider = context.watch<SpaceProvider>();
-    final ranges = ["5-10","10-25","25-50","50-100"];
+    final ranges = ["5-10","11-25","26-50","51-150", "151-300"];
     return Scaffold(
       backgroundColor: MainTheme.background,
       appBar: AppBar(
@@ -88,72 +89,42 @@ class _FilterScreenState extends State<FilterScreen>{
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20.0),
                     child: Text(
-                     "Tipo de espacio",
+                     "Tipos de espacio:",
                      style: TextStyle(
                        color: MainTheme.contrast,
                        fontSize: 20.0,
                        fontWeight: FontWeight.bold
                      ),
                      textAlign: TextAlign.start,
-                                     ),
+                    ),
                   ),
-                  GridView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: localCategoryProvider.localCategories.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      bool isSelected  = selectedIndex == index;
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
-                          child: GestureDetector(
-                            onTap: (){
-                              setState(() {
-                                selectedIndex = index;
-                                spaceProvider.categorySelected = localCategoryProvider.localCategories[index].id;
-                              });
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: isSelected ? MainTheme.primary : Colors.transparent,
-                                  width: 2.0,
-                                ),
-                                borderRadius: BorderRadius.circular(20.0),
-                              ),
-                              child: Card(
-                                elevation: 10.0,
-                                color: MainTheme.background,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(30.0),
-                                  child: Column(
-                                    children: [
-                                      Image.network(
-                                        localCategoryProvider.localCategories[index].photoUrl,
-                                        width: 65,
-                                      ),
-                                      Text(
-                                        localCategoryProvider.localCategories[index].name,
-                                        style: TextStyle(
-                                            color: MainTheme.contrast,
-                                            fontSize: 10.0
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                      );
-                    },
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2
-                    )
-                         ),
+                 GridView.builder(
+                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                     crossAxisCount: 2,
+                     childAspectRatio: 1.0,
+                   ),
+                   shrinkWrap: true,
+                   physics: const NeverScrollableScrollPhysics(),
+                   itemCount: localCategoriesProvider.localCategories.length,
+                   itemBuilder: (context, index) {
+                     final category = localCategoriesProvider.localCategories[index];
+                     return LocalCategoryCard(
+                         id: category.id,
+                         name: category.name,
+                         photoUrl: category.photoUrl,
+                         isSelected: selectedIndex == category.id,
+                         onSelect: () => {setState(() {
+                           selectedIndex = category.id;
+                           spaceProvider.categorySelected = localCategoriesProvider.localCategories[index].id;
+                         })},
+                     );
+                   },
+                 ),
+                 const SizedBox(height: 20),
                  Padding(
                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
                    child: Text(
-                     "Capacidad de Personas",
+                     "Capacidad de personas:",
                      style: TextStyle(
                          color: MainTheme.contrast,
                          fontSize: 20.0,
@@ -172,9 +143,10 @@ class _FilterScreenState extends State<FilterScreen>{
                    shrinkWrap: true,
                    physics: const NeverScrollableScrollPhysics(),
                  ),
-                 Center(
+                 Padding(
+                   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                    child: SizedBox(
-                     width: 100,
+                     width: 400,
                      child: TextButton(onPressed: () async {
                        if(spaceProvider.maxRange != 0 || spaceProvider.minRange != 0 || spaceProvider.categorySelected != 0){
                           spaceProvider.getFilterRanges();
@@ -187,7 +159,7 @@ class _FilterScreenState extends State<FilterScreen>{
                             await _showDialog("Por favor, seleccione los parámetros de búsqueda", "/filter-screen");
                          }
                        },
-                         child: const Text("Buscar")
+                         child: const Text("Buscar espacio ", textAlign: TextAlign.center,)
                      ),
                    ),
                  )
