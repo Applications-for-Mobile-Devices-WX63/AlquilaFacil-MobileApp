@@ -1,6 +1,8 @@
 import 'package:alquilafacil/public/presentation/widgets/default_calendar_day.dart';
 import 'package:alquilafacil/public/presentation/widgets/screen_bottom_app_bar.dart';
+import 'package:alquilafacil/reservation/presentation/providers/reservation_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import '../widgets/event_type_indicator.dart';
 import '../widgets/highlighted_calendar_day.dart';
@@ -13,22 +15,31 @@ class CalendarScreen extends StatefulWidget {
 }
 
 class _CalendarScreenState extends State<CalendarScreen> {
-  DateTime _focusedDay = DateTime.now();
+  final DateTime _focusedDay = DateTime.now();
 
-  // Listas de días a resaltar
+  @override
+  void initState(){
+    super.initState();
+    final reservationProvider = context.read<ReservationProvider>();
+    () async {
+      await reservationProvider.getAllSpaces();
+    }();
+
+  }
+
   final List<DateTime> redDays = [
-    DateTime.utc(2024, 9, 5),
-    DateTime.utc(2024, 9, 12),
+    DateTime.utc(2024, 11, 5),
+    DateTime.utc(2024, 11, 12),
   ];
 
   final List<DateTime> blueDays = [
-    DateTime.utc(2024, 9, 8),
-    DateTime.utc(2024, 9, 15),
+    DateTime.utc(2024, 11, 8),
+    DateTime.utc(2024, 11, 15),
   ];
 
   final List<DateTime> yellowDays = [
-    DateTime.utc(2024, 9, 10),
-    DateTime.utc(2024, 9, 20),
+    DateTime.utc(2024, 11, 10),
+    DateTime.utc(2024, 11, 20),
   ];
 
   @override
