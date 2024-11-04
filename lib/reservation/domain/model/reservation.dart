@@ -19,8 +19,8 @@ class Reservation {
       id: json['id'] as int,
       userId: json['userId'] as int,
       spaceId: json['localId'] as int,
-      startDate: json['date'] as DateTime,
-      endDate: json['startTime'] as DateTime,
+      startDate: DateTime.parse(json['startDate']),
+      endDate: DateTime.parse(json['endDate']),
     );
   }
 

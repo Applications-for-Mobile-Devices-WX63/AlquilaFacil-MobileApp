@@ -1,9 +1,11 @@
 import 'package:alquilafacil/public/presentation/widgets/default_calendar_day.dart';
 import 'package:alquilafacil/public/presentation/widgets/screen_bottom_app_bar.dart';
+import 'package:alquilafacil/public/ui/theme/main_theme.dart';
 import 'package:alquilafacil/reservation/presentation/providers/reservation_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
+import '../../../auth/presentation/providers/SignInPovider.dart';
 import '../widgets/event_type_indicator.dart';
 import '../widgets/highlighted_calendar_day.dart';
 
@@ -16,43 +18,43 @@ class CalendarScreen extends StatefulWidget {
 
 class _CalendarScreenState extends State<CalendarScreen> {
   final DateTime _focusedDay = DateTime.now();
+  bool _isLoading = true; // Estado de carga
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
+    final signInProvider = context.read<SignInProvider>();
     final reservationProvider = context.read<ReservationProvider>();
-    () async {
-      await reservationProvider.getAllSpaces();
-    }();
-
+    _loadReservations(signInProvider.userId, reservationProvider);
   }
 
-  final List<DateTime> redDays = [
-    DateTime.utc(2024, 11, 5),
-    DateTime.utc(2024, 11, 12),
-  ];
-
-  final List<DateTime> blueDays = [
-    DateTime.utc(2024, 11, 8),
-    DateTime.utc(2024, 11, 15),
-  ];
-
-  final List<DateTime> yellowDays = [
-    DateTime.utc(2024, 11, 10),
-    DateTime.utc(2024, 11, 20),
-  ];
+  Future<void> _loadReservations(int userId, ReservationProvider reservationProvider) async {
+    await reservationProvider.getReservationsByUserId(userId);
+    setState(() {
+      _isLoading = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    final reservationProvider = context.watch<ReservationProvider>();
+
+    if (_isLoading) {
+      return Scaffold(
+        appBar: AppBar(title: const Text('Calendario')),
+        body: Center(child: CircularProgressIndicator(color: MainTheme.secondary)),
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(title: const Text('Calendario')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(mainAxisSize: MainAxisSize.min, children: [
           const Text(
-              "Toca en una fecha para ver más detalles sobre la programación",
-              style:
-                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+            "Toca en una fecha para ver más detalles sobre la programación",
+            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          ),
           const SizedBox(height: 16.0),
           TableCalendar(
             locale: "es_ES",
@@ -91,15 +93,10 @@ class _CalendarScreenState extends State<CalendarScreen> {
                 return DefaultCalendarDay(day: day, isOutside: true);
               },
               markerBuilder: (context, day, events) {
-                if (redDays.contains(day)) {
+                if (reservationProvider.reservations
+                    .any((reservation) => reservation.startDate.year == day.year && reservation.startDate.month == day.month && reservation.startDate.day == day.day)) {
                   return HighlightedCalendarDay(day: day, color: Colors.red);
-                } else if (blueDays.contains(day)) {
-                  return HighlightedCalendarDay(day: day, color: Colors.blue);
-                } else if (yellowDays.contains(day)) {
-                  return HighlightedCalendarDay(
-                      day: day, color: Colors.amberAccent);
                 }
-                return null;
               },
             ),
           ),
@@ -113,8 +110,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                 SizedBox(height: 16.0),
                 EventTypeIndicator(color: Colors.blue, text: "Evento"),
                 SizedBox(height: 16.0),
-                EventTypeIndicator(
-                    color: Colors.amberAccent, text: "Recordatorio"),
+                EventTypeIndicator(color: Colors.amberAccent, text: "Recordatorio"),
               ],
             ),
           ),
