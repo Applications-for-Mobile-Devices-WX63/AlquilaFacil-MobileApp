@@ -154,7 +154,7 @@ class RegisterSpaceStep9 extends StatelessWidget {
             NavigationButtons(
               pageController: pageController,
               isLastStep: true,
-              onNext: onFinish, // Pasar el callback a los botones de navegación
+              onNext: onFinish,
             ),
           ],
         ),

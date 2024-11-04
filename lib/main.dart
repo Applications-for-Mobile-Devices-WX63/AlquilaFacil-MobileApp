@@ -15,6 +15,7 @@ import 'package:alquilafacil/profile/presentation/screens/profile_screen.dart';
 import 'package:alquilafacil/public/ui/theme/main_theme.dart';
 import 'package:alquilafacil/reservation/data/remote/helpers/reservation_service_helper.dart';
 import 'package:alquilafacil/reservation/presentation/providers/reservation_provider.dart';
+import 'package:alquilafacil/reservation/presentation/screens/reservation_details_screen.dart';
 import 'package:alquilafacil/spaces/data/remote/helpers/comment_service_helper.dart';
 import 'package:alquilafacil/spaces/data/remote/helpers/local_categories_service_helper.dart';
 import 'package:alquilafacil/spaces/data/remote/helpers/space_service_helper.dart';
@@ -103,8 +104,8 @@ class MyApp extends StatelessWidget {
           "/space-info": (context) => const SpaceInfo(),
           "/comments": (context) => const CommentsScreen(),
           "/profile-details": (context) => const ProfileDetails(),
-          "/my-spaces": (context) => const MySpacesScreen()
-          //"/detail-space": (context) => const ReservationScreen(),
+          "/my-spaces": (context) => const MySpacesScreen(),
+          "/reservation-details": (context) => const ReservationDetailsScreen(),
         },
         debugShowCheckedModeBanner: false,
       ),

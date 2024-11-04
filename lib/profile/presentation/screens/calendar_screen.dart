@@ -2,10 +2,12 @@ import 'package:alquilafacil/public/presentation/widgets/default_calendar_day.da
 import 'package:alquilafacil/public/presentation/widgets/screen_bottom_app_bar.dart';
 import 'package:alquilafacil/public/ui/theme/main_theme.dart';
 import 'package:alquilafacil/reservation/presentation/providers/reservation_provider.dart';
+import 'package:alquilafacil/spaces/presentation/providers/space_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import '../../../auth/presentation/providers/SignInPovider.dart';
+import '../../../reservation/domain/model/reservation.dart';
 import '../widgets/event_type_indicator.dart';
 import '../widgets/highlighted_calendar_day.dart';
 
@@ -38,7 +40,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
   @override
   Widget build(BuildContext context) {
     final reservationProvider = context.watch<ReservationProvider>();
-
+    final spaceProvider = context.watch<SpaceProvider>();
     if (_isLoading) {
       return Scaffold(
         appBar: AppBar(title: const Text('Calendario')),
@@ -92,12 +94,29 @@ class _CalendarScreenState extends State<CalendarScreen> {
               outsideBuilder: (context, day, focusedDay) {
                 return DefaultCalendarDay(day: day, isOutside: true);
               },
-              markerBuilder: (context, day, events) {
-                if (reservationProvider.reservations
-                    .any((reservation) => reservation.startDate.year == day.year && reservation.startDate.month == day.month && reservation.startDate.day == day.day)) {
-                  return HighlightedCalendarDay(day: day, color: Colors.red);
-                }
-              },
+                markerBuilder: (context, day, events) {
+                  final List<Reservation> matchingReservations = reservationProvider.reservations.where(
+                        (reservation) => reservation.startDate.year == day.year &&
+                        reservation.startDate.month == day.month &&
+                        reservation.startDate.day == day.day,
+                  ).toList();
+                  if (matchingReservations.isNotEmpty) {
+                    final reservation = matchingReservations.first;
+                    return HighlightedCalendarDay(
+                      day: day,
+                      color: Colors.red,
+                      onTap: () async {
+                        await spaceProvider.fetchSpaceById(reservation.spaceId);
+                        Navigator.pushNamed(
+                          context,
+                          '/reservation-details',
+                          arguments: reservation,
+                        );
+                      },
+                    );
+                  }
+                  return null;
+                },
             ),
           ),
           const SizedBox(height: 16.0),
