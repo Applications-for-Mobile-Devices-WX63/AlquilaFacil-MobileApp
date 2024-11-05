@@ -28,6 +28,7 @@ class SpaceProvider extends ChangeNotifier {
   String currentStreetAddress = "";
   int currentCapacity = 0;
   String currentDescription = "";
+  String currentCityPlace = "";
 
   SpaceProvider(this.spaceService);
 
@@ -131,21 +132,42 @@ class SpaceProvider extends ChangeNotifier {
 
   Future<void> updateSpace() async {
     final spaceId = spaceSelected!.id;
-    final space = {
-      'district': currentStreetAddress.split(",")[0],
-      'street': currentStreetAddress.split(",")[1],
-      'localName': currentLocalName,
-      'country': spaceSelected!.cityPlace.split(",")[0],
-      'city': spaceSelected!.cityPlace.split(",")[1],
-      'price': currentPrice,
+
+    List<String> completeCityPlace;
+    if (currentCityPlace != null && currentCityPlace.isNotEmpty) {
+      completeCityPlace = currentCityPlace.split(",").map((part) => part.trim()).toList();
+    } else {
+      completeCityPlace = spaceSelected!.cityPlace.split(",").map((part) => part.trim()).toList();
+    }
+
+    List<String> addressParts;
+    if (currentStreetAddress != null && currentStreetAddress.isNotEmpty) {
+      addressParts = currentStreetAddress.split(",").map((part) => part.trim()).toList();
+    } else {
+      addressParts = spaceSelected!.streetAddress.split(",").map((part) => part.trim()).toList();
+    }
+    String localName = spaceSelected!.localName;
+    int nightPrice = (spaceSelected!.nightPrice).toInt();
+    String descriptionMessage = spaceSelected!.descriptionMessage;
+    String features  = spaceSelected!.features;
+    int capacity = spaceSelected!.capacity;
+    Map<String, dynamic> space = {
+      'district': addressParts.isNotEmpty ? addressParts[0] : spaceSelected!.streetAddress.split(",")[0],
+      'street': addressParts.length > 1 ? addressParts[1] : spaceSelected!.streetAddress.split(",")[1],
+      'localName': currentLocalName.isNotEmpty ? currentLocalName : localName,
+      'country': completeCityPlace.isNotEmpty ? completeCityPlace[0] : spaceSelected!.cityPlace.split(",")[0],
+      'city': completeCityPlace.length > 1 ? completeCityPlace[1] : spaceSelected!.cityPlace.split(",")[1],
+      'price': (currentPrice > 0 ? currentPrice : nightPrice).toInt(),
       'photoUrl': spaceSelected!.photoUrl,
-      'descriptionMessage': currentDescription,
+      'descriptionMessage': currentDescription.isNotEmpty ? currentDescription : descriptionMessage,
       'localCategoryId': spaceSelected!.localCategoryId,
       'userId': spaceSelected!.userId,
-      'features': currentFeatures,
-      'capacity': currentCapacity,
+      'features': currentFeatures.isNotEmpty ? currentFeatures : features,
+      'capacity': currentCapacity > 0 ? currentCapacity : capacity,
     };
+
     logger.d(space);
+
     try {
       await spaceService.updateSpace(spaceId, space);
       notifyListeners();
@@ -154,6 +176,10 @@ class SpaceProvider extends ChangeNotifier {
     }
   }
 
+  void setCurrentCityPlace(String newCityPlace) {
+    currentCityPlace = newCityPlace;
+    notifyListeners();
+  }
   void setIsEditMode() {
     isEditMode = !isEditMode;
     notifyListeners();

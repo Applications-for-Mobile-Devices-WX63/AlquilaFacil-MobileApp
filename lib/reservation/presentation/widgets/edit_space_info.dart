@@ -70,7 +70,7 @@ class _EditSpaceInfoState extends State<EditSpaceInfo> {
         EditSpaceField(
           controller: cityPlaceController,
           onValueChanged: (value) =>
-              spaceProvider.setCityPlace(value),
+              spaceProvider.setCurrentCityPlace(value),
           hintText: 'País y Ciudad',
         ),
         EditSpaceField(
