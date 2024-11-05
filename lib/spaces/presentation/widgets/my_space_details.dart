@@ -1,13 +1,15 @@
-import 'dart:ui';
-import 'package:alquilafacil/reservation/presentation/widgets/edit_space_info.dart';
-import 'package:alquilafacil/spaces/presentation/widgets/edit_space_field.dart';
-import 'package:flutter/cupertino.dart';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+
 import '../../../profile/presentation/providers/pofile_provider.dart';
 import '../../../public/ui/theme/main_theme.dart';
+import '../../../reservation/presentation/widgets/edit_space_info.dart';
 import '../../../reservation/presentation/widgets/space_info_details.dart';
 import '../providers/space_provider.dart';
+import 'edit_space_field.dart';
 import 'my_space_details_actions.dart';
 
 class MySpaceDetails extends StatefulWidget {
@@ -20,6 +22,8 @@ class MySpaceDetails extends StatefulWidget {
 class _MySpaceDetailsState extends State<MySpaceDetails> {
   late TextEditingController _nightPriceController;
   late TextEditingController _featuresController;
+  File? _imageFile;
+  bool isImageToUpdate = false;
 
   @override
   void initState() {
@@ -43,6 +47,31 @@ class _MySpaceDetailsState extends State<MySpaceDetails> {
     _featuresController.dispose();
     super.dispose();
   }
+
+  Future<void> _pickImage() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        _imageFile = File(pickedFile.path);
+        isImageToUpdate = true;
+      });
+    }
+  }
+
+  Future<void> _uploadImageToCloudinary() async {
+    if (_imageFile != null) {
+      final spaceProvider = context.read<SpaceProvider>();
+      try{
+        await spaceProvider.uploadImage(_imageFile!);
+      } finally{
+        setState(() {
+          isImageToUpdate = false;
+        });
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final spaceProvider = context.watch<SpaceProvider>();
@@ -71,7 +100,12 @@ class _MySpaceDetailsState extends State<MySpaceDetails> {
                 fit: StackFit.expand,
                 children: [
                   Positioned.fill(
-                    child: Image.network(
+                    child: _imageFile != null
+                        ? Image.file(
+                      _imageFile!,
+                      fit: BoxFit.cover,
+                    )
+                        : Image.network(
                       spaceProvider.spaceSelected!.photoUrl,
                       fit: BoxFit.cover,
                     ),
@@ -87,9 +121,7 @@ class _MySpaceDetailsState extends State<MySpaceDetails> {
                           backgroundColor: MainTheme.background,
                           padding: const EdgeInsets.all(16),
                         ),
-                        onPressed: () {
-
-                        },
+                        onPressed: _pickImage,
                         icon: Icon(
                           Icons.edit,
                           color: MainTheme.secondary,
@@ -110,8 +142,9 @@ class _MySpaceDetailsState extends State<MySpaceDetails> {
               margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [ !spaceProvider.isEditMode ?
-                  SpaceInfoDetails(
+                children: [
+                  !spaceProvider.isEditMode
+                      ? SpaceInfoDetails(
                     localName: spaceProvider.spaceSelected!.localName,
                     capacity: spaceProvider.spaceSelected!.capacity,
                     username: profileProvider.usernameExpect,
@@ -119,25 +152,31 @@ class _MySpaceDetailsState extends State<MySpaceDetails> {
                     streetAddress: spaceProvider.spaceSelected!.streetAddress,
                     cityPlace: spaceProvider.spaceSelected!.cityPlace,
                     isEditMode: spaceProvider.isEditMode,
-                  ) : const EditSpaceInfo(),
+                  )
+                      : const EditSpaceInfo(),
                   const SizedBox(height: 15),
                   spaceProvider.isEditMode
-                      ?
-                      EditSpaceField(controller: _nightPriceController, onValueChanged: (newPriceNight){
-                        int? currentPriceNight = int.tryParse(newPriceNight);
-                        spaceProvider.setCurrentPrice(currentPriceNight!);
-                      }, hintText: 'Precio por noche',)
+                      ? EditSpaceField(
+                    controller: _nightPriceController,
+                    onValueChanged: (newPriceNight) {
+                      int? currentPriceNight = int.tryParse(newPriceNight);
+                      spaceProvider.setCurrentPrice(currentPriceNight!);
+                    },
+                    hintText: 'Precio por noche',
+                  )
                       : Text(
                     "Precio por noche: S/.${spaceProvider.spaceSelected!.nightPrice}",
                     style: TextStyle(color: MainTheme.contrast),
                   ),
                   const SizedBox(height: 15),
                   spaceProvider.isEditMode
-                      ?
-                     EditSpaceField(controller: _featuresController,
-                       onValueChanged: (newFeatures) {
-                            spaceProvider.setFeatures(newFeatures.toString());
-                        }, hintText: 'Servicios adicionales',)
+                      ? EditSpaceField(
+                    controller: _featuresController,
+                    onValueChanged: (newFeatures) {
+                      spaceProvider.setFeatures(newFeatures.toString());
+                    },
+                    hintText: 'Servicios adicionales',
+                  )
                       : Text(
                     "Servicios adicionales: ${spaceProvider.spaceSelected!.features}",
                     style: TextStyle(color: MainTheme.contrast),
@@ -147,6 +186,23 @@ class _MySpaceDetailsState extends State<MySpaceDetails> {
             ),
             const SizedBox(height: 15),
             const MySpaceDetailsActions(),
+            if (isImageToUpdate)
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: MainTheme.secondary,
+                        foregroundColor: MainTheme.background,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)
+                        )
+                    ),
+                    onPressed: _uploadImageToCloudinary,
+                    child: const Text("Actualizar Imagen"),
+                  ),
+                ),
+              ),
           ],
         ),
       )

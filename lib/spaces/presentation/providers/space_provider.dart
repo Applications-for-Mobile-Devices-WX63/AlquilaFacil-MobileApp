@@ -102,6 +102,8 @@ class SpaceProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+
+
   void selectSpace(Space currentSpaceSelected) {
     spaceSelected = currentSpaceSelected;
     notifyListeners();
@@ -158,7 +160,7 @@ class SpaceProvider extends ChangeNotifier {
       'country': completeCityPlace.isNotEmpty ? completeCityPlace[0] : spaceSelected!.cityPlace.split(",")[0],
       'city': completeCityPlace.length > 1 ? completeCityPlace[1] : spaceSelected!.cityPlace.split(",")[1],
       'price': (currentPrice > 0 ? currentPrice : nightPrice).toInt(),
-      'photoUrl': spaceSelected!.photoUrl,
+      'photoUrl': spacePhotoUrl.isNotEmpty ? spacePhotoUrl : spaceSelected!.photoUrl,
       'descriptionMessage': currentDescription.isNotEmpty ? currentDescription : descriptionMessage,
       'localCategoryId': spaceSelected!.localCategoryId,
       'userId': spaceSelected!.userId,
