@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:alquilafacil/spaces/presentation/widgets/edit_space_field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -41,23 +42,6 @@ class _MySpaceDetailsState extends State<MySpaceDetails> {
     _featuresController.dispose();
     super.dispose();
   }
-
-  void _updateNightPrice() {
-    final newPrice = double.tryParse(_nightPriceController.text);
-    if (newPrice != null && newPrice >= 0) {
-      context.read<SpaceProvider>().setCurrentPrice(newPrice);
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Por favor, ingresa un precio válido.')),
-      );
-    }
-  }
-
-  void _updateFeatures() {
-    final newFeatures = _featuresController.text;
-    context.read<SpaceProvider>().setFeatures(newFeatures);
-  }
-
   @override
   Widget build(BuildContext context) {
     final spaceProvider = context.watch<SpaceProvider>();
@@ -103,7 +87,7 @@ class _MySpaceDetailsState extends State<MySpaceDetails> {
                           padding: const EdgeInsets.all(16),
                         ),
                         onPressed: () {
-                          // Lógica para editar
+
                         },
                         icon: Icon(
                           Icons.edit,
@@ -136,66 +120,23 @@ class _MySpaceDetailsState extends State<MySpaceDetails> {
                     isEditMode: spaceProvider.isEditMode,
                   ),
                   const SizedBox(height: 15),
-                  // Campo para precio
                   spaceProvider.isEditMode
-                      ? Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: TextFormField(
-                          controller: _nightPriceController,
-                          cursorColor: MainTheme.primary,
-                          decoration: InputDecoration(
-                            hintText: "Nuevo precio por noche",
-                            enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(color: MainTheme.primary)),
-                            focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(color: MainTheme.primary)),
-                          ),
-                          style: TextStyle(color: MainTheme.contrast),
-                        ),
-                      ),
-                      IconButton(
-                        onPressed: _updateNightPrice,
-                        icon: Icon(
-                          Icons.edit,
-                          color: MainTheme.secondary,
-                        ),
-                      ),
-                    ],
-                  )
+                      ?
+                      EditSpaceField(controller: _nightPriceController, onValueChanged: (newPriceNight){
+                        int? currentPriceNight = int.tryParse(newPriceNight);
+                        spaceProvider.setCurrentPrice(currentPriceNight!);
+                      }, hintText: 'Precio por noche',)
                       : Text(
                     "Precio por noche: S/.${spaceProvider.spaceSelected!.nightPrice}",
                     style: TextStyle(color: MainTheme.contrast),
                   ),
                   const SizedBox(height: 15),
                   spaceProvider.isEditMode
-                      ? Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: TextFormField(
-                          controller: _featuresController,
-                          cursorColor: MainTheme.primary,
-                          decoration: InputDecoration(
-                            hintText: "Servicios adicionales",
-                            enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(color: MainTheme.primary)),
-                            focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(color: MainTheme.primary)),
-                          ),
-                          style: TextStyle(color: MainTheme.contrast),
-                        ),
-                      ),
-                      IconButton(
-                        onPressed: _updateFeatures,
-                        icon: Icon(
-                          Icons.edit,
-                          color: MainTheme.secondary,
-                        ),
-                      ),
-                    ],
-                  )
+                      ?
+                     EditSpaceField(controller: _featuresController,
+                       onValueChanged: (newFeatures) {
+                            spaceProvider.setFeatures(newFeatures.toString());
+                        }, hintText: 'Servicios adicionales',)
                       : Text(
                     "Servicios adicionales: ${spaceProvider.spaceSelected!.features}",
                     style: TextStyle(color: MainTheme.contrast),

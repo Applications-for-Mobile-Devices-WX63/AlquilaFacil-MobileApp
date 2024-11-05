@@ -1,10 +1,11 @@
-import 'package:flutter/cupertino.dart';
+import 'package:alquilafacil/spaces/presentation/widgets/edit_space_field.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../public/ui/theme/main_theme.dart';
+import '../../../spaces/presentation/providers/space_provider.dart';
 
-class SpaceInfoDetails extends StatelessWidget {
-
+class SpaceInfoDetails extends StatefulWidget {
   final String localName;
   final int capacity;
   final String username;
@@ -12,49 +13,77 @@ class SpaceInfoDetails extends StatelessWidget {
   final String streetAddress;
   final String cityPlace;
   final bool isEditMode;
+
   const SpaceInfoDetails({
-    super.key,
+    Key? key,
     required this.localName,
     required this.capacity,
     required this.username,
     required this.description,
     required this.streetAddress,
     required this.cityPlace,
-    required this.isEditMode
-  });
+    required this.isEditMode,
+  }) : super(key: key);
+
+  @override
+  _SpaceInfoDetailsState createState() => _SpaceInfoDetailsState();
+}
+
+class _SpaceInfoDetailsState extends State<SpaceInfoDetails> {
+  late TextEditingController localNameController;
+  late TextEditingController capacityController;
+  late TextEditingController descriptionController;
+  late TextEditingController streetAddressController;
+  late TextEditingController cityPlaceController;
+
+  @override
+  void initState() {
+    super.initState();
+    localNameController = TextEditingController(text: widget.localName);
+    capacityController = TextEditingController(text: widget.capacity.toString());
+    descriptionController = TextEditingController(text: widget.description);
+    streetAddressController = TextEditingController(text: widget.streetAddress);
+    cityPlaceController = TextEditingController(text: widget.cityPlace);
+  }
+
+  @override
+  void dispose() {
+    localNameController.dispose();
+    capacityController.dispose();
+    descriptionController.dispose();
+    streetAddressController.dispose();
+    cityPlaceController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return !isEditMode ? Column(
+    final spaceProvider = context.watch<SpaceProvider>();
+
+    return !widget.isEditMode
+        ? Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-      Text(
-          localName,
+        Text(
+          widget.localName,
           textAlign: TextAlign.start,
           style: TextStyle(
               fontWeight: FontWeight.bold,
               color: MainTheme.contrast,
-              fontSize: 25.0
-          ),
-      ),
-     Text(
-        "$streetAddress $cityPlace",
-            textAlign: TextAlign.start,
-            style: TextStyle(
-              color: MainTheme.contrast,
-              fontSize: 18.0
-          ),
+              fontSize: 25.0),
         ),
-     Text(
-        "Aforo: $capacity personas",
-        textAlign: TextAlign.start,
-        style: TextStyle(
-          color: MainTheme.helper,
-          fontSize: 15.0
-          ),
+        Text(
+          "${widget.streetAddress} ${widget.cityPlace}",
+          textAlign: TextAlign.start,
+          style: TextStyle(color: MainTheme.contrast, fontSize: 18.0),
         ),
-     const SizedBox(height: 20),
+        Text(
+          "Aforo: ${widget.capacity} personas",
+          textAlign: TextAlign.start,
+          style: TextStyle(color: MainTheme.helper, fontSize: 15.0),
+        ),
+        const SizedBox(height: 20),
         RichText(
           text: TextSpan(
             children: [
@@ -67,7 +96,7 @@ class SpaceInfoDetails extends StatelessWidget {
                 ),
               ),
               TextSpan(
-                text: username,
+                text: widget.username,
                 style: TextStyle(
                   fontWeight: FontWeight.normal,
                   color: MainTheme.contrast,
@@ -78,163 +107,93 @@ class SpaceInfoDetails extends StatelessWidget {
           ),
           textAlign: TextAlign.start,
         ),
-     const SizedBox(height: 20),
-     Text(
-       "Descripción:",
-        style: TextStyle(
-          color: MainTheme.contrast,
-          fontWeight: FontWeight.bold,
-          fontSize: 17.0
-       ),
-    ),
-    Text(
-      description,
-      style: TextStyle(
-          color: MainTheme.contrast,
-          fontSize: 17.0
-         ),
-       )
-     ]
-    ) : Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        const SizedBox(height: 20),
+        Text(
+          "Descripción:",
+          style: TextStyle(
+              color: MainTheme.contrast,
+              fontWeight: FontWeight.bold,
+              fontSize: 17.0),
+        ),
+        Text(
+          widget.description,
+          style: TextStyle(color: MainTheme.contrast, fontSize: 17.0),
+        ),
+      ],
+    )
+        : Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        EditSpaceField(
+          controller: localNameController,
+          onValueChanged: (value) =>
+              spaceProvider.setLocalName(value),
+          hintText: 'Nombre del local',
+        ),
+        EditSpaceField(
+          controller: streetAddressController,
+          onValueChanged: (value) =>
+              spaceProvider.setStreetAddress(value),
+          hintText: 'Dirección del local',
+        ),
+        EditSpaceField(
+          controller: cityPlaceController,
+          onValueChanged: (value) =>
+              spaceProvider.setCityPlace(value),
+          hintText: 'Distrito',
+        ),
+        EditSpaceField(
+          controller: capacityController,
+          onValueChanged: (value) {
+            final intValue = int.tryParse(value);
+            if (intValue != null && intValue >= 0) {
+              spaceProvider.setCapacity(intValue);
+            } else {
+              capacityController.text = widget.capacity.toString();
+            }
+          },
+          hintText: 'Aforo del local',
+        ),
+        const SizedBox(height: 20),
+        RichText(
+          text: TextSpan(
             children: [
-              Text(
-                localName,
-                textAlign: TextAlign.start,
+              TextSpan(
+                text: "Propietario: ",
                 style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: MainTheme.contrast,
-                    fontSize: 25.0
+                  fontWeight: FontWeight.bold,
+                  color: MainTheme.contrast,
+                  fontSize: 18.0,
                 ),
               ),
-              IconButton(
-                  onPressed: (){
-
-                  },
-                  icon:  Icon(
-                      Icons.edit,
-                    color: MainTheme.secondary,
-                  )
-              )
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "$streetAddress $cityPlace",
-                textAlign: TextAlign.start,
+              TextSpan(
+                text: widget.username,
                 style: TextStyle(
-                    color: MainTheme.contrast,
-                    fontSize: 18.0
+                  fontWeight: FontWeight.normal,
+                  color: MainTheme.contrast,
+                  fontSize: 18.0,
                 ),
               ),
-              IconButton(
-                  onPressed: (){
-
-                  },
-                  icon:  Icon(
-                    Icons.edit,
-                    color: MainTheme.secondary,
-                  )
-              )
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "Aforo: $capacity personas",
-                textAlign: TextAlign.start,
-                style: TextStyle(
-                    color: MainTheme.helper,
-                    fontSize: 15.0
-                ),
-              ),
-              IconButton(
-                  onPressed: (){
-
-                  },
-                  icon:  Icon(
-                    Icons.edit,
-                    color: MainTheme.secondary,
-                  )
-              )
-            ],
-          ),
-          const SizedBox(height: 20),
-          RichText(
-            text: TextSpan(
-              children: [
-                TextSpan(
-                  text: "Propietario: ",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: MainTheme.contrast,
-                    fontSize: 18.0,
-                  ),
-                ),
-                TextSpan(
-                  text: username,
-                  style: TextStyle(
-                    fontWeight: FontWeight.normal,
-                    color: MainTheme.contrast,
-                    fontSize: 18.0,
-                  ),
-                ),
-              ],
-            ),
-            textAlign: TextAlign.start,
-          ),
-          const SizedBox(height: 20),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "Descripción:",
-                style: TextStyle(
-                    color: MainTheme.contrast,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 17.0
-                ),
-              ),
-              IconButton(
-                  onPressed: (){
-
-                  },
-                  icon:  Icon(
-                    Icons.edit,
-                    color: MainTheme.secondary,
-                  )
-              )
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                description,
-                style: TextStyle(
-                    color: MainTheme.contrast,
-                    fontSize: 17.0
-                ),
-              ),
-              IconButton(
-                  onPressed: (){
-
-                  },
-                  icon:  Icon(
-                    Icons.edit,
-                    color: MainTheme.secondary,
-                  )
-              )
-            ],
-          )
-        ]
+          textAlign: TextAlign.start,
+        ),
+        const SizedBox(height: 20),
+        Text(
+          "Descripción:",
+          style: TextStyle(
+              color: MainTheme.contrast,
+              fontWeight: FontWeight.bold,
+              fontSize: 17.0),
+        ),
+        EditSpaceField(
+          controller: descriptionController,
+          onValueChanged: (value) =>
+              spaceProvider.setDescription(value),
+          hintText: 'Descripción del local',
+        ),
+      ],
     );
   }
 }
