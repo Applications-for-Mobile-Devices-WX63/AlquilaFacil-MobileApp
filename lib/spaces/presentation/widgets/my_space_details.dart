@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:alquilafacil/reservation/presentation/widgets/edit_space_info.dart';
 import 'package:alquilafacil/spaces/presentation/widgets/edit_space_field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -109,7 +110,7 @@ class _MySpaceDetailsState extends State<MySpaceDetails> {
               margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+                children: [ !spaceProvider.isEditMode ?
                   SpaceInfoDetails(
                     localName: spaceProvider.spaceSelected!.localName,
                     capacity: spaceProvider.spaceSelected!.capacity,
@@ -118,7 +119,7 @@ class _MySpaceDetailsState extends State<MySpaceDetails> {
                     streetAddress: spaceProvider.spaceSelected!.streetAddress,
                     cityPlace: spaceProvider.spaceSelected!.cityPlace,
                     isEditMode: spaceProvider.isEditMode,
-                  ),
+                  ) : const EditSpaceInfo(),
                   const SizedBox(height: 15),
                   spaceProvider.isEditMode
                       ?
