@@ -224,4 +224,27 @@ String _getUserIdFromToken(String token) {
     }
   }
 
+  @override
+  Future<Space> updateSpace(int spaceId, Map<String, dynamic> spaceToUpdate )async  {
+    final dio = Dio();
+    var token = signInProvider.token;
+    var options = Options(headers: {'Authorization': 'Bearer $token'});
+    try{
+      final request = await dio.put(
+          "${Constant.BASE_URL}${Constant.RESOURCE_PATH}locals/$spaceId",
+          data: spaceToUpdate, options: options
+      );
+      if (request.statusCode == HttpStatus.ok) {
+        final json = request.data;
+        return Space.fromJson(json);
+      } else {
+        throw Exception(errorMessageHandler.reject(request.statusCode!));
+      }
+    } catch(e){
+      Logger().e("Error while update space $e");
+      rethrow;
+    }
+
+  }
+
 }

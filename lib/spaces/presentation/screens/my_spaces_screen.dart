@@ -61,7 +61,7 @@ class _MySpacesScreenState extends State<MySpacesScreen> {
                           onTap: (){
                             spaceProvider.setSelectedSpace(spaceProvider.currentSpaces[index]);
                             Navigator.pushNamed(
-                                context, "/space-info"
+                                context, "/my-space-info"
                             );
                           },
                           child: ListTile(

@@ -105,7 +105,8 @@ class _SpaceInfoState  extends State<SpaceInfo> {
                        username: profileProvider.usernameExpect,
                        description: spaceProvider.spaceSelected!.descriptionMessage,
                        streetAddress: spaceProvider.spaceSelected!.streetAddress,
-                       cityPlace: spaceProvider.spaceSelected!.cityPlace
+                       cityPlace: spaceProvider.spaceSelected!.cityPlace,
+                       isEditMode: false,
                    ),
                     const SizedBox(height: 20),
                     const SpaceInfoActions(),

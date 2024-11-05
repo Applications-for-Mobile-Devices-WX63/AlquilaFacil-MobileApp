@@ -9,7 +9,7 @@ class Space {
   final String photoUrl;
   final String descriptionMessage;
   final int localCategoryId;
-  late  int userId;
+  late final int userId;
   final String features;
   final int capacity;
 
@@ -25,8 +25,8 @@ class Space {
     required this.userId,
     required this.features,
     required this.capacity,
-    this.district = '',
-    this.country = '',
+    this.district = ' ',
+    this.country = ' ',
   });
 
   factory Space.fromJson(Map<String, dynamic> json) {

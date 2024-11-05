@@ -5,7 +5,6 @@ import 'dart:io';
 import 'package:alquilafacil/spaces/data/remote/helpers/space_service_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:logger/logger.dart';
-import 'package:provider/provider.dart';
 
 import '../../domain/model/space.dart';
 
@@ -22,6 +21,9 @@ class SpaceProvider extends ChangeNotifier{
   String cityPlace= "";
   Space? spaceSelected;
   String spacePhotoUrl = "";
+  bool isEditMode = false;
+  double currentPrice = 0;
+  String currentFeatures = "";
   var logger = Logger();
   SpaceProvider(this.spaceService);
 
@@ -112,11 +114,51 @@ class SpaceProvider extends ChangeNotifier{
 
   Future<void> createSpace(Space space) async {
     try {
-      logger.i("Creating space with the following data: $space");
       await spaceService.createSpace(space);
     } catch (e){
       logger.e("Error while trying to create space, please check the service request", e);
     }
+    notifyListeners();
+  }
+
+  Future<void> updateSpace() async {
+    final spaceId = spaceSelected!.id;
+    final space =
+        {
+          'district': spaceSelected!.streetAddress.split(",")[1],
+          'street': spaceSelected!.streetAddress.split(",")[0],
+          'localName': spaceSelected!.localName,
+          'country':  spaceSelected!.cityPlace.split(",")[1],
+          'city': spaceSelected!.cityPlace.split(",")[0],
+          'price': currentPrice.toInt(),
+          'photoUrl': spaceSelected!.photoUrl,
+          'descriptionMessage': spaceSelected!.descriptionMessage,
+          'localCategoryId': spaceSelected!.localCategoryId,
+          'userId':spaceSelected!.userId,
+          'features': currentFeatures,
+          'capacity': spaceSelected!.capacity,
+        };
+    Logger().d(space);
+    try{
+      await spaceService.updateSpace(spaceId, space);
+      notifyListeners();
+    } catch(e){
+      logger.e("Error while trying to update space, please check the service request", e);
+    }
+  }
+
+  void setIsEditMode(){
+    isEditMode = !isEditMode;
+    notifyListeners();
+  }
+
+  void setCurrentPrice(double newPrice){
+    currentPrice = newPrice;
+    notifyListeners();
+  }
+
+  void setFeatures(String newFeatures){
+    currentFeatures = newFeatures;
     notifyListeners();
   }
 

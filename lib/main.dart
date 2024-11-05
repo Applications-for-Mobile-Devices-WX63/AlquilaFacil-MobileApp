@@ -30,6 +30,7 @@ import 'package:alquilafacil/reservation/presentation/screens/space_info.dart';
 import 'package:alquilafacil/spaces/presentation/screens/spaces_details.dart';
 import 'package:alquilafacil/spaces/presentation/screens/filter_spaces_district.dart';
 import 'package:alquilafacil/spaces/presentation/screens/search_spaces.dart';
+import 'package:alquilafacil/spaces/presentation/widgets/my_space_details.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
@@ -106,6 +107,7 @@ class MyApp extends StatelessWidget {
           "/profile-details": (context) => const ProfileDetails(),
           "/my-spaces": (context) => const MySpacesScreen(),
           "/reservation-details": (context) => const ReservationDetailsScreen(),
+          '/my-space-info': (context) => const MySpaceDetails()
         },
         debugShowCheckedModeBanner: false,
       ),

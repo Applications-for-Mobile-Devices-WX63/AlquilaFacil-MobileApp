@@ -20,7 +20,7 @@ class CalendarScreen extends StatefulWidget {
 
 class _CalendarScreenState extends State<CalendarScreen> {
   final DateTime _focusedDay = DateTime.now();
-  bool _isLoading = true; // Estado de carga
+  bool _isLoading = true;
 
   @override
   void initState() {

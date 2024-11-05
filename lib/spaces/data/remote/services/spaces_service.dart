@@ -12,4 +12,5 @@ abstract class SpaceService{
   Future<String> uploadImage(File image);
   Future<String> createSpace(Space space);
   Future<List<Space>> getSpacesByUserId(int userId);
+  Future<Space> updateSpace(int spaceId, Map<String, dynamic> spaceToUpdate);
 }
