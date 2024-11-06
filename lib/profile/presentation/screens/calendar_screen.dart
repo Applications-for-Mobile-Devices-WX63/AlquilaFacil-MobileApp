@@ -41,6 +41,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
   Widget build(BuildContext context) {
     final reservationProvider = context.watch<ReservationProvider>();
     final spaceProvider = context.watch<SpaceProvider>();
+
     if (_isLoading) {
       return Scaffold(
         appBar: AppBar(title: const Text('Calendario')),
@@ -49,7 +50,15 @@ class _CalendarScreenState extends State<CalendarScreen> {
     }
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Calendario')),
+      appBar: AppBar(
+        title: const Text('Calendario'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.popAndPushNamed(context, '/search-space');
+          },
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(mainAxisSize: MainAxisSize.min, children: [
@@ -94,29 +103,29 @@ class _CalendarScreenState extends State<CalendarScreen> {
               outsideBuilder: (context, day, focusedDay) {
                 return DefaultCalendarDay(day: day, isOutside: true);
               },
-                markerBuilder: (context, day, events) {
-                  final List<Reservation> matchingReservations = reservationProvider.reservations.where(
-                        (reservation) => reservation.startDate.year == day.year &&
-                        reservation.startDate.month == day.month &&
-                        reservation.startDate.day == day.day,
-                  ).toList();
-                  if (matchingReservations.isNotEmpty) {
-                    final reservation = matchingReservations.first;
-                    return HighlightedCalendarDay(
-                      day: day,
-                      color: Colors.red,
-                      onTap: () async {
-                        await spaceProvider.fetchSpaceById(reservation.spaceId);
-                        Navigator.pushNamed(
-                          context,
-                          '/reservation-details',
-                          arguments: reservation,
-                        );
-                      },
-                    );
-                  }
-                  return null;
-                },
+              markerBuilder: (context, day, events) {
+                final List<Reservation> matchingReservations = reservationProvider.reservations.where(
+                      (reservation) => reservation.startDate.year == day.year &&
+                      reservation.startDate.month == day.month &&
+                      reservation.startDate.day == day.day,
+                ).toList();
+                if (matchingReservations.isNotEmpty) {
+                  final reservation = matchingReservations.first;
+                  return HighlightedCalendarDay(
+                    day: day,
+                    color: Colors.red,
+                    onTap: () async {
+                      await spaceProvider.fetchSpaceById(reservation.spaceId);
+                      Navigator.pushNamed(
+                        context,
+                        '/reservation-details',
+                        arguments: reservation,
+                      );
+                    },
+                  );
+                }
+                return null;
+              },
             ),
           ),
           const SizedBox(height: 16.0),
