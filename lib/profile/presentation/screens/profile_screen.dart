@@ -15,8 +15,16 @@ class ProfileScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: const Text('Panel de control',
-            style: TextStyle(color: Colors.black)),
+        title: const Text(
+          'Panel de control',
+          style: TextStyle(color: Colors.black),
+        ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.popAndPushNamed(context, '/search-space');
+          },
+        ),
       ),
       bottomNavigationBar: const ScreenBottomAppBar(),
       body: Column(
@@ -44,8 +52,7 @@ class ProfileScreen extends StatelessWidget {
                     title: 'Mis espacios favoritos',
                     routeName: '/favorites',
                     onTap: () async {
-                      await spaceProvider
-                          .loadFavorites(); // Asegura que los favoritos están cargados antes de navegar
+                      await spaceProvider.loadFavorites();
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -75,14 +82,21 @@ class FavoritesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final spaceProvider = Provider.of<SpaceProvider>(context);
-    final favoriteSpaces =
-        spaceProvider.favoriteSpaces; // Solo los espacios favoritos
+    final favoriteSpaces = spaceProvider.favoriteSpaces;
 
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: const Text('Mis espacios favoritos',
-            style: TextStyle(color: Colors.black)),
+        title: const Text(
+          'Mis espacios favoritos',
+          style: TextStyle(color: Colors.black),
+        ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.popAndPushNamed(context, '/search-space');
+          },
+        ),
       ),
       body: favoriteSpaces.isEmpty
           ? const Center(child: Text('No tienes espacios favoritos'))
