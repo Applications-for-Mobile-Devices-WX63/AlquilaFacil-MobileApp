@@ -1,4 +1,8 @@
+import 'package:alquilafacil/auth/presentation/screens/login.dart';
+import 'package:alquilafacil/reservation/presentation/screens/space_info.dart';
+import 'package:alquilafacil/spaces/presentation/providers/space_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SpaceCard extends StatefulWidget {
@@ -45,9 +49,14 @@ class _SpaceCardState extends State<SpaceCard> {
 
   @override
   Widget build(BuildContext context) {
+    final spaceProvider = context.watch<SpaceProvider>();
     return GestureDetector(
       onTap: () async {
-        // Acción para mostrar detalles del espacio
+       try{
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const SpaceInfo()));
+       } finally{
+         await spaceProvider.fetchSpaceById(widget.id);
+       }
       },
       child: Card(
         color: Colors.white,

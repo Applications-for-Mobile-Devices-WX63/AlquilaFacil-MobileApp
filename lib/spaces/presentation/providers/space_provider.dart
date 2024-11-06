@@ -10,7 +10,7 @@ class SpaceProvider extends ChangeNotifier {
   final SpaceServiceHelper spaceService;
   List<Space> spaces = [];
   List<Space> currentSpaces = [];
-  List<Space> favoriteSpaces = []; // Lista de espacios favoritos
+  List<Space> favoriteSpaces = [];
   List<String> districts = [];
   List<String> expectDistricts = [];
   List<String> ranges = [];
