@@ -104,13 +104,14 @@ class _LoginState extends State<Login> {
                 height: 50,
                 child: TextButton(
                   onPressed: () async  {
+                  try{
                     await signInProvider.signIn();
                     if(signInProvider.token.isNotEmpty){
                       await _showDialog("Inicio de sesión exitoso","/search-space");
                     }
-                    else {
-                      await _showDialog("Correo electrónico o contraseña incorrectos","/login");
-                    }
+                  } catch(_){
+                    await _showDialog("Correo electrónico o contraseña incorrectos","/login");
+                  }
                   },
                   child: const Text("Iniciar sesión"),
                 ),
