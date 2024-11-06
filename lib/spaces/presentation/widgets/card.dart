@@ -1,13 +1,7 @@
-
-import 'package:alquilafacil/public/ui/theme/main_theme.dart';
-import 'package:alquilafacil/reservation/presentation/screens/space_info.dart';
 import 'package:flutter/material.dart';
-import 'package:logger/logger.dart';
-import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import '../providers/space_provider.dart';
-
-class SpaceCard extends StatelessWidget {
+class SpaceCard extends StatefulWidget {
   final String location;
   final String price;
   final String imageUrl;
@@ -22,20 +16,41 @@ class SpaceCard extends StatelessWidget {
   });
 
   @override
+  _SpaceCardState createState() => _SpaceCardState();
+}
+
+class _SpaceCardState extends State<SpaceCard> {
+  bool isFavorite = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadFavoriteStatus();
+  }
+
+  Future<void> _loadFavoriteStatus() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      isFavorite = prefs.getBool('favorite_${widget.id}') ?? false;
+    });
+  }
+
+  Future<void> _toggleFavorite() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      isFavorite = !isFavorite;
+    });
+    await prefs.setBool('favorite_${widget.id}', isFavorite);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final spaceProvider = context.watch<SpaceProvider>();
     return GestureDetector(
       onTap: () async {
-        await spaceProvider.fetchSpaceById(id);
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const SpaceInfo(),
-          ),
-        );
+        // Acción para mostrar detalles del espacio
       },
       child: Card(
-        color: MainTheme.background,
+        color: Colors.white,
         elevation: 3,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,7 +60,7 @@ class SpaceCard extends StatelessWidget {
                 Radius.circular(15.0),
               ),
               child: Image.network(
-                imageUrl,
+                widget.imageUrl,
                 fit: BoxFit.cover,
                 width: double.infinity,
                 height: 180,
@@ -53,64 +68,64 @@ class SpaceCard extends StatelessWidget {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          constraints: const BoxConstraints(maxWidth: 150),
-                          child: Text(
-                            location,
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
-                            style: const TextStyle(
-                              color: Colors.black,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400,
-                            )
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          'S/. $price',
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        constraints: const BoxConstraints(maxWidth: 150),
+                        child: Text(
+                          widget.location,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
                           style: const TextStyle(
                             color: Colors.black,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
                           ),
                         ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        IconButton(
-                          onPressed: () {
-                            // Acción para el primer ícono
-                          },
-                          icon: const Icon(Icons.military_tech_rounded),
-                          color: Colors.orange,
-                          iconSize: 30.0,
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        'S/. ${widget.price}',
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
                         ),
-                        const SizedBox(width: 10),
-                        IconButton(
-                          onPressed: ()  {
-
-                          },
-                          icon: const Icon(Icons.star),
-                          color: Colors.orange,
-                          iconSize: 30.0,
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ],
-            )
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 10.0, vertical: 5.0),
+                  child: Row(
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          // Acción para el ícono "medalla"
+                        },
+                        icon: const Icon(Icons.military_tech_rounded),
+                        color: Colors.orange,
+                        iconSize: 30.0,
+                      ),
+                      const SizedBox(width: 10),
+                      IconButton(
+                        onPressed: _toggleFavorite,
+                        icon: Icon(
+                          isFavorite ? Icons.star : Icons.star_border,
+                          color: Colors.orange,
+                          size: 30.0,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
       ),

@@ -1,8 +1,8 @@
 import 'dart:io';
-
 import 'package:alquilafacil/spaces/data/remote/helpers/space_service_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:logger/logger.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../domain/model/space.dart';
 
@@ -10,6 +10,7 @@ class SpaceProvider extends ChangeNotifier {
   final SpaceServiceHelper spaceService;
   List<Space> spaces = [];
   List<Space> currentSpaces = [];
+  List<Space> favoriteSpaces = []; // Lista de espacios favoritos
   List<String> districts = [];
   List<String> expectDistricts = [];
   List<String> ranges = [];
@@ -30,7 +31,9 @@ class SpaceProvider extends ChangeNotifier {
   String currentDescription = "";
   String currentCityPlace = "";
 
-  SpaceProvider(this.spaceService);
+  SpaceProvider(this.spaceService) {
+    loadFavorites(); // Cargar favoritos al iniciar
+  }
 
   Future<void> getAllSpaces() async {
     try {
@@ -41,6 +44,46 @@ class SpaceProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  // Métodos para gestionar favoritos
+
+  Future<void> loadFavorites() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final keys = prefs.getKeys();
+    favoriteSpaces = [];
+
+    for (var key in keys) {
+      if (key.startsWith('favorite_') && prefs.getBool(key) == true) {
+        final id = int.parse(key.split('_').last);
+        final space =
+            await spaceService.getSpaceById(id); // Obtener el espacio real
+        if (space != null) {
+          favoriteSpaces.add(space);
+        }
+      }
+    }
+    notifyListeners();
+  }
+
+  Future<void> addFavorite(Space space) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('favorite_${space.id}', true);
+    favoriteSpaces.add(space);
+    notifyListeners();
+  }
+
+  Future<void> removeFavorite(Space space) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove('favorite_${space.id}');
+    favoriteSpaces.removeWhere((favSpace) => favSpace.id == space.id);
+    notifyListeners();
+  }
+
+  bool isFavorite(int spaceId) {
+    return favoriteSpaces.any((space) => space.id == spaceId);
+  }
+
+  // Otros métodos existentes
+
   void setCityPlace(String newCityPlace) {
     cityPlace = newCityPlace;
     notifyListeners();
@@ -48,14 +91,16 @@ class SpaceProvider extends ChangeNotifier {
 
   void searchSpaceByName(String district) {
     currentSpaces = spaces
-        .where((space) => space.streetAddress.toLowerCase().contains(district.toLowerCase()))
+        .where((space) =>
+            space.streetAddress.toLowerCase().contains(district.toLowerCase()))
         .toList();
     notifyListeners();
   }
 
   void searchDistrict() {
     expectDistricts = districts
-        .where((district) => district.toLowerCase().contains(cityPlace.toLowerCase()))
+        .where((district) =>
+            district.toLowerCase().contains(cityPlace.toLowerCase()))
         .toList();
     notifyListeners();
   }
@@ -65,7 +110,8 @@ class SpaceProvider extends ChangeNotifier {
       var districtsResponse = await spaceService.getAllDistricts();
       districts = districtsResponse.toList();
     } catch (e) {
-      logger.e("Error while trying to fetch spaces districts, please check the service request");
+      logger.e(
+          "Error while trying to fetch spaces districts, please check the service request");
     }
     notifyListeners();
   }
@@ -79,11 +125,13 @@ class SpaceProvider extends ChangeNotifier {
 
   Future<void> searchDistrictsByCategoryIdAndRange() async {
     try {
-      var districtsResponse = await spaceService
-          .getAllSpacesByCategoryIdAndCapacityRange(categorySelected, minRange, maxRange);
+      var districtsResponse =
+          await spaceService.getAllSpacesByCategoryIdAndCapacityRange(
+              categorySelected, minRange, maxRange);
       currentSpaces = districtsResponse.toList();
     } catch (e) {
-      logger.e("Error while trying to fetch spaces districts, please check the service request");
+      logger.e(
+          "Error while trying to fetch spaces districts, please check the service request");
     }
     notifyListeners();
   }
@@ -92,19 +140,13 @@ class SpaceProvider extends ChangeNotifier {
     try {
       currentSpaces = await spaceService.getSpacesByUserId(userId);
     } catch (e) {
-      logger.e("Error while trying to fetch my spaces, please check the params");
+      logger
+          .e("Error while trying to fetch my spaces, please check the params");
     }
     notifyListeners();
   }
 
   void setSelectedSpace(Space currentSpaceSelected) {
-    spaceSelected = currentSpaceSelected;
-    notifyListeners();
-  }
-
-
-
-  void selectSpace(Space currentSpaceSelected) {
     spaceSelected = currentSpaceSelected;
     notifyListeners();
   }
@@ -118,7 +160,9 @@ class SpaceProvider extends ChangeNotifier {
     try {
       spacePhotoUrl = await spaceService.uploadImage(image);
     } catch (e) {
-      logger.e("Error while trying to upload image, please check the service request", e);
+      logger.e(
+          "Error while trying to upload image, please check the service request",
+          e);
     }
     notifyListeners();
   }
@@ -127,7 +171,9 @@ class SpaceProvider extends ChangeNotifier {
     try {
       await spaceService.createSpace(space);
     } catch (e) {
-      logger.e("Error while trying to create space, please check the service request", e);
+      logger.e(
+          "Error while trying to create space, please check the service request",
+          e);
     }
     notifyListeners();
   }
@@ -136,32 +182,51 @@ class SpaceProvider extends ChangeNotifier {
     final spaceId = spaceSelected!.id;
 
     List<String> completeCityPlace;
-    if (currentCityPlace != null && currentCityPlace.isNotEmpty) {
-      completeCityPlace = currentCityPlace.split(",").map((part) => part.trim()).toList();
+    if (currentCityPlace.isNotEmpty) {
+      completeCityPlace =
+          currentCityPlace.split(",").map((part) => part.trim()).toList();
     } else {
-      completeCityPlace = spaceSelected!.cityPlace.split(",").map((part) => part.trim()).toList();
+      completeCityPlace = spaceSelected!.cityPlace
+          .split(",")
+          .map((part) => part.trim())
+          .toList();
     }
 
     List<String> addressParts;
-    if (currentStreetAddress != null && currentStreetAddress.isNotEmpty) {
-      addressParts = currentStreetAddress.split(",").map((part) => part.trim()).toList();
+    if (currentStreetAddress.isNotEmpty) {
+      addressParts =
+          currentStreetAddress.split(",").map((part) => part.trim()).toList();
     } else {
-      addressParts = spaceSelected!.streetAddress.split(",").map((part) => part.trim()).toList();
+      addressParts = spaceSelected!.streetAddress
+          .split(",")
+          .map((part) => part.trim())
+          .toList();
     }
     String localName = spaceSelected!.localName;
     int nightPrice = (spaceSelected!.nightPrice).toInt();
     String descriptionMessage = spaceSelected!.descriptionMessage;
-    String features  = spaceSelected!.features;
+    String features = spaceSelected!.features;
     int capacity = spaceSelected!.capacity;
     Map<String, dynamic> space = {
-      'district': addressParts.isNotEmpty ? addressParts[0] : spaceSelected!.streetAddress.split(",")[0],
-      'street': addressParts.length > 1 ? addressParts[1] : spaceSelected!.streetAddress.split(",")[1],
+      'district': addressParts.isNotEmpty
+          ? addressParts[0]
+          : spaceSelected!.streetAddress.split(",")[0],
+      'street': addressParts.length > 1
+          ? addressParts[1]
+          : spaceSelected!.streetAddress.split(",")[1],
       'localName': currentLocalName.isNotEmpty ? currentLocalName : localName,
-      'country': completeCityPlace.isNotEmpty ? completeCityPlace[0] : spaceSelected!.cityPlace.split(",")[0],
-      'city': completeCityPlace.length > 1 ? completeCityPlace[1] : spaceSelected!.cityPlace.split(",")[1],
+      'country': completeCityPlace.isNotEmpty
+          ? completeCityPlace[0]
+          : spaceSelected!.cityPlace.split(",")[0],
+      'city': completeCityPlace.length > 1
+          ? completeCityPlace[1]
+          : spaceSelected!.cityPlace.split(",")[1],
       'price': (currentPrice > 0 ? currentPrice : nightPrice).toInt(),
-      'photoUrl': spacePhotoUrl.isNotEmpty ? spacePhotoUrl : spaceSelected!.photoUrl,
-      'descriptionMessage': currentDescription.isNotEmpty ? currentDescription : descriptionMessage,
+      'photoUrl':
+          spacePhotoUrl.isNotEmpty ? spacePhotoUrl : spaceSelected!.photoUrl,
+      'descriptionMessage': currentDescription.isNotEmpty
+          ? currentDescription
+          : descriptionMessage,
       'localCategoryId': spaceSelected!.localCategoryId,
       'userId': spaceSelected!.userId,
       'features': currentFeatures.isNotEmpty ? currentFeatures : features,
@@ -174,7 +239,9 @@ class SpaceProvider extends ChangeNotifier {
       await spaceService.updateSpace(spaceId, space);
       notifyListeners();
     } catch (e) {
-      logger.e("Error while trying to update space, please check the service request", e);
+      logger.e(
+          "Error while trying to update space, please check the service request",
+          e);
     }
   }
 
@@ -182,6 +249,7 @@ class SpaceProvider extends ChangeNotifier {
     currentCityPlace = newCityPlace;
     notifyListeners();
   }
+
   void setIsEditMode() {
     isEditMode = !isEditMode;
     notifyListeners();

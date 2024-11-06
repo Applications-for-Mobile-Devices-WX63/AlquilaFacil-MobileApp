@@ -14,11 +14,12 @@ class SpacesDetails extends StatefulWidget {
 
 class _SpaceDetailsState extends State<SpacesDetails> {
   @override
-  void initState(){
+  void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final spaceProvider = context.read<SpaceProvider>();
-      final args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+      final args =
+          ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
 
       if (args != null) {
         final district = args['district'];
@@ -28,6 +29,7 @@ class _SpaceDetailsState extends State<SpacesDetails> {
       }
     });
   }
+
   @override
   Widget build(BuildContext context) {
     final spaceProvider = context.watch<SpaceProvider>();
@@ -53,30 +55,30 @@ class _SpaceDetailsState extends State<SpacesDetails> {
               const SizedBox(height: 50),
               spaceProvider.currentSpaces.isNotEmpty
                   ? ListView.separated(
-                shrinkWrap: true,
-                itemBuilder: (BuildContext context, int index) {
-                  return SpaceCard(
-                    location: spaceProvider.currentSpaces[index].cityPlace,
-                    price: spaceProvider.currentSpaces[index].nightPrice.toString(),
-                    imageUrl: spaceProvider.currentSpaces[index].photoUrl,
-                    id: spaceProvider.currentSpaces[index].id,
-                  );
-                },
-                itemCount: spaceProvider.currentSpaces.length,
-                separatorBuilder: (BuildContext context, int index) {
-                  return const SizedBox(height: 10);
-                },
-              ) : Text(
-                  "No existen locales con estos parámetros",
-                style: TextStyle(
-                  color: MainTheme.contrast
-                ),
-              )
+                      shrinkWrap: true,
+                      itemBuilder: (BuildContext context, int index) {
+                        return SpaceCard(
+                          location:
+                              spaceProvider.currentSpaces[index].cityPlace,
+                          price: spaceProvider.currentSpaces[index].nightPrice
+                              .toString(),
+                          imageUrl: spaceProvider.currentSpaces[index].photoUrl,
+                          id: spaceProvider.currentSpaces[index].id,
+                        );
+                      },
+                      itemCount: spaceProvider.currentSpaces.length,
+                      separatorBuilder: (BuildContext context, int index) {
+                        return const SizedBox(height: 10);
+                      },
+                    )
+                  : Text(
+                      "No existen locales con estos parámetros",
+                      style: TextStyle(color: MainTheme.contrast),
+                    )
             ],
           ),
         ),
       ),
     );
   }
-
 }
