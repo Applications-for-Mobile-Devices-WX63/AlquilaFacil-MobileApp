@@ -6,7 +6,6 @@ import 'package:alquilafacil/spaces/presentation/widgets/search_space_button.dar
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-
 class SearchSpaces extends StatefulWidget {
   const SearchSpaces({super.key});
   @override
@@ -15,90 +14,88 @@ class SearchSpaces extends StatefulWidget {
 
 class _SearchSpaces extends State<SearchSpaces> {
   @override
-  void initState(){
+  void initState() {
     super.initState();
     final spaceProvider = context.read<SpaceProvider>();
     () async {
-       await spaceProvider.getAllSpaces();
+      await spaceProvider.getAllSpaces();
     }();
-
   }
+
   @override
   Widget build(BuildContext context) {
     final spaceProvider = context.watch<SpaceProvider>();
     return Scaffold(
       bottomNavigationBar: const ScreenBottomAppBar(),
       backgroundColor: MainTheme.background,
-      body: SingleChildScrollView(
-
-          child: Column(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(top: 60.0, left: 10.0, right: 10.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, '/filter-spaces');
-                      },
-                      child: Container(
-                        width: 250,
-                        padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
-                        decoration: BoxDecoration(
-                          color: Colors.black12,
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        child: const Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Icon(Icons.search_outlined, color: Colors.black),
-                            SizedBox(width: 10),
-                            Text(
-                              'Buscar espacio',
-                              style: TextStyle(color: Colors.black, fontSize: 16.0),
-                            ),
-                          ],
-                        ),
-                      ),
+      body: Column(
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(top: 60.0, left: 10.0, right: 10.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/filter-spaces');
+                  },
+                  child: Container(
+                    width: 250,
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 15.0, horizontal: 10.0),
+                    decoration: BoxDecoration(
+                      color: Colors.black12,
+                      borderRadius: BorderRadius.circular(10.0),
                     ),
-                    const SizedBox(width: 10.0),
-                    Container(
-                      decoration: BoxDecoration(
-                          color: Colors.black12,
-                          borderRadius: BorderRadius.circular(25.0)),
-                      child: IconButton(
-                          onPressed: () =>
-                              {Navigator.pushNamed(context, "/filter-screen")},
-                          icon: const Icon(
-                            Icons.filter_alt,
-                          )),
-                    )
-                  ],
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Icon(Icons.search_outlined, color: Colors.black),
+                        SizedBox(width: 10),
+                        Text(
+                          'Buscar espacio',
+                          style: TextStyle(color: Colors.black, fontSize: 16.0),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
-              ),
-              const SizedBox(height: 10.0),
-             Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
-                  child: ListView.separated(
-                  shrinkWrap: true,
-                  itemBuilder: (BuildContext context, int index) {
-                    return SpaceCard(
-                      location: spaceProvider.spaces[index].cityPlace,
-                      price: spaceProvider.spaces[index].nightPrice.toString(),
-                      imageUrl: spaceProvider.spaces[index].photoUrl,
-                      id: spaceProvider.spaces[index].id,  
-                    );
-                  },
-                  itemCount: spaceProvider.spaces.length,
-                  separatorBuilder: (BuildContext context, int index) {
-                    return const SizedBox(height: 10);
-                  },
+                const SizedBox(width: 10.0),
+                Container(
+                  decoration: BoxDecoration(
+                      color: Colors.black12,
+                      borderRadius: BorderRadius.circular(25.0)),
+                  child: IconButton(
+                      onPressed: () =>
+                          {Navigator.pushNamed(context, "/filter-screen")},
+                      icon: const Icon(
+                        Icons.filter_alt,
+                      )),
                 )
-                ),
-            ],
+              ],
+            ),
           ),
-        ),
+          const SizedBox(height: 10.0),
+          Expanded(
+            child: ListView.separated(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+              itemBuilder: (BuildContext context, int index) {
+                return SpaceCard(
+                  location: spaceProvider.spaces[index].cityPlace,
+                  price: spaceProvider.spaces[index].nightPrice.toString(),
+                  imageUrl: spaceProvider.spaces[index].photoUrl,
+                  id: spaceProvider.spaces[index].id,
+                );
+              },
+              itemCount: spaceProvider.spaces.length,
+              separatorBuilder: (BuildContext context, int index) {
+                return const SizedBox(height: 10);
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

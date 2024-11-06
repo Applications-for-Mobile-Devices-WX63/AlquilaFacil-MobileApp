@@ -35,7 +35,8 @@ class NavigationButtons extends StatelessWidget {
                 width: 2.0,
               ),
               foregroundColor: Colors.black,
-              padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8.0),
               ),
@@ -45,23 +46,24 @@ class NavigationButtons extends StatelessWidget {
           ElevatedButton(
             onPressed: canProceed
                 ? () {
-              if (onNext != null) {
-                onNext!(); // Llamar al callback aquí
-              }
-              if (isLastStep) {
-                Navigator.pushNamed(context, '/');
-              } else {
-                pageController.nextPage(
-                  duration: const Duration(milliseconds: 300),
-                  curve: Curves.ease,
-                );
-              }
-            }
+                    if (onNext != null) {
+                      onNext!(); // Llamar al callback aquí
+                    }
+                    if (isLastStep) {
+                      Navigator.pushNamed(context, '/');
+                    } else {
+                      pageController.nextPage(
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.ease,
+                      );
+                    }
+                  }
                 : null,
             style: ElevatedButton.styleFrom(
               backgroundColor: MainTheme.primary,
               foregroundColor: Colors.white,
-              padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8.0),
               ),

@@ -32,12 +32,13 @@ class _MySpaceDetailsState extends State<MySpaceDetails> {
 
     _nightPriceController = TextEditingController(
         text: spaceProvider.spaceSelected!.nightPrice.toString());
-    _featuresController = TextEditingController(
-        text: spaceProvider.spaceSelected!.features);
+    _featuresController =
+        TextEditingController(text: spaceProvider.spaceSelected!.features);
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       final profileProvider = context.read<ProfileProvider>();
-      await profileProvider.fetchUsernameExpect(spaceProvider.spaceSelected!.userId);
+      await profileProvider
+          .fetchUsernameExpect(spaceProvider.spaceSelected!.userId);
     });
   }
 
@@ -50,7 +51,8 @@ class _MySpaceDetailsState extends State<MySpaceDetails> {
 
   Future<void> _pickImage() async {
     final ImagePicker picker = ImagePicker();
-    final XFile? pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    final XFile? pickedFile =
+        await picker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       setState(() {
         _imageFile = File(pickedFile.path);
@@ -62,9 +64,9 @@ class _MySpaceDetailsState extends State<MySpaceDetails> {
   Future<void> _uploadImageToCloudinary() async {
     if (_imageFile != null) {
       final spaceProvider = context.read<SpaceProvider>();
-      try{
+      try {
         await spaceProvider.uploadImage(_imageFile!);
-      } finally{
+      } finally {
         setState(() {
           isImageToUpdate = false;
         });
@@ -86,131 +88,138 @@ class _MySpaceDetailsState extends State<MySpaceDetails> {
             Navigator.pop(context);
           },
         ),
-        title: Text("Mis espacios", style: TextStyle(color: MainTheme.background)),
+        title:
+            Text("Mis espacios", style: TextStyle(color: MainTheme.background)),
       ),
       body: spaceProvider.spaceSelected != null
           ? SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            spaceProvider.isEditMode
-                ? AspectRatio(
-              aspectRatio: 16 / 9,
-              child: Stack(
-                fit: StackFit.expand,
-                children: [
-                  Positioned.fill(
-                    child: _imageFile != null
-                        ? Image.file(
-                      _imageFile!,
-                      fit: BoxFit.cover,
-                    )
-                        : Image.network(
-                      spaceProvider.spaceSelected!.photoUrl,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  Positioned(
-                    top: 175,
-                    right: 1,
-                    child: SizedBox(
-                      width: 55,
-                      child: IconButton(
-                        style: IconButton.styleFrom(
-                          iconSize: 20,
-                          backgroundColor: MainTheme.background,
-                          padding: const EdgeInsets.all(16),
-                        ),
-                        onPressed: _pickImage,
-                        icon: Icon(
-                          Icons.edit,
-                          color: MainTheme.secondary,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            )
-                : Image.network(
-              spaceProvider.spaceSelected!.photoUrl,
-              fit: BoxFit.cover,
-              width: double.infinity,
-            ),
-            const SizedBox(height: 15),
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  !spaceProvider.isEditMode
-                      ? SpaceInfoDetails(
-                    localName: spaceProvider.spaceSelected!.localName,
-                    capacity: spaceProvider.spaceSelected!.capacity,
-                    username: profileProvider.usernameExpect,
-                    description: spaceProvider.spaceSelected!.descriptionMessage,
-                    streetAddress: spaceProvider.spaceSelected!.streetAddress,
-                    cityPlace: spaceProvider.spaceSelected!.cityPlace,
-                    isEditMode: spaceProvider.isEditMode,
-                  )
-                      : const EditSpaceInfo(),
-                  const SizedBox(height: 15),
                   spaceProvider.isEditMode
-                      ? EditSpaceField(
-                    controller: _nightPriceController,
-                    onValueChanged: (newPriceNight) {
-                      int? currentPriceNight = int.tryParse(newPriceNight);
-                      spaceProvider.setCurrentPrice(currentPriceNight!);
-                    },
-                    hintText: 'Precio por noche',
-                  )
-                      : Text(
-                    "Precio por noche: S/.${spaceProvider.spaceSelected!.nightPrice}",
-                    style: TextStyle(color: MainTheme.contrast),
+                      ? AspectRatio(
+                          aspectRatio: 16 / 9,
+                          child: Stack(
+                            fit: StackFit.expand,
+                            children: [
+                              Positioned.fill(
+                                child: _imageFile != null
+                                    ? Image.file(
+                                        _imageFile!,
+                                        fit: BoxFit.cover,
+                                      )
+                                    : Image.network(
+                                        spaceProvider.spaceSelected!.photoUrl,
+                                        fit: BoxFit.cover,
+                                      ),
+                              ),
+                              Positioned(
+                                top: 175,
+                                right: 1,
+                                child: SizedBox(
+                                  width: 55,
+                                  child: IconButton(
+                                    style: IconButton.styleFrom(
+                                      iconSize: 20,
+                                      backgroundColor: MainTheme.background,
+                                      padding: const EdgeInsets.all(16),
+                                    ),
+                                    onPressed: _pickImage,
+                                    icon: Icon(
+                                      Icons.edit,
+                                      color: MainTheme.secondary,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      : Image.network(
+                          spaceProvider.spaceSelected!.photoUrl,
+                          fit: BoxFit.cover,
+                          width: double.infinity,
+                        ),
+                  const SizedBox(height: 15),
+                  Container(
+                    margin: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        !spaceProvider.isEditMode
+                            ? SpaceInfoDetails(
+                                localName:
+                                    spaceProvider.spaceSelected!.localName,
+                                capacity: spaceProvider.spaceSelected!.capacity,
+                                username: profileProvider.usernameExpect,
+                                description: spaceProvider
+                                    .spaceSelected!.descriptionMessage,
+                                streetAddress:
+                                    spaceProvider.spaceSelected!.streetAddress,
+                                cityPlace:
+                                    spaceProvider.spaceSelected!.cityPlace,
+                                isEditMode: spaceProvider.isEditMode,
+                              )
+                            : const EditSpaceInfo(),
+                        const SizedBox(height: 15),
+                        spaceProvider.isEditMode
+                            ? EditSpaceField(
+                                controller: _nightPriceController,
+                                onValueChanged: (newPriceNight) {
+                                  int? currentPriceNight =
+                                      int.tryParse(newPriceNight);
+                                  spaceProvider
+                                      .setCurrentPrice(currentPriceNight!);
+                                },
+                                hintText: 'Precio por noche',
+                              )
+                            : Text(
+                                "Precio por noche: S/.${spaceProvider.spaceSelected!.nightPrice}",
+                                style: TextStyle(color: MainTheme.contrast),
+                              ),
+                        const SizedBox(height: 15),
+                        spaceProvider.isEditMode
+                            ? EditSpaceField(
+                                controller: _featuresController,
+                                onValueChanged: (newFeatures) {
+                                  spaceProvider
+                                      .setFeatures(newFeatures.toString());
+                                },
+                                hintText: 'Servicios adicionales',
+                              )
+                            : Text(
+                                "Servicios adicionales: ${spaceProvider.spaceSelected!.features}",
+                                style: TextStyle(color: MainTheme.contrast),
+                              ),
+                      ],
+                    ),
                   ),
                   const SizedBox(height: 15),
-                  spaceProvider.isEditMode
-                      ? EditSpaceField(
-                    controller: _featuresController,
-                    onValueChanged: (newFeatures) {
-                      spaceProvider.setFeatures(newFeatures.toString());
-                    },
-                    hintText: 'Servicios adicionales',
-                  )
-                      : Text(
-                    "Servicios adicionales: ${spaceProvider.spaceSelected!.features}",
-                    style: TextStyle(color: MainTheme.contrast),
-                  ),
+                  const MySpaceDetailsActions(),
+                  if (isImageToUpdate)
+                    Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: MainTheme.secondary,
+                              foregroundColor: MainTheme.background,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10))),
+                          onPressed: _uploadImageToCloudinary,
+                          child: const Text("Actualizar Imagen"),
+                        ),
+                      ),
+                    ),
                 ],
               ),
-            ),
-            const SizedBox(height: 15),
-            const MySpaceDetailsActions(),
-            if (isImageToUpdate)
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: MainTheme.secondary,
-                        foregroundColor: MainTheme.background,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10)
-                        )
-                    ),
-                    onPressed: _uploadImageToCloudinary,
-                    child: const Text("Actualizar Imagen"),
-                  ),
-                ),
-              ),
-          ],
-        ),
-      )
+            )
           : Center(
-        child: CircularProgressIndicator(
-          color: MainTheme.secondary,
-        ),
-      ),
+              child: CircularProgressIndicator(
+                color: MainTheme.secondary,
+              ),
+            ),
     );
   }
 }
