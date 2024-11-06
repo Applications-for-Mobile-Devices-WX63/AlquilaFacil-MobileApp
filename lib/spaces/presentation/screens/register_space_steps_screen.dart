@@ -2,22 +2,19 @@ import 'package:alquilafacil/public/presentation/widgets/screen_bottom_app_bar.d
 import 'package:alquilafacil/spaces/domain/model/space.dart';
 import 'package:alquilafacil/spaces/presentation/providers/local_categories_provider.dart';
 import 'package:alquilafacil/spaces/presentation/providers/space_provider.dart';
-import 'package:alquilafacil/spaces/presentation/screens/search_spaces.dart';
-import 'package:alquilafacil/spaces/presentation/widgets/register_space_steps/register_space_step_1.dart';
-import 'package:alquilafacil/spaces/presentation/widgets/register_space_steps/register_space_step_2.dart';
-import 'package:alquilafacil/spaces/presentation/widgets/register_space_steps/register_space_step_4.dart';
-import 'package:alquilafacil/spaces/presentation/widgets/register_space_steps/register_space_step_5.dart';
-import 'package:alquilafacil/spaces/presentation/widgets/register_space_steps/register_space_step_6.dart';
-import 'package:alquilafacil/spaces/presentation/widgets/register_space_steps/register_space_step_7.dart';
-import 'package:alquilafacil/spaces/presentation/widgets/register_space_steps/register_space_step_8.dart';
-import 'package:alquilafacil/spaces/presentation/widgets/register_space_steps/register_space_step_9.dart';
-import 'package:alquilafacil/spaces/presentation/widgets/space_text_form_field.dart';
 import 'package:flutter/material.dart';
-import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
 
-import '../../../public/ui/theme/main_theme.dart';
+import '../screens/search_spaces.dart';
+import '../widgets/register_space_steps/register_space_step_1.dart';
+import '../widgets/register_space_steps/register_space_step_2.dart';
 import '../widgets/register_space_steps/register_space_step_3.dart';
+import '../widgets/register_space_steps/register_space_step_4.dart';
+import '../widgets/register_space_steps/register_space_step_5.dart';
+import '../widgets/register_space_steps/register_space_step_6.dart';
+import '../widgets/register_space_steps/register_space_step_7.dart';
+import '../widgets/register_space_steps/register_space_step_8.dart';
+import '../widgets/register_space_steps/register_space_step_9.dart';
 
 class RegisterSpaceStepsScreen extends StatefulWidget {
   const RegisterSpaceStepsScreen({super.key});
@@ -47,8 +44,7 @@ class _RegisterSpaceStepsState extends State<RegisterSpaceStepsScreen> {
     final localCategoriesProvider = context.read<LocalCategoriesProvider>();
     () async {
       await localCategoriesProvider.getAllLocalCategories();
-    }
-    ();
+    }();
   }
 
   @override
@@ -64,6 +60,12 @@ class _RegisterSpaceStepsState extends State<RegisterSpaceStepsScreen> {
       appBar: AppBar(
         title: const Text('Registrar espacio'),
         backgroundColor: Colors.white,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.popAndPushNamed(context, '/search-space');
+          },
+        ),
       ),
       bottomNavigationBar: const ScreenBottomAppBar(),
       body: PageView(
@@ -98,10 +100,10 @@ class _RegisterSpaceStepsState extends State<RegisterSpaceStepsScreen> {
           RegisterSpaceStep5(pageController: _pageController),
           RegisterSpaceStep6(
             pageController: _pageController,
-            photoUrl: photoUrl, // Pasas el valor actual de la URL
-            onPhotoChanged: (String newPhotoUrl) { // Manejas el callback
+            photoUrl: photoUrl,
+            onPhotoChanged: (String newPhotoUrl) {
               setState(() {
-                photoUrl = newPhotoUrl; // Actualizas el valor en el estado del padre
+                photoUrl = newPhotoUrl;
               });
             },
           ),
@@ -160,7 +162,7 @@ class _RegisterSpaceStepsState extends State<RegisterSpaceStepsScreen> {
                 nightPrice: price * 1.0,
               );
               provider.createSpace(space);
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const  SearchSpaces() ));
+              Navigator.popAndPushNamed(context, '/search-space');
             },
           ),
         ],
