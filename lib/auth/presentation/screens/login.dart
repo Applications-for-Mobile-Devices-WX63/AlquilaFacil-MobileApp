@@ -35,12 +35,7 @@ class _LoginState extends State<Login> {
                     child: TextButton(
                       child: const Text('Confirmar'),
                        onPressed: (){
-                         Navigator.push(
-                           context,
-                           MaterialPageRoute(
-                             builder: (context) => const SearchSpaces(),
-                           ),
-                         );
+                         Navigator.pushNamed(context, route);
                        },
                     ),
                   ),
