@@ -38,7 +38,7 @@ class _MySpaceDetailsState extends State<MySpaceDetails> {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       final profileProvider = context.read<ProfileProvider>();
       await profileProvider
-          .fetchUsernameExpect(spaceProvider.spaceSelected!.userId);
+          .fetchUsernameExpect(spaceProvider.spaceSelected!.userId!);
     });
   }
 

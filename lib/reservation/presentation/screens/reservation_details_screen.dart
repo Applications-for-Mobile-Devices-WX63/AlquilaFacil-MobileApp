@@ -35,7 +35,7 @@ class _ReservationDetailsScreen extends State<ReservationDetailsScreen> {
     final profileProvider = context.read<ProfileProvider>();
     () async {
       await profileProvider.fetchUsernameExpect(
-          spaceProvider.spaceSelected!.userId);
+          spaceProvider.spaceSelected!.userId!);
     }();
   }
 

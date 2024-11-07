@@ -144,7 +144,7 @@ class _RegisterSpaceStepsState extends State<RegisterSpaceStepsScreen> {
             capacity: capacity,
             features: features,
             price: price,
-            onFinish: () {
+            onFinish: () async  {
               final provider = context.read<SpaceProvider>();
               Space space = Space(
                 id: 0,
@@ -161,8 +161,11 @@ class _RegisterSpaceStepsState extends State<RegisterSpaceStepsScreen> {
                 features: features,
                 nightPrice: price * 1.0,
               );
-              provider.createSpace(space);
-              Navigator.popAndPushNamed(context, '/search-space');
+              try{
+                provider.createSpace(space);
+              } finally{
+                Navigator.pushReplacementNamed(context, '/search-space');
+              }
             },
           ),
         ],

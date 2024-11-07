@@ -9,7 +9,7 @@ class Space {
   final String photoUrl;
   final String descriptionMessage;
   final int localCategoryId;
-  late final int userId;
+  int? userId;
   final String features;
   final int capacity;
 
@@ -22,7 +22,7 @@ class Space {
     required this.photoUrl,
     required this.descriptionMessage,
     required this.localCategoryId,
-    required this.userId,
+    this.userId,
     required this.features,
     required this.capacity,
     this.district = ' ',

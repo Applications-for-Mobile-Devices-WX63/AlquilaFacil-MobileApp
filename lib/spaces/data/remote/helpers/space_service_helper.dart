@@ -128,8 +128,7 @@ class SpaceServiceHelper extends SpaceService{
     try {
       var url = Uri.parse("${Constant.BASE_URL}${Constant.RESOURCE_PATH}locals");
       var token = signInProvider.token;
-      String userId = _getUserIdFromToken(token);
-      space.userId = int.parse(userId);
+      space.userId = signInProvider.userId;
       var request = await client.postUrl(url);
       request.headers.set(HttpHeaders.contentTypeHeader, "application/json");
       request.headers.set(HttpHeaders.authorizationHeader, "Bearer $token");
@@ -171,39 +170,6 @@ class SpaceServiceHelper extends SpaceService{
       }
   }
 
-String _getUserIdFromToken(String token) {
-  // Dividir el token en partes
-  List<String> parts = token.split('.');
-
-  // Verificar que haya al menos 2 partes
-  if (parts.length < 2) {
-    throw Exception('Token no válido');
-  }
-
-  // Decodificar el cuerpo del token (segunda parte)
-  String payload = parts[1];
-
-  // Rellenar el padding si es necesario
-  switch (payload.length % 4) {
-    case 2:
-      payload += '==';
-      break;
-    case 3:
-      payload += '=';
-      break;
-  }
-
-  // Decodificar Base64
-  String decodedPayload = utf8.decode(base64Url.decode(payload));
-
-  // Convertir a Map
-  Map<String, dynamic> claims = jsonDecode(decodedPayload);
-
-  // Obtener el ID de usuario
-  String userId = claims['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/sid'];
-
-  return userId;
-}
 
   @override
   Future<List<Space>> getSpacesByUserId(int userId) async {

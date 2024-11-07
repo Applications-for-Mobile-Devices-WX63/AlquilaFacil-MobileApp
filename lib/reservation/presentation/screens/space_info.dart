@@ -34,7 +34,7 @@ class _SpaceInfoState  extends State<SpaceInfo> {
     final spaceProvider = context.read<SpaceProvider>();
     () async {
       await profileProvider.fetchUsernameExpect(
-          spaceProvider.spaceSelected!.userId);
+          spaceProvider.spaceSelected!.userId!);
     }();
   }
 
@@ -335,7 +335,7 @@ class _SpaceInfoState  extends State<SpaceInfo> {
                                     startDate: startDateTime.toIso8601String(),
                                     endDate:  endDateTime.toIso8601String(),
                                     localName: spaceProvider.spaceSelected!.localName,
-                                    userId:  spaceProvider.spaceSelected!.userId,
+                                    userId:  spaceProvider.spaceSelected!.userId!,
                                     localId:  spaceProvider.spaceSelected!.id,
                                   ))
                           );
