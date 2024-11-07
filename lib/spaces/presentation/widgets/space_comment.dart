@@ -48,7 +48,8 @@ class SpaceComment extends StatelessWidget {
                     ),
                     const SizedBox(width: 10),
                     StarRating(
-                        starCount: rating,
+                        starCount: 5,
+                        rating: rating * 1.0,
                         allowHalfRating: false,
                         color: Colors.orangeAccent),
                   ],
