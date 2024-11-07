@@ -1,4 +1,5 @@
 import 'package:alquilafacil/notification/presentation/providers/notification_provider.dart';
+import 'package:alquilafacil/spaces/presentation/screens/search_spaces.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_paypal_payment/flutter_paypal_payment.dart';
@@ -69,6 +70,7 @@ class PaymentScreen extends StatelessWidget {
                   userId
               );
             } finally{
+              Navigator.push(context, MaterialPageRoute(builder: (_)=> const SearchSpaces()));
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text('Reserva realizada con éxito')),
               );

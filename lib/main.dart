@@ -56,8 +56,6 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => SignInProvider(authServiceHelper)),
         ChangeNotifierProvider(create: (_) => SignUpProvider(authServiceHelper)),
         ChangeNotifierProvider(create: (_) => ConditionTermsProvider()),
-
-        // Proveedores proxy
         ChangeNotifierProxyProvider<SignInProvider, NotificationProvider>(
           create: (_) => NotificationProvider(NotificationServiceHelper(SignInProvider(authServiceHelper))),
           update: (context, signInProvider, previous) =>
