@@ -22,6 +22,7 @@ import 'package:alquilafacil/spaces/presentation/providers/comment_provider.dart
 import 'package:alquilafacil/spaces/presentation/providers/local_categories_provider.dart';
 import 'package:alquilafacil/spaces/presentation/providers/space_provider.dart';
 import 'package:alquilafacil/spaces/presentation/screens/comments_screen.dart';
+import 'package:alquilafacil/spaces/presentation/screens/create_comment_screen.dart';
 import 'package:alquilafacil/spaces/presentation/screens/filter_screen.dart';
 import 'package:alquilafacil/spaces/presentation/screens/my_spaces_screen.dart';
 import 'package:alquilafacil/spaces/presentation/screens/register_space_steps_screen.dart';
@@ -113,6 +114,7 @@ class MyApp extends StatelessWidget {
               "/my-spaces": (context) => const MySpacesScreen(),
               "/reservation-details": (context) => const ReservationDetailsScreen(),
               '/my-space-info': (context) => const MySpaceDetails(),
+              "/create-comments" : (context) => const CreateCommentScreen()
             },
             debugShowCheckedModeBanner: false,
           );
@@ -125,9 +127,7 @@ class MyApp extends StatelessWidget {
     return FutureBuilder<bool>(
       future: signInProvider.onSessionActive(),
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (snapshot.hasError || !snapshot.data!) {
+        if (snapshot.hasError || !snapshot.data!) {
           return const Login();
         } else {
           return const SearchSpaces();
