@@ -1,7 +1,7 @@
 class Comment {
   final int id;
-  final int authorId;
-  final int spaceId;
+  late int authorId;
+  late final int spaceId;
   final String text;
   final int rating;
   String authorName;
@@ -27,9 +27,8 @@ class Comment {
 
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
-      'authorId': authorId,
-      'spaceId': spaceId,
+      'userId': authorId,
+      'localId': spaceId,
       'text': text,
       'rating': rating,
     };
