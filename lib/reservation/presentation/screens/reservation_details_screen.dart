@@ -101,9 +101,11 @@ class _ReservationDetailsScreen extends State<ReservationDetailsScreen> {
                         )
                     ),
                     const SizedBox(height: 20),
-                    TextButton(
-                        child: const Text("Deja un comentario"),
-                        onPressed: () => Navigator.pushNamed(context, "/create-comments")
+                    Container(
+                      child: reservation.endDate.isBefore(DateTime.now()) ? TextButton(
+                          child: const Text("Deja un comentario"),
+                          onPressed: () => Navigator.pushNamed(context, "/create-comments")
+                      ) : const SizedBox.shrink()
                     )
                   ],
                 ),
