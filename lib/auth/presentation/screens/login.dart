@@ -107,7 +107,6 @@ class _LoginState extends State<Login> {
                   try{
                     await signInProvider.signIn();
                     if(signInProvider.token.isNotEmpty){
-                      await signInProvider.onSignInSuccessful();
                       await _showDialog("Inicio de sesión exitoso","/search-space");
                     }
                   } catch(_){

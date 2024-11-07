@@ -11,7 +11,18 @@ class SignInProvider extends ChangeNotifier with AuthFilter {
   String token = "";
   int userId = 0;
   final AuthServiceHelper authServiceHelper;
-  SignInProvider(this.authServiceHelper);
+
+  SignInProvider(this.authServiceHelper) {
+    _loadPreferences();
+  }
+
+  Future<void> _loadPreferences() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    token = sharedPreferences.getString("token") ?? "";
+    userId = sharedPreferences.getInt("userId") ?? 0;
+    notifyListeners();
+  }
+
   @override
   String? validateEmail() {
     if (email.isEmpty) {
@@ -34,18 +45,21 @@ class SignInProvider extends ChangeNotifier with AuthFilter {
     return null;
   }
 
-
   void setEmail(String newEmail) {
     email = newEmail;
     notifyListeners();
   }
 
-  void setUserId(int id){
+  Future<void> setUserId(int id) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.setInt("userId", id);
     userId = id;
     notifyListeners();
   }
 
-  void setToken(String newToken) {
+  Future<void> setToken(String newToken) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.setString("token", newToken);
     token = newToken;
     notifyListeners();
   }
@@ -55,18 +69,11 @@ class SignInProvider extends ChangeNotifier with AuthFilter {
     notifyListeners();
   }
 
-  Future<void> onSignInSuccessful() async {
-   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-   sharedPreferences.setString("token", token);
-   notifyListeners();
-  }
-
   Future<void> onLogOutRequest() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    sharedPreferences.remove("token");
+    await sharedPreferences.remove("token");
+    await sharedPreferences.remove("userId");
     token = "";
-    email = "";
-    password = "";
     userId = 0;
     notifyListeners();
   }
@@ -77,11 +84,12 @@ class SignInProvider extends ChangeNotifier with AuthFilter {
     return isSessionActive;
   }
 
-
   Future<void> signIn() async {
     var json = await authServiceHelper.signIn(email, password);
-    setToken(json["token"]);
-    setUserId(json["id"]);
+    var token = json["token"];
+    var userId = json["id"];
+    setUserId(userId);
+    setToken(token);
     notifyListeners();
   }
 }
