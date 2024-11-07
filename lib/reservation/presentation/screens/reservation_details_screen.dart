@@ -76,13 +76,13 @@ class _ReservationDetailsScreen extends State<ReservationDetailsScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     SpaceInfoDetails(
-                        localName: spaceProvider.spaceSelected!.localName,
-                        capacity: spaceProvider.spaceSelected!.capacity,
-                        username: profileProvider.usernameExpect,
-                        description: spaceProvider.spaceSelected!.descriptionMessage,
-                        streetAddress: spaceProvider.spaceSelected!.streetAddress,
-                        cityPlace: spaceProvider.spaceSelected!.cityPlace,
-                        isEditMode: false,
+                      localName: spaceProvider.spaceSelected!.localName,
+                      capacity: spaceProvider.spaceSelected!.capacity,
+                      username: profileProvider.usernameExpect,
+                      description: spaceProvider.spaceSelected!.descriptionMessage,
+                      streetAddress: spaceProvider.spaceSelected!.streetAddress,
+                      cityPlace: spaceProvider.spaceSelected!.cityPlace,
+                      isEditMode: false,
                     ),
                     const SizedBox(height: 20),
                     Text(
@@ -101,10 +101,15 @@ class _ReservationDetailsScreen extends State<ReservationDetailsScreen> {
                         )
                     ),
                     const SizedBox(height: 20),
+                    Container(
+                        child: reservation.endDate.isBefore(DateTime.now()) ? TextButton(
+                            child: const Text("Deja un comentario"),
+                            onPressed: () => Navigator.pushNamed(context, "/create-comments")
+                        ) : const SizedBox.shrink()
+                    )
                   ],
                 ),
               ),
-
             ],
           ) : Padding(
             padding: const EdgeInsets.only(top: 50.0),
