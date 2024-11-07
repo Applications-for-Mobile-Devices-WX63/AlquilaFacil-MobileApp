@@ -43,4 +43,30 @@ class CommentServiceHelper extends CommentService{
       client.close();
     }
   }
+
+  @override
+  Future<String> createComment(Comment comment) async {
+    var client = HttpClient();
+    try {
+      var url = Uri.parse("${Constant.BASE_URL}${Constant.RESOURCE_PATH}comment");
+      var token = signInProvider.token;
+      comment.authorId = signInProvider.userId;
+      var request = await client.postUrl(url);
+      request.headers.set(HttpHeaders.contentTypeHeader, "application/json");
+      request.headers.set(HttpHeaders.authorizationHeader, "Bearer $token");
+
+      var requestBody = jsonEncode(comment.toJson());
+      request.add(utf8.encode(requestBody));
+      var response = await request.close();
+
+      if (response.statusCode == HttpStatus.created) {
+        return "Comentario creado";
+      } else {
+        logger.e(response);
+        throw Exception(errorMessageHandler.reject(response.statusCode));
+      }
+    } finally {
+      client.close();
+    }
+  }
 }

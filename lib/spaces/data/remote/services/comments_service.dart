@@ -6,4 +6,5 @@ import 'package:path_provider/path_provider.dart';
 
 abstract class CommentService {
   Future<List<Comment>> getAllCommentsBySpaceId(int spaceId);
+  Future<String> createComment(Comment comment);
 }
