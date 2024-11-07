@@ -19,7 +19,7 @@ class AlertNotification{
   Map<String, dynamic> toJson(){
     final Map<String, dynamic> json = {
       "title": title,
-      "content": description,
+      "description": description,
       "userId": userId
     };
     return json;

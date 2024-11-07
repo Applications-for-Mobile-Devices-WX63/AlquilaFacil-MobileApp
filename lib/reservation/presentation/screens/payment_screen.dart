@@ -60,22 +60,36 @@ class PaymentScreen extends StatelessWidget {
           ],
           note: "Contact us for any questions on your order.",
           onSuccess: (Map params) async {
-            // Handle successful payment
             Logger().i("Payment Success: $params");
-            try{
+            try {
               await reservationProvider.createReservation(userId, localId, startDate, endDate);
-              await notificationProvider.createNotification(
-                  "Reserva realizada al espacio $localName",
-                  "Uno de tus espacios acaba de ser reservado",
-                  userId
-              );
-            } finally{
-              Navigator.push(context, MaterialPageRoute(builder: (_)=> const SearchSpaces()));
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text('Reserva realizada con éxito')),
               );
+            } catch (e) {
+              Logger().e("Error while creating reservation: $e");
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                    content: Text('Hubo un error al realizar la reserva')),
+              );
+              return;
             }
-            Navigator.pop(context);
+
+            try {
+              await notificationProvider.createNotification(
+                "Reserva realizada al espacio $localName",
+                "Uno de tus espacios acaba de ser reservado",
+                userId,
+              );
+            } catch (e) {
+              Logger().e("Error while creating notification: $e");
+            }
+
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (_) => const SearchSpaces()),
+            );
+
           },
           onError: (error) {
             Logger().e("Payment Error: $error");
