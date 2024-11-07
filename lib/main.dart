@@ -22,6 +22,7 @@ import 'package:alquilafacil/spaces/presentation/providers/comment_provider.dart
 import 'package:alquilafacil/spaces/presentation/providers/local_categories_provider.dart';
 import 'package:alquilafacil/spaces/presentation/providers/space_provider.dart';
 import 'package:alquilafacil/spaces/presentation/screens/comments_screen.dart';
+import 'package:alquilafacil/spaces/presentation/screens/create_comment_screen.dart';
 import 'package:alquilafacil/spaces/presentation/screens/filter_screen.dart';
 import 'package:alquilafacil/spaces/presentation/screens/my_spaces_screen.dart';
 import 'package:alquilafacil/spaces/presentation/screens/register_space_steps_screen.dart';
@@ -113,6 +114,7 @@ class MyApp extends StatelessWidget {
               "/my-spaces": (context) => const MySpacesScreen(),
               "/reservation-details": (context) => const ReservationDetailsScreen(),
               '/my-space-info': (context) => const MySpaceDetails(),
+              "/create-comments" : (context) => const CreateCommentScreen()
             },
             debugShowCheckedModeBanner: false,
           );
