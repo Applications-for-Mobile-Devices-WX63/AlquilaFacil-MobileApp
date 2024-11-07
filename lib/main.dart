@@ -125,9 +125,7 @@ class MyApp extends StatelessWidget {
     return FutureBuilder<bool>(
       future: signInProvider.onSessionActive(),
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (snapshot.hasError || !snapshot.data!) {
+        if (snapshot.hasError || !snapshot.data!) {
           return const Login();
         } else {
           return const SearchSpaces();
