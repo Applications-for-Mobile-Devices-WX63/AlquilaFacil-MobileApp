@@ -75,10 +75,14 @@ class _FilterScreenState extends State<FilterScreen>{
       backgroundColor: MainTheme.background,
       appBar: AppBar(
         backgroundColor: MainTheme.background,
-        title: const Center(
-            child: Text("Filtros",
-                style:
-                TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold))),
+        centerTitle: true, 
+        title: const Text(
+          "Filtros",
+          style: TextStyle(
+            fontSize: 20.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
       bottomNavigationBar: const ScreenBottomAppBar(),
       body:
