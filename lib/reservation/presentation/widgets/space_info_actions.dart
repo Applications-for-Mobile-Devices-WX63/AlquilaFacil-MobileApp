@@ -10,6 +10,9 @@ class SpaceInfoActions extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         GestureDetector(
+          onTap: (){
+            Navigator.pushNamed(context, "/comments");
+          },
           child: const Row(
             children: [
               Text(
