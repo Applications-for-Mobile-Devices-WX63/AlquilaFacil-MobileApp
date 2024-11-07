@@ -3,6 +3,7 @@
 import 'package:alquilafacil/auth/data/remote/helpers/auth_service_helper.dart';
 import 'package:alquilafacil/auth/shared/AuthFilter.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignInProvider extends ChangeNotifier with AuthFilter {
   String email = "";
@@ -52,6 +53,28 @@ class SignInProvider extends ChangeNotifier with AuthFilter {
   void setPassword(String newPassword) {
     password = newPassword;
     notifyListeners();
+  }
+
+  Future<void> onSignInSuccessful() async {
+   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+   sharedPreferences.setString("token", token);
+   notifyListeners();
+  }
+
+  Future<void> onLogOutRequest() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.remove("token");
+    token = "";
+    email = "";
+    password = "";
+    userId = 0;
+    notifyListeners();
+  }
+
+  Future<bool> onSessionActive() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    bool isSessionActive = sharedPreferences.get("token") != null;
+    return isSessionActive;
   }
 
 

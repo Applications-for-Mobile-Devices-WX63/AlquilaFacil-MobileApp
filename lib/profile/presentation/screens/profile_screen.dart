@@ -1,3 +1,4 @@
+import 'package:alquilafacil/auth/presentation/providers/SignInPovider.dart';
 import 'package:alquilafacil/public/presentation/widgets/screen_bottom_app_bar.dart';
 import 'package:alquilafacil/spaces/presentation/providers/space_provider.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final spaceProvider = Provider.of<SpaceProvider>(context);
-
+    final signInProvider = context.watch<SignInProvider>();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -38,12 +39,12 @@ class ProfileScreen extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  NavigationRow(
+                  const NavigationRow(
                     title: 'Modificar perfil',
                     routeName: '/profile-details',
                   ),
                   const Divider(),
-                  NavigationRow(
+                  const NavigationRow(
                     title: 'Ver mis espacios',
                     routeName: '/my-spaces',
                   ),
@@ -65,7 +66,19 @@ class ProfileScreen extends StatelessWidget {
                   NavigationRow(
                     title: 'Cerrar sesión',
                     routeName: '/login',
+                    onTap: () async {
+                      try {
+                        await signInProvider.onLogOutRequest();
+                      } finally {
+                        Navigator.pushNamedAndRemoveUntil(
+                          context,
+                          "/login",
+                              (Route<dynamic> route) => false,
+                        );
+                      }
+                    },
                   ),
+
                 ],
               ),
             ),
