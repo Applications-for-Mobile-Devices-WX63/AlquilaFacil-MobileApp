@@ -67,6 +67,7 @@ class _CreateCommentScreenState extends State<CreateCommentScreen> {
               children: [
                 const Text("Deja tu comentario: "),
                 StarRating(
+                  color: MainTheme.secondary,
                   rating: rating,
                   starCount: starCount,
                   allowHalfRating: false,
@@ -79,32 +80,49 @@ class _CreateCommentScreenState extends State<CreateCommentScreen> {
             const SizedBox(height: 16),
             //Caja de texto
             TextField(
+              cursorColor: MainTheme.primary,
               controller: commentController,
               maxLines: 6,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: MainTheme.primary
+                  )
+                ),
                 hintText: "Escribe aqui tu comentario...",
-                border: OutlineInputBorder()
+                border:const  OutlineInputBorder(
+                ),
               ),
               style: TextStyle(color: MainTheme.contrast)
             ),
             const SizedBox(height: 16),
             Align(
               alignment: Alignment.centerRight,
-              child: ElevatedButton(
-                onPressed: () {
-                  final text = commentController.text;
-                  final provider = context.read<CommentProvider>();
-                  var comment = Comment(
-                      id: 0,
-                      authorId: 0,
-                      spaceId: spaceId,
-                      text: text,
-                      rating: rating.round()
-                  );
-                  provider.createComment(comment);
-                  Navigator.pop(context);
-                },
-                child: const Text('Publicar'),
+              child: SizedBox(
+                width: 130,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: MainTheme.primary,
+                    foregroundColor: MainTheme.background,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)
+                    )
+                  ),
+                  onPressed: () {
+                    final text = commentController.text;
+                    final provider = context.read<CommentProvider>();
+                    var comment = Comment(
+                        id: 0,
+                        authorId: 0,
+                        spaceId: spaceId,
+                        text: text,
+                        rating: rating.round()
+                    );
+                    provider.createComment(comment);
+                    Navigator.pop(context);
+                  },
+                  child: const Text('Publicar'),
+                ),
               ),
             ),
           ],
