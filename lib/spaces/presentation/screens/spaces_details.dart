@@ -34,13 +34,15 @@ class _SpaceDetailsState extends State<SpacesDetails> {
   Widget build(BuildContext context) {
     final spaceProvider = context.watch<SpaceProvider>();
     return Scaffold(
-      appBar: AppBar(
+     appBar: AppBar(
         backgroundColor: MainTheme.background,
-        title: const Center(
-          child: Text(
-            "Espacios encontrados",
-            style: TextStyle(
-                fontWeight: FontWeight.bold, color: Colors.black, fontSize: 20),
+        centerTitle: true, 
+        title: const Text(
+          "Espacios encontrados",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+            fontSize: 20,
           ),
         ),
       ),
