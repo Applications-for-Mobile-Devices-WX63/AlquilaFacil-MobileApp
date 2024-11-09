@@ -61,4 +61,23 @@ class Space {
       'capacity': capacity,
     };
   }
+
+  factory Space.fromMap(Map<String, dynamic>map ) {
+    return Space(
+      id: map['id'],
+      streetAddress: map['streetAddress'],
+      localName: map['localName'],
+      cityPlace: map['cityPlace'],
+      nightPrice:map['nightPrice'].toDouble(),
+      photoUrl: map['photoUrl'],
+      descriptionMessage: map['descriptionMessage'],
+      localCategoryId: map['localCategoryId'],
+      userId: map['userId'],
+      features: map['features'],
+      capacity: map['capacity'],
+    );
+  }
+
+
+
 }

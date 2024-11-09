@@ -35,11 +35,11 @@ class _MySpaceDetailsState extends State<MySpaceDetails> {
     _featuresController =
         TextEditingController(text: spaceProvider.spaceSelected!.features);
 
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
+    () async {
       final profileProvider = context.read<ProfileProvider>();
       await profileProvider
           .fetchUsernameExpect(spaceProvider.spaceSelected!.userId!);
-    });
+    }();
   }
 
   @override

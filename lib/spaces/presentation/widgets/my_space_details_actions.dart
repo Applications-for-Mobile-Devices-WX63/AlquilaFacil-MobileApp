@@ -1,5 +1,6 @@
 import 'package:alquilafacil/auth/presentation/screens/login.dart';
 import 'package:alquilafacil/spaces/presentation/providers/space_provider.dart';
+import 'package:alquilafacil/spaces/presentation/screens/my_spaces_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -44,6 +45,7 @@ class MySpaceDetailsActions extends StatelessWidget {
              try{
                await spaceProvider.updateSpace();
              } finally{
+               Navigator.push(context, MaterialPageRoute(builder: (_) => const MySpacesScreen()));
                spaceProvider.setIsEditMode();
              }
             },

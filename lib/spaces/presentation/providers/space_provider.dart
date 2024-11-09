@@ -32,7 +32,7 @@ class SpaceProvider extends ChangeNotifier {
   String currentCityPlace = "";
 
   SpaceProvider(this.spaceService) {
-    loadFavorites(); // Cargar favoritos al iniciar
+    loadFavorites();
   }
 
   Future<void> getAllSpaces() async {
@@ -44,7 +44,6 @@ class SpaceProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // Métodos para gestionar favoritos
 
   Future<void> loadFavorites() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -233,16 +232,15 @@ class SpaceProvider extends ChangeNotifier {
       'capacity': currentCapacity > 0 ? currentCapacity : capacity,
     };
 
-    logger.d(space);
-
     try {
       await spaceService.updateSpace(spaceId, space);
-      notifyListeners();
     } catch (e) {
       logger.e(
           "Error while trying to update space, please check the service request",
           e);
     }
+    spaceSelected = Space.fromMap(space);
+    notifyListeners();
   }
 
   void setCurrentCityPlace(String newCityPlace) {

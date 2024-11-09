@@ -21,9 +21,9 @@ class _MySpacesScreenState extends State<MySpacesScreen> {
   @override
   void initState(){
     super.initState();
-    final spaceProvider = context.read<SpaceProvider>();
-    final signInProvider = context.read<SignInProvider>();
     () async {
+      final spaceProvider = context.read<SpaceProvider>();
+      final signInProvider = context.read<SignInProvider>();
       await spaceProvider.fetchMySpaces(signInProvider.userId);
     }();
   }
