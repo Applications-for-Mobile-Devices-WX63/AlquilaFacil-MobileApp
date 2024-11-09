@@ -16,17 +16,16 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
   @override
   void initState() {
     super.initState();
-    final signInProvider = context.read<SignInProvider>();
-    final notificationProvider = context.read<NotificationProvider>();
     () async {
+      final signInProvider = context.read<SignInProvider>();
+      final notificationProvider = context.read<NotificationProvider>();
       await notificationProvider.fetchNotificationsByUserId(signInProvider.userId);
     }();
   }
 
   @override
   Widget build(BuildContext context) {
-    final notificationProvider = context.read<NotificationProvider>();
-
+    final notificationProvider = context.watch<NotificationProvider>();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Notificaciones'),
