@@ -164,16 +164,6 @@ class ProfileProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void loadCurrentInfo(){
-    currentName = currentProfile!.name;
-    currentFatherName = currentProfile!.fatherName;
-    currentMotherName = currentProfile!.motherName;
-    currentDocumentNumber = currentProfile!.documentNumber;
-    currentPhoneNumber = currentProfile!.phoneNumber;
-    currentDateOfBirth = currentProfile!.dateOfBirth;
-    notifyListeners();
-  }
-
 
   Future<void> updateProfile() async {
     var profileId = currentProfile!.id;

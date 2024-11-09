@@ -20,18 +20,16 @@ class _ProfileDetailsState extends State<ProfileDetails> {
   @override
   void initState(){
     super.initState();
-    final signInProvider = context.read<SignInProvider>();
-    final profileProvider = context.read<ProfileProvider>();
     () async {
-      if (profileProvider.currentProfile == null){
+        final signInProvider = context.read<SignInProvider>();
+        final profileProvider = context.read<ProfileProvider>();
         await profileProvider.fetchProfileByUserId(signInProvider.userId);
         Logger().i(profileProvider.currentProfile!.name);
-      }
     }();
   }
   @override
   Widget build(BuildContext context) {
-    final profileProvider = context.read<ProfileProvider>();
+    final profileProvider = context.watch<ProfileProvider>();
     return Scaffold(
       backgroundColor: MainTheme.primary,
       appBar: AppBar(

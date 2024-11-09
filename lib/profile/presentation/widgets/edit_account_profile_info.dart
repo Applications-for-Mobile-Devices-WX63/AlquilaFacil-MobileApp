@@ -7,7 +7,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class EditAccountProfileInfo extends StatefulWidget {
-  const EditAccountProfileInfo({super.key});
+  final String name;
+  final String motherName;
+  final String fatherName;
+  final String phoneNumber;
+  final String documentNumber;
+  final String dateOfBirth;
+  const EditAccountProfileInfo({super.key, required this.name, required this.motherName, required this.fatherName, required this.phoneNumber, required this.documentNumber, required this.dateOfBirth});
 
   @override
   State<EditAccountProfileInfo> createState() => _EditAccountProfileInfoState();
@@ -15,14 +21,6 @@ class EditAccountProfileInfo extends StatefulWidget {
 
 class _EditAccountProfileInfoState extends State<EditAccountProfileInfo> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      final profileProvider = context.read<ProfileProvider>();
-      profileProvider.loadCurrentInfo();
-    });
-  }
   @override
   Widget build(BuildContext context) {
     final profileProvider = context.watch<ProfileProvider>();
@@ -36,7 +34,7 @@ class _EditAccountProfileInfoState extends State<EditAccountProfileInfo> {
                     children: [
                       const SizedBox(height: 50),
                       EditAccountInfoField(
-                        accountParam: profileProvider.currentName,
+                        accountParam: widget.name,
                         labelParam: "Ingrese el nuevo nombre",
                         onChangeValue: (String value) {
                           profileProvider.setCurrentName(value);
@@ -44,7 +42,7 @@ class _EditAccountProfileInfoState extends State<EditAccountProfileInfo> {
                       ),
                       const SizedBox(height: 50),
                       EditAccountInfoField(
-                          accountParam: profileProvider.currentFatherName,
+                          accountParam: widget.fatherName,
                           labelParam: "Ingrese el nuevo apellido paterno",
                         onChangeValue: (String value){
                             profileProvider.setCurrentFatherName(value);
@@ -52,7 +50,7 @@ class _EditAccountProfileInfoState extends State<EditAccountProfileInfo> {
                       ),
                       const SizedBox(height: 50),
                       EditAccountInfoField(
-                          accountParam: profileProvider.currentMotherName,
+                          accountParam:widget.motherName,
                           labelParam: "Ingrese el nuevo apellido materno",
                         onChangeValue: (String value){
                           profileProvider.setCurrentMotherName(value);
@@ -60,7 +58,7 @@ class _EditAccountProfileInfoState extends State<EditAccountProfileInfo> {
                       ),
                       const SizedBox(height: 50),
                       EditAccountInfoField(
-                          accountParam: profileProvider.currentDocumentNumber,
+                          accountParam: widget.documentNumber,
                           labelParam: "Ingrese el nuevo número de documento",
                         onChangeValue: (String value){
                           profileProvider.setCurrentDocumentNumber(value);
@@ -68,7 +66,7 @@ class _EditAccountProfileInfoState extends State<EditAccountProfileInfo> {
                       ),
                       const SizedBox(height: 50),
                       EditAccountInfoField(
-                          accountParam: profileProvider.currentPhoneNumber,
+                          accountParam: widget.phoneNumber,
                           labelParam: "Ingrese el nuevo número de telefono",
                         onChangeValue: (String value){
                           profileProvider.setCurrentPhoneNumber(value);
@@ -76,7 +74,7 @@ class _EditAccountProfileInfoState extends State<EditAccountProfileInfo> {
                       ),
                       const SizedBox(height: 50),
                       EditAccountInfoField(
-                          accountParam: profileProvider.currentDateOfBirth,
+                          accountParam: widget.dateOfBirth,
                           labelParam: "Ingrese la nueva fecha de cumpleaños",
                         onChangeValue: (String value){
                           profileProvider.setCurrentDateOfBirth(value);

@@ -38,9 +38,9 @@ class ProfileDetailsInfo extends StatelessWidget {
       child:  Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-         AvatarDetails(fullName: fullName),
+          AvatarDetails(fullName: fullName),
           const SizedBox(height: 50),
-           AccountProfileInfo(phoneNumber: phoneNumber, documentNumber: documentNumber, dateOfBirth: dateOfBirth),
+          AccountProfileInfo(phoneNumber: phoneNumber, documentNumber: documentNumber, dateOfBirth: dateOfBirth),
           const ProfileActions()
         ],
       ),
@@ -53,7 +53,15 @@ class ProfileDetailsInfo extends StatelessWidget {
               color: Colors.white,
               borderRadius: BorderRadius.circular(15)
           ),
-          child: const EditAccountProfileInfo()
+          child: EditAccountProfileInfo(
+            name: fullName.split(" ")[0],
+            fatherName: fullName.split(" ")[2],
+            motherName: fullName.split(" ")[3],
+            documentNumber: documentNumber,
+            dateOfBirth: dateOfBirth,
+            phoneNumber: phoneNumber,
+
+          )
     );
   }
 }
