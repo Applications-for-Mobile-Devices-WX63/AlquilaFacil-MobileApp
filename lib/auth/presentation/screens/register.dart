@@ -301,7 +301,7 @@ class Register extends StatelessWidget {
                                 if (!conditionTermsProvider.isChecked) {
                                   await _showDialog("Por favor, acepte nuestras políticas de uso", "/sign-up");
                                 }else{
-                                  final googleUserCredentials = await signUpProvider.signUpWithGoogle();
+                                  final googleUserCredentials = await signUpProvider.signInWithGoogle();
                                   profileProvider.setPhoneNumber(googleUserCredentials.user?.phoneNumber ?? "");
                                   signUpProvider.setEmail(googleUserCredentials.user?.email ?? "");
                                   Navigator.pushReplacementNamed(context, "/sign-up");

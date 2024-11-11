@@ -95,7 +95,7 @@ class SignUpProvider extends ChangeNotifier with AuthFilter {
     notifyListeners();
   }
 
-  Future<UserCredential> signUpWithGoogle() async {
+  Future<UserCredential> signInWithGoogle() async {
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
     if (googleUser == null) {
       throw Exception("Google sign-in failed");
