@@ -1,6 +1,7 @@
 import 'package:alquilafacil/auth/presentation/providers/ConditionTermsProvider.dart';
 import 'package:alquilafacil/auth/presentation/providers/SignUpProvider.dart';
 import 'package:alquilafacil/profile/presentation/providers/pofile_provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
@@ -233,17 +234,19 @@ class Register extends StatelessWidget {
                       child: TextButton(
                         onPressed: () async {
                           try {
-                            await signUpProvider.signUp();
-                            if (signUpProvider.successFulMessage.isNotEmpty) {
-                              await profileProvider.createProfile(
-                                signUpProvider.email,
-                                signUpProvider.password,
-                              );
-                              await _showDialog("Registro exitoso", "/login");
-                            } else if (!conditionTermsProvider.isChecked) {
+                            if (!conditionTermsProvider.isChecked) {
                               await _showDialog("Por favor, acepte nuestras políticas de uso", "/sign-up");
                             } else {
-                              await _showDialog("Usuario ya existente o datos incorrectos", "/sign-up");
+                                await signUpProvider.signUp();
+                                if (signUpProvider.successFulMessage.isNotEmpty) {
+                                  await profileProvider.createProfile(
+                                    signUpProvider.email,
+                                    signUpProvider.password,
+                                  );
+                                  await _showDialog("Registro exitoso", "/login");
+                                } else{
+                                  await _showDialog("Usuario ya existente o datos incorrectos", "/sign-up");
+                                }
                             }
                           } catch (e) {
                             Logger().e("Error during registration: $e");
@@ -293,7 +296,20 @@ class Register extends StatelessWidget {
                               )),
                           const SizedBox(width: 20.0),
                           IconButton(
-                            onPressed: () => {},
+                            onPressed: () async {
+                              try{
+                                if (!conditionTermsProvider.isChecked) {
+                                  await _showDialog("Por favor, acepte nuestras políticas de uso", "/sign-up");
+                                }else{
+                                  final googleUserCredentials = await signUpProvider.signUpWithGoogle();
+                                  profileProvider.setPhoneNumber(googleUserCredentials.user?.phoneNumber ?? "");
+                                  signUpProvider.setEmail(googleUserCredentials.user?.email ?? "");
+                                  Navigator.pushReplacementNamed(context, "/sign-up");
+                                }
+                              } on  FirebaseAuthException catch (_){
+                                await _showDialog("Usuario ya existente o datos incorrectos", "/sign-up");
+                              }
+                            },
                             icon: Image.network(
                               "https://www.pngmart.com/files/16/official-Google-Logo-PNG-Image.png",
                               width: 30,

@@ -1,5 +1,6 @@
 import 'package:alquilafacil/auth/presentation/providers/SignInPovider.dart';
 import 'package:alquilafacil/spaces/presentation/screens/search_spaces.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../public/ui/theme/main_theme.dart';
@@ -139,7 +140,7 @@ class _LoginState extends State<Login> {
               Column(
                 children: <Widget>[
                   const Text(
-                    "o regístrate con",
+                    "o inicia sesión con",
                     style: TextStyle(fontSize: 10.0),
                   ),
                   const SizedBox(height: 20.0),
@@ -147,21 +148,41 @@ class _LoginState extends State<Login> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       IconButton(
-                          onPressed: () => {},
+                          onPressed: () => {
+
+                          },
                           icon: Image.network(
                             "https://logodownload.org/wp-content/uploads/2014/09/facebook-logo-1-2.png",
                             width: 40,
                           )),
                       const SizedBox(width: 20.0),
                       IconButton(
-                        onPressed: () => {},
+                        onPressed: () async {
+                          try {
+                            UserCredential? googleUserCredentials = await signInProvider.signInWithGoogle();
+                            if (googleUserCredentials == null) {
+                              await _showDialog("No se pudo iniciar sesión con Google", "/login");
+                              return;
+                            }
+                            signInProvider.setEmail(googleUserCredentials.user?.email ?? " ");
+                            Navigator.pushReplacementNamed(context, "/login");
+                          } on FirebaseAuthException catch (e) {
+                            if (e.code == "user-not-found" || e.code == "wrong-password") {
+                              await _showDialog("Correo electrónico o contraseña incorrectos", "/login");
+                            } else {
+                              await _showDialog("Ocurrió un error inesperado: ${e.message}", "/login");
+                            }
+                          } catch (e) {
+                            await _showDialog("Ocurrió un error inesperado", "/login");
+                          }
+                        },
                         icon: Image.network(
                           "https://www.pngmart.com/files/16/official-Google-Logo-PNG-Image.png",
                           width: 30,
                         ),
-                        style: ButtonStyle(
-                            backgroundColor: WidgetStatePropertyAll<Color>(
-                                MainTheme.background)),
+                        style: IconButton.styleFrom(
+                          backgroundColor: MainTheme.background,
+                        ),
                       )
                     ],
                   )

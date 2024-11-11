@@ -1,5 +1,7 @@
 import 'package:alquilafacil/auth/shared/AuthFilter.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../data/remote/helpers/auth_service_helper.dart';
 
@@ -92,4 +94,23 @@ class SignUpProvider extends ChangeNotifier with AuthFilter {
     setSuccessfulMessage(message);
     notifyListeners();
   }
+
+  Future<UserCredential> signUpWithGoogle() async {
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    if (googleUser == null) {
+      throw Exception("Google sign-in failed");
+    }
+    final GoogleSignInAuthentication? authentication = await googleUser.authentication;
+    if (authentication == null) {
+      throw Exception("Failed to get authentication credentials from Google");
+    }
+
+    final credentials = GoogleAuthProvider.credential(
+      accessToken: authentication.accessToken,
+      idToken: authentication.idToken,
+    );
+    UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credentials);
+    return userCredential;
+  }
+
 }
