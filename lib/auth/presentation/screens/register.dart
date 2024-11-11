@@ -302,7 +302,14 @@ class Register extends StatelessWidget {
                                   await _showDialog("Por favor, acepte nuestras políticas de uso", "/sign-up");
                                 }else{
                                   final googleUserCredentials = await signUpProvider.signInWithGoogle();
+                                  final nameDetails = googleUserCredentials.user?.displayName?.split(" ");
                                   profileProvider.setPhoneNumber(googleUserCredentials.user?.phoneNumber ?? "");
+                                  profileProvider.setName(nameDetails?[0] ?? " ");
+                                  profileProvider.setFatherName(nameDetails?[1] ?? " ");
+                                  profileProvider.setMotherName(
+                                      (nameDetails!.length >= 3) ? nameDetails[2] : " "
+                                  );
+                                  signUpProvider.setUsername(googleUserCredentials.user?.displayName ?? " ");
                                   signUpProvider.setEmail(googleUserCredentials.user?.email ?? "");
                                   Navigator.pushReplacementNamed(context, "/sign-up");
                                 }

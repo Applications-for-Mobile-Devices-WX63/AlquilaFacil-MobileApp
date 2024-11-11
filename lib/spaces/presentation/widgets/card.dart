@@ -108,20 +108,6 @@ class _SpaceCardState extends State<SpaceCard> {
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 10.0, vertical: 5.0),
-                  child: Row(
-                    children: [
-                      IconButton(
-                        onPressed: () {
-                          // Acción para el ícono "medalla"
-                        },
-                        icon: const Icon(Icons.military_tech_rounded),
-                        color: Colors.orange,
-                        iconSize: 30.0,
-                      ),
-                      const SizedBox(width: 10),
                       IconButton(
                         onPressed: _toggleFavorite,
                         icon: Icon(
@@ -130,9 +116,6 @@ class _SpaceCardState extends State<SpaceCard> {
                           size: 30.0,
                         ),
                       ),
-                    ],
-                  ),
-                ),
               ],
             ),
           ],
