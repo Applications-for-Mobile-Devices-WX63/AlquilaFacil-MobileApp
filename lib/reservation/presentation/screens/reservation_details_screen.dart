@@ -83,6 +83,7 @@ class _ReservationDetailsScreen extends State<ReservationDetailsScreen> {
                       streetAddress: spaceProvider.spaceSelected!.streetAddress,
                       cityPlace: spaceProvider.spaceSelected!.cityPlace,
                       isEditMode: false,
+                      features: spaceProvider.spaceSelected!.features
                     ),
                     const SizedBox(height: 20),
                     Text(

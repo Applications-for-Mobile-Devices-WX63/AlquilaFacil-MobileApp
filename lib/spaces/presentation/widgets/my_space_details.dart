@@ -160,6 +160,7 @@ class _MySpaceDetailsState extends State<MySpaceDetails> {
                                 cityPlace:
                                     spaceProvider.spaceSelected!.cityPlace,
                                 isEditMode: spaceProvider.isEditMode,
+                                features: spaceProvider.spaceSelected!.features,
                               )
                             : const EditSpaceInfo(),
                         const SizedBox(height: 15),

@@ -10,10 +10,11 @@ class SpaceInfoDetails extends StatelessWidget {
   final String description;
   final String streetAddress;
   final String cityPlace;
+  final String features;
   final bool isEditMode;
 
   const SpaceInfoDetails({
-    Key? key,
+    super.key,
     required this.localName,
     required this.capacity,
     required this.username,
@@ -21,7 +22,8 @@ class SpaceInfoDetails extends StatelessWidget {
     required this.streetAddress,
     required this.cityPlace,
     required this.isEditMode,
-  }) : super(key: key);
+    required this.features,
+  });
 
   @override
   Widget build(BuildContext context) {

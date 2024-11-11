@@ -30,6 +30,9 @@ class SpaceInfoActions extends StatelessWidget {
         ),
         const SizedBox(height: 20),
         GestureDetector(
+          onTap: (){
+            Navigator.pushNamed(context, "/space-features");
+          },
           child: const Row(
             children: [
               Text(

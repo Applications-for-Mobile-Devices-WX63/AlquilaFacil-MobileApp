@@ -107,6 +107,7 @@ class _SpaceInfoState  extends State<SpaceInfo> {
                        streetAddress: spaceProvider.spaceSelected!.streetAddress,
                        cityPlace: spaceProvider.spaceSelected!.cityPlace,
                        isEditMode: false,
+                       features: spaceProvider.spaceSelected!.features,
                    ),
                     const SizedBox(height: 20),
                     const SpaceInfoActions(),
