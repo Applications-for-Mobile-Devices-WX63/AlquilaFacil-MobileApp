@@ -21,7 +21,7 @@ class SpaceTextFormField extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: TextFormField(
         controller: controller, // Asignar el controlador al TextFormField
-        cursorColor: MainTheme.primary,
+        cursorColor: MainTheme.primary(context),
         style: const TextStyle(color: Colors.black),
         decoration: InputDecoration(
           labelText: label,

@@ -93,7 +93,7 @@ class _EditSpaceInfoState extends State<EditSpaceInfo> {
                 text: "Propietario: ",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  color: MainTheme.contrast,
+                  color: MainTheme.contrast(context),
                   fontSize: 18.0,
                 ),
               ),
@@ -101,7 +101,7 @@ class _EditSpaceInfoState extends State<EditSpaceInfo> {
                 text: profileProvider.usernameExpect,
                 style: TextStyle(
                   fontWeight: FontWeight.normal,
-                  color: MainTheme.contrast,
+                  color: MainTheme.contrast(context),
                   fontSize: 18.0,
                 ),
               ),
@@ -113,7 +113,7 @@ class _EditSpaceInfoState extends State<EditSpaceInfo> {
         Text(
           "Descripción:",
           style: TextStyle(
-              color: MainTheme.contrast,
+              color: MainTheme.contrast(context),
               fontWeight: FontWeight.bold,
               fontSize: 17.0),
         ),

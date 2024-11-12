@@ -10,7 +10,7 @@ class TermsScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Términos de uso"),
       ),
-      backgroundColor: MainTheme.primary,
+      backgroundColor: MainTheme.primary(context),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(

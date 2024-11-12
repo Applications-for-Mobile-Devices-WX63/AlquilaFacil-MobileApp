@@ -27,7 +27,7 @@ class _SearchSpaces extends State<SearchSpaces> {
     final spaceProvider = context.watch<SpaceProvider>();
     return Scaffold(
       bottomNavigationBar: const ScreenBottomAppBar(),
-      backgroundColor: MainTheme.background,
+      backgroundColor: MainTheme.background(context),
       body: Column(
         children: <Widget>[
           Padding(

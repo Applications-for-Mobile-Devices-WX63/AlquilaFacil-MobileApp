@@ -16,7 +16,7 @@ class EditAccountInfoField extends StatelessWidget {
       onChanged: (newValue){
         onChangeValue(newValue);
       },
-      cursorColor: MainTheme.primary,
+      cursorColor: MainTheme.primary(context),
       style: const TextStyle(
           color: Colors.black,
           fontSize: 12
@@ -28,12 +28,12 @@ class EditAccountInfoField extends StatelessWidget {
           ),
           focusedBorder: UnderlineInputBorder(
               borderSide: BorderSide(
-                  color: MainTheme.primary
+                  color: MainTheme.primary(context)
               )
           ),
           enabledBorder: UnderlineInputBorder(
               borderSide: BorderSide(
-                  color: MainTheme.primary
+                  color: MainTheme.primary(context)
               )
           ),
           labelText: labelParam

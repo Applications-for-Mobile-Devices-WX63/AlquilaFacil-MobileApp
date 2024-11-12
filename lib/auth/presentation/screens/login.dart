@@ -23,7 +23,7 @@ class _LoginState extends State<Login> {
           title: Text(
               dialogTitle,
             style: TextStyle(
-              color: MainTheme.contrast,
+              color: MainTheme.contrast(context),
               fontSize: 15.0
             ),
           ),
@@ -58,7 +58,7 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     final signInProvider = context.watch<SignInProvider>();
     return Scaffold(
-      backgroundColor: MainTheme.primary,
+      backgroundColor: MainTheme.primary(context),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0),
         child: Center(
@@ -134,7 +134,7 @@ class _LoginState extends State<Login> {
               Container(
                 width: 330,
                 height: 1,
-                decoration: BoxDecoration(color: MainTheme.background),
+                decoration: BoxDecoration(color: MainTheme.background(context)),
               ),
               const SizedBox(height: 20.0),
               Column(
@@ -181,7 +181,7 @@ class _LoginState extends State<Login> {
                           width: 30,
                         ),
                         style: IconButton.styleFrom(
-                          backgroundColor: MainTheme.background,
+                          backgroundColor: MainTheme.background(context),
                         ),
                       )
                     ],

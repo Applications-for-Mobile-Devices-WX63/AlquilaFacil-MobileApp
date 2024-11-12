@@ -81,15 +81,15 @@ class _MySpaceDetailsState extends State<MySpaceDetails> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: MainTheme.primary,
+        backgroundColor: MainTheme.primary(context),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: MainTheme.background),
+          icon: Icon(Icons.arrow_back, color: MainTheme.background(context)),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
         title:
-            Text("Mis espacios", style: TextStyle(color: MainTheme.background)),
+            Text("Mis espacios", style: TextStyle(color: MainTheme.background(context))),
       ),
       body: spaceProvider.spaceSelected != null
           ? SingleChildScrollView(
@@ -121,13 +121,13 @@ class _MySpaceDetailsState extends State<MySpaceDetails> {
                                   child: IconButton(
                                     style: IconButton.styleFrom(
                                       iconSize: 20,
-                                      backgroundColor: MainTheme.background,
+                                      backgroundColor: MainTheme.background(context),
                                       padding: const EdgeInsets.all(16),
                                     ),
                                     onPressed: _pickImage,
                                     icon: Icon(
                                       Icons.edit,
-                                      color: MainTheme.secondary,
+                                      color: MainTheme.secondary(context),
                                     ),
                                   ),
                                 ),
@@ -177,7 +177,7 @@ class _MySpaceDetailsState extends State<MySpaceDetails> {
                               )
                             : Text(
                                 "Precio por noche: S/.${spaceProvider.spaceSelected!.nightPrice}",
-                                style: TextStyle(color: MainTheme.contrast),
+                                style: TextStyle(color: MainTheme.contrast(context)),
                               ),
                         const SizedBox(height: 15),
                         spaceProvider.isEditMode
@@ -191,7 +191,7 @@ class _MySpaceDetailsState extends State<MySpaceDetails> {
                               )
                             : Text(
                                 "Servicios adicionales: ${spaceProvider.spaceSelected!.features}",
-                                style: TextStyle(color: MainTheme.contrast),
+                                style: TextStyle(color: MainTheme.contrast(context)),
                               ),
                       ],
                     ),
@@ -204,8 +204,8 @@ class _MySpaceDetailsState extends State<MySpaceDetails> {
                         padding: const EdgeInsets.all(8.0),
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                              backgroundColor: MainTheme.secondary,
-                              foregroundColor: MainTheme.background,
+                              backgroundColor: MainTheme.secondary(context),
+                              foregroundColor: MainTheme.background(context),
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10))),
                           onPressed: _uploadImageToCloudinary,
@@ -218,7 +218,7 @@ class _MySpaceDetailsState extends State<MySpaceDetails> {
             )
           : Center(
               child: CircularProgressIndicator(
-                color: MainTheme.secondary,
+                color: MainTheme.secondary(context),
               ),
             ),
     );

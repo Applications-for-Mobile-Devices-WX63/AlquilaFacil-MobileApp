@@ -45,7 +45,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
     if (_isLoading) {
       return Scaffold(
         appBar: AppBar(title: const Text('Calendario')),
-        body: Center(child: CircularProgressIndicator(color: MainTheme.secondary)),
+        body: Center(child: CircularProgressIndicator(color: MainTheme.secondary(context))),
       );
     }
 

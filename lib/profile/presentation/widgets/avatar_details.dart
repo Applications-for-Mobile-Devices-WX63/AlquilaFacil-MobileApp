@@ -38,7 +38,7 @@ class AvatarDetails extends StatelessWidget {
                         color: Colors.white,
                       ),
                       style: IconButton.styleFrom(
-                        backgroundColor: MainTheme.secondary,
+                        backgroundColor: MainTheme.secondary(context),
                       ),
                     ),
                   ),

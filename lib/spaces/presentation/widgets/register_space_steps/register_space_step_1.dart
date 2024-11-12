@@ -65,7 +65,7 @@ class RegisterSpaceStep1 extends StatelessWidget {
                         curve: Curves.ease);
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: MainTheme.primary,
+                    backgroundColor: MainTheme.primary(context),
                     foregroundColor: Colors.white,
                     padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 12.0),
                     shape: RoundedRectangleBorder(

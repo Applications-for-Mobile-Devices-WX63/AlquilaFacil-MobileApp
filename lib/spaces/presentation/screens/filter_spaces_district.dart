@@ -57,11 +57,11 @@ class _FilterSpacesDistrict extends State<FilterSpacesDistrict> {
                           height: 50.0,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10.0),
-                            color: MainTheme.primary,
+                            color: MainTheme.primary(context),
                           ),
                           child: IconButton(
                             icon: const Icon(Icons.location_on_sharp),
-                            color: MainTheme.background, onPressed: () {
+                            color: MainTheme.background(context), onPressed: () {
                               Navigator.pushNamed(
                                   context,
                                   "/spaces-details",

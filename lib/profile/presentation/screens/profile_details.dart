@@ -31,7 +31,7 @@ class _ProfileDetailsState extends State<ProfileDetails> {
   Widget build(BuildContext context) {
     final profileProvider = context.watch<ProfileProvider>();
     return Scaffold(
-      backgroundColor: MainTheme.primary,
+      backgroundColor: MainTheme.primary(context),
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: const Center(
@@ -48,7 +48,7 @@ class _ProfileDetailsState extends State<ProfileDetails> {
           )
       ) :  Center(
         child: CircularProgressIndicator(
-          color: MainTheme.secondary,
+          color: MainTheme.secondary(context),
         ),
       ),
     );

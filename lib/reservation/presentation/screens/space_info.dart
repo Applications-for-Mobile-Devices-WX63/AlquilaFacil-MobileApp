@@ -44,8 +44,8 @@ class _SpaceInfoState  extends State<SpaceInfo> {
       initialTime: isStart ? (_startTime ?? TimeOfDay.now()) : (_endTime ?? TimeOfDay.now()),
       builder: (BuildContext context, Widget? child) {
         return Theme(data: ThemeData(
-            primaryColor: MainTheme.primary,
-            colorScheme: ColorScheme.light(primary: MainTheme.secondary, secondary: MainTheme.secondary, onSurface: MainTheme.secondary),
+            primaryColor: MainTheme.primary(context),
+            colorScheme: ColorScheme.light(primary: MainTheme.secondary(context), secondary: MainTheme.secondary(context), onSurface: MainTheme.secondary(context)),
 
         ), child: child!);
       },
@@ -68,10 +68,10 @@ class _SpaceInfoState  extends State<SpaceInfo> {
     final spaceProvider = context.watch<SpaceProvider>();
     final profileProvider = context.watch<ProfileProvider>();
     return Scaffold(
-        backgroundColor: MainTheme.background,
+        backgroundColor: MainTheme.background(context),
         appBar: AppBar(
-          backgroundColor: MainTheme.primary,
-          title: Text("Información del espacio", style: TextStyle(color: MainTheme.background, fontSize: 18)),
+          backgroundColor: MainTheme.primary(context),
+          title: Text("Información del espacio", style: TextStyle(color: MainTheme.background(context), fontSize: 18)),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back, color: Colors.white),
             onPressed: () {
@@ -366,7 +366,7 @@ class _SpaceInfoState  extends State<SpaceInfo> {
               child: Text(
                 "No hay espacio seleccionado",
                 style: TextStyle(
-                    color: MainTheme.contrast,
+                    color: MainTheme.contrast(context),
                     fontSize: 20.0
                 ),
               ),

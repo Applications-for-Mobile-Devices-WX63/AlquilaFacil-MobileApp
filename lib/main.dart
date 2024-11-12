@@ -11,6 +11,7 @@ import 'package:alquilafacil/profile/presentation/providers/pofile_provider.dart
 import 'package:alquilafacil/profile/presentation/screens/calendar_screen.dart';
 import 'package:alquilafacil/profile/presentation/screens/profile_details.dart';
 import 'package:alquilafacil/profile/presentation/screens/profile_screen.dart';
+import 'package:alquilafacil/public/ui/providers/theme_provider.dart';
 import 'package:alquilafacil/public/ui/theme/main_theme.dart';
 import 'package:alquilafacil/reservation/data/remote/helpers/reservation_service_helper.dart';
 import 'package:alquilafacil/reservation/presentation/providers/reservation_provider.dart';
@@ -59,6 +60,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => SignInProvider(authServiceHelper)),
         ChangeNotifierProvider(create: (_) => SignUpProvider(authServiceHelper)),
         ChangeNotifierProvider(create: (_) => ConditionTermsProvider()),
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
         ChangeNotifierProxyProvider<SignInProvider, NotificationProvider>(
           create: (_) => NotificationProvider(NotificationServiceHelper(SignInProvider(authServiceHelper))),
           update: (context, signInProvider, previous) =>
@@ -90,13 +92,13 @@ class MyApp extends StatelessWidget {
               CommentProvider(CommentServiceHelper(signInProvider)),
         ),
       ],
-      child: Consumer<SignInProvider>(
-        builder: (context, signInProvider, _) {
+      child: Consumer<ThemeProvider>(
+        builder: (context, themeProvider, child) {
           return MaterialApp(
-            theme: MainTheme.lightTheme,
+            theme: themeProvider.currentTheme,
             initialRoute: "/",
             routes: {
-              "/": (context) => _buildInitialScreen(signInProvider),
+              "/": (context) => _buildInitialScreen(context.read<SignInProvider>()),
               "/login": (context) => const Login(),
               "/sign-up": (context) => const Register(),
               "/terms": (context) => const TermsScreen(),

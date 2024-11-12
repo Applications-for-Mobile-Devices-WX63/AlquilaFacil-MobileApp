@@ -67,7 +67,7 @@ class _CreateCommentScreenState extends State<CreateCommentScreen> {
               children: [
                 const Text("Deja tu comentario: "),
                 StarRating(
-                  color: MainTheme.secondary,
+                  color: MainTheme.secondary(context),
                   rating: rating,
                   starCount: starCount,
                   allowHalfRating: false,
@@ -80,20 +80,20 @@ class _CreateCommentScreenState extends State<CreateCommentScreen> {
             const SizedBox(height: 16),
             //Caja de texto
             TextField(
-              cursorColor: MainTheme.primary,
+              cursorColor: MainTheme.primary(context),
               controller: commentController,
               maxLines: 6,
               decoration: InputDecoration(
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(
-                    color: MainTheme.primary
+                    color: MainTheme.primary(context)
                   )
                 ),
                 hintText: "Escribe aqui tu comentario...",
                 border:const  OutlineInputBorder(
                 ),
               ),
-              style: TextStyle(color: MainTheme.contrast)
+              style: TextStyle(color: MainTheme.contrast(context))
             ),
             const SizedBox(height: 16),
             Align(
@@ -102,8 +102,8 @@ class _CreateCommentScreenState extends State<CreateCommentScreen> {
                 width: 130,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: MainTheme.primary,
-                    foregroundColor: MainTheme.background,
+                    backgroundColor: MainTheme.primary(context),
+                    foregroundColor: MainTheme.background(context),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)
                     )

@@ -10,7 +10,7 @@ class FilterSpaces extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: MainTheme.background,
+        backgroundColor: MainTheme.background(context),
         title: const Center(
           child: Text(
             "Realizar búsqueda",
@@ -19,7 +19,7 @@ class FilterSpaces extends StatelessWidget {
           ),
         ),
       ),
-      backgroundColor: MainTheme.background,
+      backgroundColor: MainTheme.background(context),
       bottomNavigationBar: const ScreenBottomAppBar(),
       body: const SingleChildScrollView(
         child: Padding(

@@ -94,7 +94,7 @@ class _RegisterSpaceStep6State extends State<RegisterSpaceStep6> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(Icons.add_a_photo_outlined,
-                          color: MainTheme.primary, size: 40),
+                          color: MainTheme.primary(context), size: 40),
                       const SizedBox(height: 8),
                       const Text(
                         'Añadir una imagen',

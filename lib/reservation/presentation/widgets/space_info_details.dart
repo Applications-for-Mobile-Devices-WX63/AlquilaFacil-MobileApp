@@ -36,18 +36,18 @@ class SpaceInfoDetails extends StatelessWidget {
           textAlign: TextAlign.start,
           style: TextStyle(
               fontWeight: FontWeight.bold,
-              color: MainTheme.contrast,
+              color: MainTheme.contrast(context),
               fontSize: 25.0),
         ),
         Text(
           "$streetAddress $cityPlace",
           textAlign: TextAlign.start,
-          style: TextStyle(color: MainTheme.contrast, fontSize: 18.0),
+          style: TextStyle(color: MainTheme.contrast(context), fontSize: 18.0),
         ),
         Text(
           "Aforo: $capacity personas",
           textAlign: TextAlign.start,
-          style: TextStyle(color: MainTheme.helper, fontSize: 15.0),
+          style: TextStyle(color: MainTheme.helper(context), fontSize: 15.0),
         ),
         const SizedBox(height: 20),
         RichText(
@@ -57,7 +57,7 @@ class SpaceInfoDetails extends StatelessWidget {
                 text: "Propietario: ",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  color: MainTheme.contrast,
+                  color: MainTheme.contrast(context),
                   fontSize: 18.0,
                 ),
               ),
@@ -65,7 +65,7 @@ class SpaceInfoDetails extends StatelessWidget {
                 text: username,
                 style: TextStyle(
                   fontWeight: FontWeight.normal,
-                  color: MainTheme.contrast,
+                  color: MainTheme.contrast(context),
                   fontSize: 18.0,
                 ),
               ),
@@ -77,13 +77,13 @@ class SpaceInfoDetails extends StatelessWidget {
         Text(
           "Descripción:",
           style: TextStyle(
-              color: MainTheme.contrast,
+              color: MainTheme.contrast(context),
               fontWeight: FontWeight.bold,
               fontSize: 17.0),
         ),
         Text(
           description,
-          style: TextStyle(color: MainTheme.contrast, fontSize: 17.0),
+          style: TextStyle(color: MainTheme.contrast(context), fontSize: 17.0),
         ),
       ],
     );

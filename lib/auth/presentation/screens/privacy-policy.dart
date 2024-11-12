@@ -13,7 +13,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
           style: TextStyle(fontSize: 20)
         ),
       ),
-      backgroundColor: MainTheme.primary,
+      backgroundColor: MainTheme.primary(context),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(

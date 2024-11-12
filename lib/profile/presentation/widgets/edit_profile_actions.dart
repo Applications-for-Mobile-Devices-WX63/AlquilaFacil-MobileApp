@@ -22,7 +22,7 @@ class EditProfileActions extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10)
                 ),
                 elevation: 0,
-                backgroundColor: MainTheme.secondary,
+                backgroundColor: MainTheme.secondary(context),
                 foregroundColor: Colors.white
             ),
             onPressed: () async {
@@ -45,7 +45,7 @@ class EditProfileActions extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10)
                   ),
                   elevation: 0,
-                  backgroundColor: MainTheme.primary,
+                  backgroundColor: MainTheme.primary(context),
                   foregroundColor: Colors.white
               ),
               onPressed: (){

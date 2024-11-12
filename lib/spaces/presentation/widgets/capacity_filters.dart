@@ -25,7 +25,7 @@ class _CapacityFiltersState extends State<CapacityFilters> {
             shape: const CircleBorder(),
             value: isChecked,
             checkColor: Colors.white,
-            activeColor: MainTheme.primary,
+            activeColor: MainTheme.primary(context),
             onChanged: (bool? newValue) {
               setState(() {
                 isChecked = newValue ?? false;
@@ -36,7 +36,7 @@ class _CapacityFiltersState extends State<CapacityFilters> {
           Text(
             widget.range,
             style: TextStyle(
-                color: MainTheme.contrast
+                color: MainTheme.contrast(context)
             ),
           )
         ]

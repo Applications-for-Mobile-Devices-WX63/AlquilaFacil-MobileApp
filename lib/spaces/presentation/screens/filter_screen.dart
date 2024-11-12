@@ -27,7 +27,7 @@ class _FilterScreenState extends State<FilterScreen>{
           title: Text(
             dialogTitle,
             style: TextStyle(
-                color: MainTheme.contrast,
+                color: MainTheme.contrast(context),
                 fontSize: 15.0
             ),
           ),
@@ -72,9 +72,9 @@ class _FilterScreenState extends State<FilterScreen>{
     final spaceProvider = context.watch<SpaceProvider>();
     final ranges = ["5-10","11-25","26-50","51-150", "151-300"];
     return Scaffold(
-      backgroundColor: MainTheme.background,
+      backgroundColor: MainTheme.background(context),
       appBar: AppBar(
-        backgroundColor: MainTheme.background,
+        backgroundColor: MainTheme.background(context),
         centerTitle: true, 
         title: const Text(
           "Filtros",
@@ -95,7 +95,7 @@ class _FilterScreenState extends State<FilterScreen>{
                     child: Text(
                      "Tipos de espacio:",
                      style: TextStyle(
-                       color: MainTheme.contrast,
+                       color: MainTheme.contrast(context),
                        fontSize: 20.0,
                        fontWeight: FontWeight.bold
                      ),
@@ -130,7 +130,7 @@ class _FilterScreenState extends State<FilterScreen>{
                    child: Text(
                      "Capacidad de personas:",
                      style: TextStyle(
-                         color: MainTheme.contrast,
+                         color: MainTheme.contrast(context),
                          fontSize: 20.0,
                          fontWeight: FontWeight.bold
                      ),

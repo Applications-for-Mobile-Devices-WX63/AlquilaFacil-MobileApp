@@ -31,7 +31,7 @@ class LocalCategoryCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(12.0),
               side: BorderSide(
                 color: isSelected
-                    ? MainTheme.primary
+                    ? MainTheme.primary(context)
                     : Colors.transparent,
                 width: 2,
               ),

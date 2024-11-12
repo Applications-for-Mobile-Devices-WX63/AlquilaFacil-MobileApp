@@ -31,16 +31,16 @@ class _MySpacesScreenState extends State<MySpacesScreen> {
   Widget build(BuildContext context) {
     final spaceProvider = context.watch<SpaceProvider>();
     return  Scaffold(
-        backgroundColor: MainTheme.background,
+        backgroundColor: MainTheme.background(context),
         appBar: AppBar(
-          backgroundColor: MainTheme.primary,
+          backgroundColor: MainTheme.primary(context),
           leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: MainTheme.background),
+            icon: Icon(Icons.arrow_back, color: MainTheme.background(context)),
             onPressed: (){
               Navigator.pop(context);
             },
           ),
-          title: Text("Mis espacios", style: TextStyle(color: MainTheme.background),),
+          title: Text("Mis espacios", style: TextStyle(color: MainTheme.background(context)),),
         ),
         body: spaceProvider.currentSpaces.isNotEmpty ?
         Padding(
@@ -55,7 +55,7 @@ class _MySpacesScreenState extends State<MySpacesScreen> {
                     itemCount: spaceProvider.currentSpaces.length,
                     itemBuilder: (BuildContext context, int index){
                       return Card(
-                        color: index % 2 == 0 ? MainTheme.background : MainTheme.secondary,
+                        color: index % 2 == 0 ? MainTheme.background(context) : MainTheme.secondary(context),
                         elevation: 2.0,
                         child: InkWell(
                           onTap: (){
@@ -70,7 +70,7 @@ class _MySpacesScreenState extends State<MySpacesScreen> {
                                 textAlign: TextAlign.end,
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  color: index % 2 == 0 ? MainTheme.contrast : MainTheme.background,
+                                  color: index % 2 == 0 ? MainTheme.contrast(context) : MainTheme.background(context),
                                 ),
                               ),
                               leading: Image.network(
@@ -82,14 +82,14 @@ class _MySpacesScreenState extends State<MySpacesScreen> {
                                   Text("S/. ${spaceProvider.currentSpaces[index].nightPrice.toString()}",
                                     textAlign: TextAlign.end,
                                     style: TextStyle(
-                                      color: index % 2 == 0 ? MainTheme.contrast : MainTheme.background,
+                                      color: index % 2 == 0 ? MainTheme.contrast(context) : MainTheme.background(context),
                                     )
                                   ),
                                   Text(
                                     spaceProvider.currentSpaces[index].cityPlace,
                                     textAlign: TextAlign.end,
                                       style: TextStyle(
-                                        color: index % 2 == 0 ? MainTheme.contrast : MainTheme.background,
+                                        color: index % 2 == 0 ? MainTheme.contrast(context) : MainTheme.background(context),
                                       )
                                   )
                                 ],
@@ -105,7 +105,7 @@ class _MySpacesScreenState extends State<MySpacesScreen> {
           ),
         ) : Center(
           child: CircularProgressIndicator(
-            color: MainTheme.secondary,
+            color: MainTheme.secondary(context),
           ),
         )
     );

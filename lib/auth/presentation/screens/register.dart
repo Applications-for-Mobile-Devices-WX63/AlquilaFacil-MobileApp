@@ -25,7 +25,7 @@ class Register extends StatelessWidget {
             title: Text(
               dialogTitle,
               style: TextStyle(
-                  color: MainTheme.contrast,
+                  color: MainTheme.contrast(context),
                   fontSize: 15.0
               ),
             ),
@@ -57,7 +57,7 @@ class Register extends StatelessWidget {
       );
     }
     return Scaffold(
-        backgroundColor: MainTheme.primary,
+        backgroundColor: MainTheme.primary(context),
         body: Padding(
             padding: const EdgeInsets.symmetric(vertical: 60, horizontal: 10),
             child: SingleChildScrollView(
@@ -281,7 +281,7 @@ class Register extends StatelessWidget {
                   Container(
                     width: 330,
                     height: 1,
-                    decoration: BoxDecoration(color: MainTheme.background),
+                    decoration: BoxDecoration(color: MainTheme.background(context)),
                   ),
                   const SizedBox(height: 30.0),
                   Column(
@@ -333,7 +333,7 @@ class Register extends StatelessWidget {
                             ),
                             style: ButtonStyle(
                                 backgroundColor: WidgetStatePropertyAll<Color>(
-                                    MainTheme.background)),
+                                    MainTheme.background(context))),
                           )
                         ],
                       )

@@ -31,7 +31,7 @@ class _AuthTextField extends State<AuthTextField> {
       height: 80,
       padding: const EdgeInsets.all(10.0),
       decoration: BoxDecoration(
-          color: MainTheme.background,
+          color: MainTheme.background(context),
           borderRadius: const BorderRadius.all(Radius.circular(10.0))),
       child: Form(
         key: _formKey,
@@ -45,19 +45,19 @@ class _AuthTextField extends State<AuthTextField> {
           autovalidateMode: AutovalidateMode.onUserInteraction,
           validator: widget.validator,
           obscureText: widget.isPassword,
-          cursorColor: MainTheme.contrast,
-          style: TextStyle(color: MainTheme.contrast, fontSize: 12.0),
+          cursorColor: MainTheme.contrast(context),
+          style: TextStyle(color: MainTheme.contrast(context), fontSize: 12.0),
           decoration: InputDecoration(
               enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: MainTheme.transparent)),
               focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: MainTheme.primary),
+                borderSide: BorderSide(color: MainTheme.primary(context)),
               ),
-              labelStyle: TextStyle(color: MainTheme.helper, fontSize: 12.0),
+              labelStyle: TextStyle(color: MainTheme.helper(context), fontSize: 12.0),
               errorStyle: const TextStyle(fontSize: 7.0),
               label: Text(widget.textLabel),
               hintText: widget.textHint,
-              hintStyle: TextStyle(color: MainTheme.helper, fontSize: 10.0)),
+              hintStyle: TextStyle(color: MainTheme.helper(context), fontSize: 10.0)),
         ),
       ),
     );

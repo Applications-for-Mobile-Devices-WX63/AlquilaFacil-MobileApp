@@ -31,7 +31,7 @@ class NavigationButtons extends StatelessWidget {
             },
             style: OutlinedButton.styleFrom(
               side: BorderSide(
-                color: MainTheme.primary,
+                color: MainTheme.primary(context),
                 width: 2.0,
               ),
               foregroundColor: Colors.black,
@@ -60,7 +60,7 @@ class NavigationButtons extends StatelessWidget {
                   }
                 : null,
             style: ElevatedButton.styleFrom(
-              backgroundColor: MainTheme.primary,
+              backgroundColor: MainTheme.primary(context),
               foregroundColor: Colors.white,
               padding:
                   const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),

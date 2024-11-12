@@ -14,9 +14,9 @@ class AdditionalDetailsScreen extends StatelessWidget {
     final spaceProvider = context.watch<SpaceProvider>();
     final features = spaceProvider.spaceSelected!.features.split(" ");
     return Scaffold(
-      backgroundColor: MainTheme.background,
+      backgroundColor: MainTheme.background(context),
       appBar: AppBar(
-        backgroundColor: MainTheme.primary,
+        backgroundColor: MainTheme.primary(context),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () {
@@ -26,7 +26,7 @@ class AdditionalDetailsScreen extends StatelessWidget {
         title: Text(
             "Detalles adicionales del espacio",
           style: TextStyle(
-            color: MainTheme.background
+            color: MainTheme.background(context)
           ),
         ),
       ),
@@ -49,13 +49,13 @@ class AdditionalDetailsScreen extends StatelessWidget {
                   Text(
                     "Descripción:",
                     style: TextStyle(
-                        color: MainTheme.contrast,
+                        color: MainTheme.contrast(context),
                         fontWeight: FontWeight.bold,
                         fontSize: 17.0),
                   ),
                   Text(
                     spaceProvider.spaceSelected!.descriptionMessage,
-                    style: TextStyle(color: MainTheme.contrast, fontSize: 17.0),
+                    style: TextStyle(color: MainTheme.contrast(context), fontSize: 17.0),
                   ),
                 ],
               ),
@@ -69,7 +69,7 @@ class AdditionalDetailsScreen extends StatelessWidget {
                   Text(
                     "Características del espacio:",
                     style: TextStyle(
-                        color: MainTheme.contrast,
+                        color: MainTheme.contrast(context),
                         fontWeight: FontWeight.bold,
                         fontSize: 17.0),
                   ),
@@ -79,7 +79,7 @@ class AdditionalDetailsScreen extends StatelessWidget {
                       itemBuilder: (BuildContext context, int index){
                         return Text(
                           "• ${features[index]}",
-                          style: TextStyle(color: MainTheme.contrast, fontSize: 17.0),
+                          style: TextStyle(color: MainTheme.contrast(context), fontSize: 17.0),
                         );
                       }
                   )

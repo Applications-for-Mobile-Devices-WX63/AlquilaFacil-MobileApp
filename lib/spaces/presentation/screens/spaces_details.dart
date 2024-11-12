@@ -35,7 +35,7 @@ class _SpaceDetailsState extends State<SpacesDetails> {
     final spaceProvider = context.watch<SpaceProvider>();
     return Scaffold(
      appBar: AppBar(
-        backgroundColor: MainTheme.background,
+        backgroundColor: MainTheme.background(context),
         centerTitle: true, 
         title: const Text(
           "Espacios encontrados",
@@ -46,7 +46,7 @@ class _SpaceDetailsState extends State<SpacesDetails> {
           ),
         ),
       ),
-      backgroundColor: MainTheme.background,
+      backgroundColor: MainTheme.background(context),
       bottomNavigationBar: const ScreenBottomAppBar(),
       body: SingleChildScrollView(
         child: Padding(
@@ -75,7 +75,7 @@ class _SpaceDetailsState extends State<SpacesDetails> {
                     )
                   : Text(
                       "No existen locales con estos parámetros",
-                      style: TextStyle(color: MainTheme.contrast),
+                      style: TextStyle(color: MainTheme.contrast(context)),
                     )
             ],
           ),

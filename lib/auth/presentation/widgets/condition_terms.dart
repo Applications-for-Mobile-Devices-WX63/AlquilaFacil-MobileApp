@@ -21,9 +21,9 @@ class _ConditionTerms extends State<ConditionsTerms> {
       children: <Widget>[
         Checkbox(
           value: conditionTermsProvider.isChecked,
-          side: BorderSide(color: MainTheme.secondary, width: 2.0),
+          side: BorderSide(color: MainTheme.secondary(context), width: 2.0),
           activeColor: MainTheme.transparent,
-          checkColor: MainTheme.secondary,
+          checkColor: MainTheme.secondary(context),
           onChanged: (_) {
             conditionTermsProvider.setIsChecked();
           },
@@ -32,14 +32,14 @@ class _ConditionTerms extends State<ConditionsTerms> {
         Expanded(
           child: RichText(
             text: TextSpan(
-              style: TextStyle(fontSize: 16.0, color: MainTheme.background),
+              style: TextStyle(fontSize: 16.0, color: MainTheme.background(context)),
               children: [
                 const TextSpan(
                   text: "Al registrarse, acepta los ",
                 ),
                 TextSpan(
                   text: "Términos de uso",
-                  style: TextStyle(color: MainTheme.background, fontWeight: FontWeight.bold),
+                  style: TextStyle(color: MainTheme.background(context), fontWeight: FontWeight.bold),
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {
                       Navigator.pushNamed(context, '/terms');
@@ -48,7 +48,7 @@ class _ConditionTerms extends State<ConditionsTerms> {
                 const TextSpan(text: " y la "),
                 TextSpan(
                   text: "Política de Privacidad",
-                  style: TextStyle(color: MainTheme.background, fontWeight: FontWeight.bold),
+                  style: TextStyle(color: MainTheme.background(context), fontWeight: FontWeight.bold),
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {
                       Navigator.pushNamed(context, '/privacy-policy');

@@ -13,18 +13,18 @@ class EditSpaceField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
-      cursorColor: MainTheme.primary,
+      cursorColor: MainTheme.primary(context),
       onChanged: (newValue){
         onValueChanged(newValue);
       },
       decoration: InputDecoration(
         hintText: hintText,
         enabledBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: MainTheme.primary)),
+            borderSide: BorderSide(color: MainTheme.primary(context))),
         focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: MainTheme.primary)),
+            borderSide: BorderSide(color: MainTheme.primary(context))),
       ),
-      style: TextStyle(color: MainTheme.contrast),
+      style: TextStyle(color: MainTheme.contrast(context)),
     );
   }
 }

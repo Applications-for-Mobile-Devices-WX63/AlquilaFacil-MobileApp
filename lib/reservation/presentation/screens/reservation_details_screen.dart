@@ -44,10 +44,10 @@ class _ReservationDetailsScreen extends State<ReservationDetailsScreen> {
     final spaceProvider = context.watch<SpaceProvider>();
     final profileProvider = context.watch<ProfileProvider>();
     return Scaffold(
-        backgroundColor: MainTheme.background,
+        backgroundColor: MainTheme.background(context),
         appBar: AppBar(
-          backgroundColor: MainTheme.primary,
-          title: Text("Información de la reserva", style: TextStyle(color: MainTheme.background, fontSize: 18)),
+          backgroundColor: MainTheme.primary(context),
+          title: Text("Información de la reserva", style: TextStyle(color: MainTheme.background(context), fontSize: 18)),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back, color: Colors.white),
             onPressed: () {
@@ -118,7 +118,7 @@ class _ReservationDetailsScreen extends State<ReservationDetailsScreen> {
               child: Text(
                 "No hay espacio seleccionado",
                 style: TextStyle(
-                    color: MainTheme.contrast,
+                    color: MainTheme.contrast(context),
                     fontSize: 20.0
                 ),
               ),

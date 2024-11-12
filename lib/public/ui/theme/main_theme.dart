@@ -1,31 +1,75 @@
 import 'package:flutter/material.dart';
 
-class MainTheme{
-  static Color primary = const Color(0xFFD13333);
-  static Color background = Colors.white;
+class MainTheme {
+  static Color primary(BuildContext context) {
+    return Theme.of(context).colorScheme.primary;
+  }
+
+  static Color secondary(BuildContext context) {
+    return Theme.of(context).colorScheme.secondary;
+  }
+
+  static Color background(BuildContext context) {
+    return Theme.of(context).colorScheme.surface;
+  }
+
+  static Color contrast(BuildContext context) {
+    return Theme.of(context).colorScheme.onSurface;
+  }
+
+  static Color helper(BuildContext context) {
+    return Theme.of(context).colorScheme.surfaceContainerHighest;
+  }
+
   static Color transparent = Colors.transparent;
-  static Color helper = Colors.grey;
-  static Color secondary = Colors.orangeAccent;
-  static Color contrast = Colors.black;
-  static ThemeData lightTheme = ThemeData.light().copyWith(
-    bottomAppBarTheme: BottomAppBarTheme(
-      color: primary
+
+  static ThemeData lightTheme = ThemeData(
+    brightness: Brightness.light,
+    colorScheme: const ColorScheme.light(
+      primary: Color(0xFFD13333),
+      secondary: Colors.orangeAccent,
+      surface: Colors.white,
+      onSurface: Colors.black,
+      surfaceContainerHighest: Colors.grey,
     ),
-      textTheme: TextTheme(
-        titleLarge: TextStyle(
-          color: background,
-          fontWeight: FontWeight.bold
-        )
+    textButtonTheme: TextButtonThemeData(
+      style: ButtonStyle(
+        foregroundColor: MaterialStatePropertyAll<Color>(Colors.white),
+        backgroundColor: MaterialStatePropertyAll<Color>(Colors.orangeAccent),
+        shape: const MaterialStatePropertyAll<RoundedRectangleBorder>(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10.0)),
+          ),
+        ),
       ),
-    textButtonTheme:  TextButtonThemeData(
-      style: TextButton.styleFrom(
-        foregroundColor: background,
-        backgroundColor: secondary,
-        shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10.0)
-           )
-        )
-      )
-    )
+    ),
+    bottomAppBarTheme: const BottomAppBarTheme(
+      color: Color(0xFFD13333),
+    ),
+  );
+
+  static ThemeData darkTheme = ThemeData(
+    brightness: Brightness.dark,
+    colorScheme: const ColorScheme.dark(
+      primary: Color(0xFFD13333),
+      secondary: Colors.orangeAccent,
+      surface: Color(0xFF2B2B2B),
+      onSurface: Colors.white,
+      surfaceContainerHighest: Colors.grey,
+    ),
+    textButtonTheme: TextButtonThemeData(
+      style: ButtonStyle(
+        foregroundColor: MaterialStatePropertyAll<Color>(Colors.white),
+        backgroundColor: MaterialStatePropertyAll<Color>(Colors.deepOrangeAccent),
+        shape: const MaterialStatePropertyAll<RoundedRectangleBorder>(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10.0)),
+          ),
+        ),
+      ),
+    ),
+    bottomAppBarTheme: const BottomAppBarTheme(
+      color: Color(0xFFBB86FC),
+    ),
   );
 }

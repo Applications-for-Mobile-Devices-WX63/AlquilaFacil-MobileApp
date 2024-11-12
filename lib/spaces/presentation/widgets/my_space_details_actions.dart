@@ -18,8 +18,8 @@ class MySpaceDetailsActions extends StatelessWidget {
       children: [
         ElevatedButton(
             style: ElevatedButton.styleFrom(
-               backgroundColor: MainTheme.secondary,
-              foregroundColor: MainTheme.background,
+               backgroundColor: MainTheme.secondary(context),
+              foregroundColor: MainTheme.background(context),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10)
               )
@@ -35,8 +35,8 @@ class MySpaceDetailsActions extends StatelessWidget {
       children: [
         ElevatedButton(
             style: ElevatedButton.styleFrom(
-                backgroundColor: MainTheme.secondary,
-                foregroundColor: MainTheme.background,
+                backgroundColor: MainTheme.secondary(context),
+                foregroundColor: MainTheme.background(context),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10)
                 )
@@ -53,8 +53,8 @@ class MySpaceDetailsActions extends StatelessWidget {
         ),
         ElevatedButton(
             style: ElevatedButton.styleFrom(
-                backgroundColor: MainTheme.primary,
-                foregroundColor: MainTheme.background,
+                backgroundColor: MainTheme.primary(context),
+                foregroundColor: MainTheme.background(context),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10)
                 )
