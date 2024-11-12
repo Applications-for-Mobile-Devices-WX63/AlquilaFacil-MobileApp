@@ -44,6 +44,7 @@ class _ProfileDetailsState extends State<ProfileDetails> {
             phoneNumber: profileProvider.currentProfile!.phoneNumber,
             documentNumber: profileProvider.currentProfile!.documentNumber,
             dateOfBirth: profileProvider.currentProfile!.dateOfBirth,
+            photoUrl: profileProvider.currentProfile!.photoUrl,
           )
       ) :  Center(
         child: CircularProgressIndicator(

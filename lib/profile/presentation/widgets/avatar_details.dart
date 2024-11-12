@@ -5,7 +5,8 @@ import '../../../public/ui/theme/main_theme.dart';
 
 class AvatarDetails extends StatelessWidget {
   final String fullName;
-  const AvatarDetails({super.key, required this.fullName});
+  final String photoUrl;
+  const AvatarDetails({super.key, required this.fullName, required this.photoUrl});
 
   @override
   Widget build(BuildContext context) {
@@ -19,13 +20,9 @@ class AvatarDetails extends StatelessWidget {
             child: Stack(
               fit: StackFit.expand,
               children: [
-                const CircleAvatar(
+               CircleAvatar(
                   backgroundColor: Colors.black,
-                  child: Icon(
-                    Icons.person,
-                    color: Colors.white,
-                    size: 50,
-                  ),
+                  child: Image.network(photoUrl)
                 ),
                 Positioned(
                   left: 50,

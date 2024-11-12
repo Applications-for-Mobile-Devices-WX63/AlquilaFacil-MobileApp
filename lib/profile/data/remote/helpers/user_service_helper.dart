@@ -40,7 +40,7 @@ class UserServiceHelper extends UserService{
   }
 
   @override
-  Future<Profile> createProfile(String email, String password, String name, String fatherName, String motherName, String documentNumber, String dateOfBirth, String phoneNumber) async {
+  Future<Profile> createProfile(String email, String password, String name, String fatherName, String motherName, String documentNumber, String dateOfBirth, String phoneNumber, String photoUrl) async {
     final dio = Dio();
     final signInService = AuthServiceHelper();
     var token = signInProvider.token;
@@ -59,6 +59,7 @@ class UserServiceHelper extends UserService{
         userId: userId,
         documentNumber: documentNumber,
         dateOfBirth: dateOfBirth,
+        photoUrl: photoUrl
       ).toJson();
 
       Logger().d(profileToAdd);

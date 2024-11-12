@@ -15,12 +15,13 @@ class ProfileDetailsInfo extends StatelessWidget {
   final String phoneNumber;
   final String documentNumber;
   final String dateOfBirth;
+  final String photoUrl;
   const ProfileDetailsInfo({
         super.key,
         required this.fullName,
         required this.phoneNumber,
         required this.documentNumber,
-        required this.dateOfBirth
+        required this.dateOfBirth, required this.photoUrl
       });
 
   @override
@@ -38,7 +39,7 @@ class ProfileDetailsInfo extends StatelessWidget {
       child:  Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          AvatarDetails(fullName: fullName),
+          AvatarDetails(fullName: fullName, photoUrl: photoUrl),
           const SizedBox(height: 50),
           AccountProfileInfo(phoneNumber: phoneNumber, documentNumber: documentNumber, dateOfBirth: dateOfBirth),
           const ProfileActions()

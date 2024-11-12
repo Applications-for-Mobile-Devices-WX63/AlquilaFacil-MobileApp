@@ -12,6 +12,7 @@ class ProfileProvider extends ChangeNotifier {
   String documentNumber = "";
   String dateOfBirth = "";
   String phoneNumber = "";
+  String photoUrl = "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/default-profile-picture-male-icon.png";
   int userId = 0;
   bool isEditMode = false;
 
@@ -65,6 +66,11 @@ class ProfileProvider extends ChangeNotifier {
 
   void setPhoneNumber(String value) {
     phoneNumber = value;
+    notifyListeners();
+  }
+
+  void setPhotoUrl(String value){
+    photoUrl = value;
     notifyListeners();
   }
 
@@ -162,7 +168,8 @@ class ProfileProvider extends ChangeNotifier {
       motherName,
       documentNumber,
       dateOfBirth,
-      phoneNumber
+      phoneNumber,
+      photoUrl
     );
     notifyListeners();
   }
@@ -177,7 +184,8 @@ class ProfileProvider extends ChangeNotifier {
       "phone":currentPhoneNumber,
       "documentNumber": currentDocumentNumber,
       "dateOfBirth": currentDateOfBirth,
-      "userId": currentProfile!.userId
+      "userId": currentProfile!.userId,
+      "photoUrl": currentProfile!.photoUrl
     };
     currentProfile = await userServiceHelper.updateProfile(profileId, profileToUpdate);
     notifyListeners();

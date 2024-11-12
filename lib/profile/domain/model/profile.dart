@@ -6,6 +6,7 @@ class Profile {
   late final String documentNumber;
   late final String dateOfBirth;
   late final String phoneNumber;
+  late final String photoUrl;
   final int userId;
   Profile({
     required this.id,
@@ -16,6 +17,7 @@ class Profile {
     required this.userId,
     required this.documentNumber,
     required this.dateOfBirth,
+    required this.photoUrl,
   });
 
   Map<String, dynamic> toJson() {
@@ -26,7 +28,8 @@ class Profile {
       'phone': phoneNumber,
       'documentNumber': documentNumber,
       'dateOfBirth': dateOfBirth,
-      'userId': userId
+      'userId': userId,
+      'photoUrl':photoUrl
     };
   }
 
@@ -39,7 +42,8 @@ class Profile {
       motherName: json['fullName'].split(" ")[2],
       documentNumber: json['documentNumber'],
       dateOfBirth: json['dateOfBirth'],
-      userId: json['userId']
+      userId: json['userId'],
+      photoUrl: json['photoUrl']
     );
   }
 }

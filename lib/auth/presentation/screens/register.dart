@@ -317,6 +317,7 @@ class Register extends StatelessWidget {
                                   );
                                   profileProvider.setDocumentNumber("1234567");
                                   profileProvider.setDateOfBirth(DateTime.now());
+                                  profileProvider.setPhotoUrl(googleUserCredentials.user?.photoURL ?? "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/default-profile-picture-male-icon.png");
                                   signUpProvider.setUsername(googleUserCredentials.user?.displayName ?? " ");
                                   signUpProvider.setEmail(googleUserCredentials.user?.email ?? "");
 
