@@ -18,13 +18,12 @@ class MainTheme{
         )
       ),
     textButtonTheme:  TextButtonThemeData(
-      style: ButtonStyle(
-        foregroundColor: WidgetStatePropertyAll<Color>(background),
-        backgroundColor: WidgetStatePropertyAll<Color>(secondary),
-        shape: const WidgetStatePropertyAll<RoundedRectangleBorder>(
-              RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10.0))
-              )
+      style: TextButton.styleFrom(
+        foregroundColor: background,
+        backgroundColor: secondary,
+        shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10.0)
+           )
         )
       )
     )

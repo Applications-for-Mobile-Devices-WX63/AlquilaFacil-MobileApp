@@ -109,6 +109,7 @@ class SignUpProvider extends ChangeNotifier with AuthFilter {
       accessToken: authentication.accessToken,
       idToken: authentication.idToken,
     );
+
     UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credentials);
     return userCredential;
   }

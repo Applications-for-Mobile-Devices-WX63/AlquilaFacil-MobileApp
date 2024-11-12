@@ -1,6 +1,7 @@
 import 'package:alquilafacil/profile/data/remote/helpers/user_service_helper.dart';
 import 'package:alquilafacil/profile/domain/model/profile.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
 
 class ProfileProvider extends ChangeNotifier {
@@ -55,8 +56,10 @@ class ProfileProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setDateOfBirth(String value) {
-    dateOfBirth = value;
+  void setDateOfBirth(DateTime date) {
+    final dateFormat = DateFormat('dd/MM/yy');
+    final formattedDate = dateFormat.format(date);
+    dateOfBirth = formattedDate;
     notifyListeners();
   }
 

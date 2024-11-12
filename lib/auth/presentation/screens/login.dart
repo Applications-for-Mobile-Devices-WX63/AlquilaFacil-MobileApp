@@ -170,10 +170,10 @@ class _LoginState extends State<Login> {
                             if (e.code == "user-not-found" || e.code == "wrong-password") {
                               await _showDialog("Correo electrónico o contraseña incorrectos", "/login");
                             } else {
-                              await _showDialog("Ocurrió un error inesperado: ${e.message}", "/login");
+                              await _showDialog("La autenticación con google fallo", "/login");
                             }
                           } catch (e) {
-                            await _showDialog("Ocurrió un error inesperado", "/login");
+                            await _showDialog("La autenticación con google fallo", "/login");
                           }
                         },
                         icon: Image.network(

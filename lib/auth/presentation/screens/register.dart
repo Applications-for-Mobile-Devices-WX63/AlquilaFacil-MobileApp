@@ -3,6 +3,7 @@ import 'package:alquilafacil/auth/presentation/providers/SignUpProvider.dart';
 import 'package:alquilafacil/profile/presentation/providers/pofile_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
 import '../../../public/ui/theme/main_theme.dart';
@@ -170,7 +171,12 @@ class Register extends StatelessWidget {
                     isPassword: false,
                     param: profileProvider.dateOfBirth,
                     onChanged: (newValue) {
-                      profileProvider.setDateOfBirth(newValue);
+                      try {
+                        final parsedDate = DateFormat('dd/MM/yy').parse(newValue);
+                        profileProvider.setDateOfBirth(parsedDate);
+                      } catch (e) {
+                        Exception("Invalid date time");
+                      };
                     },
                     validator: (_) {
                       return profileProvider.validateDateOfBirth();
@@ -303,14 +309,17 @@ class Register extends StatelessWidget {
                                 }else{
                                   final googleUserCredentials = await signUpProvider.signInWithGoogle();
                                   final nameDetails = googleUserCredentials.user?.displayName?.split(" ");
-                                  profileProvider.setPhoneNumber(googleUserCredentials.user?.phoneNumber ?? "");
+                                  profileProvider.setPhoneNumber(googleUserCredentials.user?.phoneNumber ?? "123456789");
                                   profileProvider.setName(nameDetails?[0] ?? " ");
                                   profileProvider.setFatherName(nameDetails?[1] ?? " ");
                                   profileProvider.setMotherName(
-                                      (nameDetails!.length >= 3) ? nameDetails[2] : " "
+                                      (nameDetails!.length >= 3) ? nameDetails[2] : "None"
                                   );
+                                  profileProvider.setDocumentNumber("1234567");
+                                  profileProvider.setDateOfBirth(DateTime.now());
                                   signUpProvider.setUsername(googleUserCredentials.user?.displayName ?? " ");
                                   signUpProvider.setEmail(googleUserCredentials.user?.email ?? "");
+
                                   Navigator.pushReplacementNamed(context, "/sign-up");
                                 }
                               } on  FirebaseAuthException catch (_){
