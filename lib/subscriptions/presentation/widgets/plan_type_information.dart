@@ -1,9 +1,11 @@
 import 'dart:ffi';
 
+import 'package:alquilafacil/subscriptions/presentation/widgets/plan_selected_details.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../public/ui/theme/main_theme.dart';
+import '../screens/plan_selected_details_screen.dart';
 
 class PlanTypeInformation extends StatelessWidget {
   final String planName;
@@ -22,7 +24,7 @@ class PlanTypeInformation extends StatelessWidget {
         child: InkWell(
           borderRadius: BorderRadius.circular(10.0),
           onTap:  (){
-
+            Navigator.push(context, MaterialPageRoute(builder: (_) => PlanSelectedDetailsScreen(planName: planName, planService: planService, planId: planId, planPrice: planPrice)));
           },
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
