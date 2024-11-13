@@ -15,10 +15,10 @@ import 'package:alquilafacil/public/ui/theme/main_theme.dart';
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            Text(
               'Paso 1: Describe tu espacio',
               style: TextStyle(
-                  fontSize: 30, fontWeight: FontWeight.bold, color: Colors.black),
+                  fontSize: 30, fontWeight: FontWeight.bold, color: MainTheme.contrast(context)),
             ),
             const SizedBox(height: 16),
             const Text(

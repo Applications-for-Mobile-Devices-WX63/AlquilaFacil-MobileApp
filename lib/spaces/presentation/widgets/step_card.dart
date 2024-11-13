@@ -1,3 +1,4 @@
+import 'package:alquilafacil/public/ui/theme/main_theme.dart';
 import 'package:flutter/material.dart';
 
 class StepCard extends StatelessWidget {
@@ -24,8 +25,15 @@ class StepCard extends StatelessWidget {
             Container(
               width: 80,
               height: 80,
-              child: image,
-            ),
+              child: ColorFiltered(
+                colorFilter: ColorFilter.mode(
+                  Colors.white.withOpacity(0.0), // Aplica un color blanco transparente
+                  BlendMode.multiply,
+                ),
+                child: image
+                ),
+              )
+            ,
             const SizedBox(width: 16.0),
             Expanded(
               child: Column(
@@ -33,10 +41,10 @@ class StepCard extends StatelessWidget {
                 children: [
                   Text(
                     stepNumber,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 20.0,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black,
+                      color: MainTheme.contrast(context),
                     ),
                   ),
                   const SizedBox(height: 4.0),

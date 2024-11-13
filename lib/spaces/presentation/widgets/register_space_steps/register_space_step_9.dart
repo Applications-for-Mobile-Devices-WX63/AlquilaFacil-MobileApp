@@ -42,12 +42,15 @@ class RegisterSpaceStep9 extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              '¡Es todo!',
-              style: TextStyle(
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
+            Padding(
+              padding: const EdgeInsets.only(top: 10.0),
+              child: Text(
+                '¡Eso es todo!',
+                style: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                  color: MainTheme.contrast(context),
+                ),
               ),
             ),
             const SizedBox(height: 8),

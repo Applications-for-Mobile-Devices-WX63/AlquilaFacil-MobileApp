@@ -25,8 +25,8 @@ class SpaceTextFormField extends StatelessWidget {
         style: const TextStyle(color: Colors.black),
         decoration: InputDecoration(
           labelText: label,
-          labelStyle: const TextStyle(
-            color: Colors.black,
+          labelStyle:  TextStyle(
+            color: MainTheme.contrast(context),
             fontSize: 16.0,
           ),
           hintText: hintText,

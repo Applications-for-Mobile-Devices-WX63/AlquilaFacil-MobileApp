@@ -1,6 +1,8 @@
 import 'package:alquilafacil/spaces/presentation/widgets/navigation_buttons.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../public/ui/theme/main_theme.dart';
+
 class RegisterSpaceStep5 extends StatelessWidget {
   final PageController pageController;
 
@@ -14,10 +16,13 @@ class RegisterSpaceStep5 extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Paso 2: Haz que tu espacio destaque',
-              style: TextStyle(
-                  fontSize: 30, fontWeight: FontWeight.bold, color: Colors.black),
+            Padding(
+              padding: const EdgeInsets.only(top: 10.0),
+              child: Text(
+                'Paso 2: Haz que tu espacio destaque',
+                style: TextStyle(
+                    fontSize: 30, fontWeight: FontWeight.bold, color: MainTheme.contrast(context)),
+              ),
             ),
             const SizedBox(height: 16),
             const Text(
@@ -28,7 +33,7 @@ class RegisterSpaceStep5 extends StatelessWidget {
             const SizedBox(height: 16),
             Center(
               child: Image.network(
-                "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSi8iXnDsVRUStoDzFe1_nfw5Zciu45XoFRvvRM0R8hPKG2DBbj",
+                "https://i.ibb.co/wBYdn3v/images-removebg-preview-3.png",
                 height: 230,
                 width: 300,
               ),

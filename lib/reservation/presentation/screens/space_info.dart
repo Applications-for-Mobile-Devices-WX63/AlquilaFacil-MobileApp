@@ -71,7 +71,7 @@ class _SpaceInfoState  extends State<SpaceInfo> {
         backgroundColor: MainTheme.background(context),
         appBar: AppBar(
           backgroundColor: MainTheme.primary(context),
-          title: Text("Información del espacio", style: TextStyle(color: MainTheme.background(context), fontSize: 18)),
+          title: Text("Información del espacio", style: TextStyle(color: Colors.white, fontSize: 18)),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back, color: Colors.white),
             onPressed: () {
@@ -112,10 +112,10 @@ class _SpaceInfoState  extends State<SpaceInfo> {
                     const SizedBox(height: 20),
                     const SpaceInfoActions(),
                     const SizedBox(height: 20),
-                    const Text(
+                     Text(
                         "Fecha:",
                       style: TextStyle(
-                        color: Colors.black,
+                        color: MainTheme.contrast(context),
                         fontSize: 17
                       )
                     ),
@@ -141,7 +141,7 @@ class _SpaceInfoState  extends State<SpaceInfo> {
                           _focusedDay = focusedDay;
                         });
                       },
-                      headerStyle: const HeaderStyle(
+                      headerStyle: HeaderStyle(
                         decoration: BoxDecoration(
                           border: Border(
                             top: BorderSide(color: Colors.grey),
@@ -149,13 +149,14 @@ class _SpaceInfoState  extends State<SpaceInfo> {
                             right: BorderSide(color: Colors.grey),
                           ),
                         ),
-                        titleTextStyle: TextStyle(color: Colors.black),
+                        titleTextStyle: TextStyle(color: MainTheme.contrast(context)),
                         formatButtonVisible: false,
                         titleCentered: true,
                       ),
                       calendarStyle: CalendarStyle(
-                        defaultTextStyle: const TextStyle(color: Colors.black),
-                        selectedTextStyle: const TextStyle(color: Colors.orange),
+
+                        defaultTextStyle: TextStyle(color: MainTheme.contrast(context)),
+                        selectedTextStyle: const TextStyle(color: Colors.amberAccent),
                         cellMargin: const EdgeInsets.all(0),
                         rangeHighlightColor: Colors.transparent,
                         disabledTextStyle: const TextStyle(color: Colors.grey),
@@ -167,8 +168,8 @@ class _SpaceInfoState  extends State<SpaceInfo> {
                            shape: BoxShape.rectangle,
                            border:  Border.all(color: Colors.grey, width: 1)
                        ),
-                       todayTextStyle: const TextStyle(
-                         color: Colors.black
+                       todayTextStyle: TextStyle(
+                         color: MainTheme.contrast(context)
                        ),
                        selectedDecoration: BoxDecoration(
                            color: Colors.transparent,
@@ -198,8 +199,8 @@ class _SpaceInfoState  extends State<SpaceInfo> {
                         ),
 
                       ),
-                      daysOfWeekStyle:const  DaysOfWeekStyle(
-                        weekdayStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                      daysOfWeekStyle:  DaysOfWeekStyle(
+                        weekdayStyle: TextStyle(color: MainTheme.contrast(context), fontWeight: FontWeight.bold),
                         weekendStyle: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
                       ),
                       calendarBuilders: CalendarBuilders(
@@ -212,7 +213,7 @@ class _SpaceInfoState  extends State<SpaceInfo> {
                             child: Center(
                               child: Text(
                                 '${day.day}',
-                                style: const TextStyle(color: Colors.black),
+                                style: TextStyle(color: MainTheme.contrast(context)),
                               ),
                             ),
                           );
@@ -243,8 +244,8 @@ class _SpaceInfoState  extends State<SpaceInfo> {
                             child: Center(
                                 child:  Text(
                                   capitalizedText,
-                                  style: const TextStyle(
-                                      color: Colors.black,
+                                  style: TextStyle(
+                                      color: MainTheme.contrast(context),
                                       fontWeight: FontWeight.bold,
                                     fontSize: 12
                                   ),
@@ -257,11 +258,11 @@ class _SpaceInfoState  extends State<SpaceInfo> {
                       startingDayOfWeek: StartingDayOfWeek.monday,
                     ),
                   const SizedBox(height: 16.0),
-                    const Text(
+                     Text(
                       'Horario:',
                       style: TextStyle(
                         fontSize: 18.0,
-                        color: Colors.black,
+                        color: MainTheme.contrast(context),
                       ),
                     ),
                     Row(
@@ -276,16 +277,16 @@ class _SpaceInfoState  extends State<SpaceInfo> {
                               _startTime != null
                                   ? _startTime!.format(context)
                                   : 'Inicio',
-                              style: const TextStyle(
-                                  color: Colors.black, fontSize: 16),
+                              style:  TextStyle(
+                                  color: MainTheme.contrast(context), fontSize: 16),
                             ),
                           ),
                         ),
-                        const Text(
+                         Text(
                             '-',
                             style: TextStyle(
                               fontSize: 30,
-                              color: Colors.black
+                              color: MainTheme.contrast(context)
                             )
                         ),
                         GestureDetector(
@@ -297,8 +298,8 @@ class _SpaceInfoState  extends State<SpaceInfo> {
                               _endTime != null
                                   ? _endTime!.format(context)
                                   : 'Fin',
-                              style: const TextStyle(
-                                  color: Colors.black, fontSize: 16),
+                              style: TextStyle(
+                                  color: MainTheme.contrast(context), fontSize: 16),
                             ),
                           ),
                         ),

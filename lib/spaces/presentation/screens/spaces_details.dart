@@ -4,6 +4,7 @@ import 'package:alquilafacil/spaces/presentation/widgets/card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../public/ui/providers/theme_provider.dart';
 import '../providers/space_provider.dart';
 
 class SpacesDetails extends StatefulWidget {
@@ -32,16 +33,19 @@ class _SpaceDetailsState extends State<SpacesDetails> {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     final spaceProvider = context.watch<SpaceProvider>();
     return Scaffold(
      appBar: AppBar(
-        backgroundColor: MainTheme.background(context),
+        backgroundColor: themeProvider.isDarkTheme
+            ? MainTheme.primary(context)
+            : MainTheme.background(context),
         centerTitle: true, 
-        title: const Text(
+        title: Text(
           "Espacios encontrados",
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            color: Colors.black,
+            color: MainTheme.contrast(context),
             fontSize: 20,
           ),
         ),

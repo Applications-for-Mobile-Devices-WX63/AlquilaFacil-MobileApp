@@ -40,7 +40,7 @@ class _MySpacesScreenState extends State<MySpacesScreen> {
               Navigator.pop(context);
             },
           ),
-          title: Text("Mis espacios", style: TextStyle(color: MainTheme.background(context)),),
+          title: Text("Mis espacios", style: TextStyle(color: Colors.white),),
         ),
         body: spaceProvider.currentSpaces.isNotEmpty ?
         Padding(

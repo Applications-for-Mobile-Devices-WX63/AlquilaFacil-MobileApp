@@ -1,4 +1,6 @@
 import 'package:alquilafacil/public/presentation/widgets/screen_bottom_app_bar.dart';
+import 'package:alquilafacil/public/ui/providers/theme_provider.dart';
+import 'package:alquilafacil/public/ui/theme/main_theme.dart';
 import 'package:alquilafacil/spaces/domain/model/space.dart';
 import 'package:alquilafacil/spaces/presentation/providers/local_categories_provider.dart';
 import 'package:alquilafacil/spaces/presentation/providers/space_provider.dart';
@@ -55,13 +57,14 @@ class _RegisterSpaceStepsState extends State<RegisterSpaceStepsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: MainTheme.background(context),
       appBar: AppBar(
-        title: const Text('Registrar espacio'),
-        backgroundColor: Colors.white,
+        title: Text('Registrar espacio', style: TextStyle(color: MainTheme.contrast(context)),),
+        backgroundColor: themeProvider.isDarkTheme ? MainTheme.primary(context) : MainTheme.background(context),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon:  Icon(Icons.arrow_back, color: MainTheme.contrast(context)),
           onPressed: () {
             Navigator.popAndPushNamed(context, '/search-space');
           },

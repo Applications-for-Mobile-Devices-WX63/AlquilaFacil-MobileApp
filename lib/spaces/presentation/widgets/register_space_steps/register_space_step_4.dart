@@ -70,9 +70,13 @@ class _RegisterSpaceStep4State extends State<RegisterSpaceStep4> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Confirma tu dirección',
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.black),
+
+            Padding(
+              padding: const EdgeInsets.only(top:10.0),
+              child: Text(
+                'Confirma tu dirección',
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: MainTheme.contrast(context)),
+              ),
             ),
             const SizedBox(height: 8.0),
             const Text(

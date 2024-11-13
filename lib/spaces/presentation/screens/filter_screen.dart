@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
 
+import '../../../public/ui/providers/theme_provider.dart';
+
 class FilterScreen extends StatefulWidget {
   const FilterScreen({super.key});
 
@@ -68,19 +70,20 @@ class _FilterScreenState extends State<FilterScreen>{
   }
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     final localCategoriesProvider = context.watch<LocalCategoriesProvider>();
     final spaceProvider = context.watch<SpaceProvider>();
     final ranges = ["5-10","11-25","26-50","51-150", "151-300"];
     return Scaffold(
       backgroundColor: MainTheme.background(context),
       appBar: AppBar(
-        backgroundColor: MainTheme.background(context),
-        centerTitle: true, 
-        title: const Text(
+        backgroundColor: themeProvider.isDarkTheme ? MainTheme.primary(context) : MainTheme.background(context),
+        title: Text(
           "Filtros",
           style: TextStyle(
             fontSize: 20.0,
             fontWeight: FontWeight.bold,
+            color: MainTheme.contrast(context),
           ),
         ),
       ),
@@ -151,6 +154,7 @@ class _FilterScreenState extends State<FilterScreen>{
                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                    child: SizedBox(
                      width: 400,
+                     height: 100,
                      child: TextButton(onPressed: () async {
                        if(spaceProvider.maxRange != 0 || spaceProvider.minRange != 0 || spaceProvider.categorySelected != 0){
                           spaceProvider.getFilterRanges();

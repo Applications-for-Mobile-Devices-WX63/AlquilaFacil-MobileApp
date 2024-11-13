@@ -4,6 +4,7 @@ import 'package:alquilafacil/public/ui/theme/main_theme.dart';
 import 'package:alquilafacil/reservation/presentation/providers/reservation_provider.dart';
 import 'package:alquilafacil/spaces/presentation/providers/space_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import '../../../auth/presentation/providers/SignInPovider.dart';
@@ -62,9 +63,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(mainAxisSize: MainAxisSize.min, children: [
-          const Text(
+          Text(
             "Toca en una fecha para ver más detalles sobre la programación",
-            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+            style: TextStyle(color: MainTheme.contrast(context), fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 16.0),
           TableCalendar(
@@ -80,7 +81,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                 right: BorderSide(color: Colors.grey),
               ),
             ),
-            headerStyle: const HeaderStyle(
+            headerStyle: HeaderStyle(
               decoration: BoxDecoration(
                 border: Border(
                   top: BorderSide(color: Colors.grey),
@@ -88,7 +89,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                   right: BorderSide(color: Colors.grey),
                 ),
               ),
-              titleTextStyle: TextStyle(color: Colors.black),
+              titleTextStyle: TextStyle(color: MainTheme.contrast(context)),
               formatButtonVisible: false,
               titleCentered: true,
             ),
@@ -102,6 +103,26 @@ class _CalendarScreenState extends State<CalendarScreen> {
               },
               outsideBuilder: (context, day, focusedDay) {
                 return DefaultCalendarDay(day: day, isOutside: true);
+              },
+              dowBuilder: (context, day) {
+                final text = DateFormat.E("es_ES").format(day);
+                final capitalizedText = text.replaceFirst(text[0], text[0].toUpperCase());
+                return Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey, width: 1),
+                    shape: BoxShape.rectangle,
+                  ),
+                  child: Center(
+                    child:  Text(
+                      capitalizedText,
+                      style: TextStyle(
+                          color: MainTheme.contrast(context),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12
+                      ),
+                    ),
+                  ),
+                );
               },
               markerBuilder: (context, day, events) {
                 final List<Reservation> matchingReservations = reservationProvider.reservations.where(
@@ -136,9 +157,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
               children: [
                 EventTypeIndicator(color: Colors.red, text: "Reserva"),
                 SizedBox(height: 16.0),
-                EventTypeIndicator(color: Colors.blue, text: "Evento"),
+                EventTypeIndicator(color: Colors.blue, text: "Reserva de tu espacio"),
                 SizedBox(height: 16.0),
-                EventTypeIndicator(color: Colors.amberAccent, text: "Recordatorio"),
+                EventTypeIndicator(color: Colors.amberAccent, text: "Reserva de tu espacio por usuario premium"),
               ],
             ),
           ),

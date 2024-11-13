@@ -60,7 +60,7 @@ class MainTheme {
     textButtonTheme: TextButtonThemeData(
       style: ButtonStyle(
         foregroundColor: MaterialStatePropertyAll<Color>(Colors.white),
-        backgroundColor: MaterialStatePropertyAll<Color>(Colors.deepOrangeAccent),
+        backgroundColor: MaterialStatePropertyAll<Color>(Colors.orangeAccent),
         shape: const MaterialStatePropertyAll<RoundedRectangleBorder>(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(10.0)),
@@ -69,7 +69,7 @@ class MainTheme {
       ),
     ),
     bottomAppBarTheme: const BottomAppBarTheme(
-      color: Color(0xFFBB86FC),
+      color: Color(0xFFD13333),
     ),
   );
 }

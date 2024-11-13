@@ -2,6 +2,8 @@ import 'package:alquilafacil/spaces/presentation/widgets/navigation_buttons.dart
 import 'package:flutter/material.dart';
 import 'package:alquilafacil/spaces/presentation/widgets/space_text_form_field.dart';
 
+import '../../../../public/ui/theme/main_theme.dart';
+
 class RegisterSpaceStep7 extends StatefulWidget {
   final PageController pageController;
   final String localName;
@@ -78,7 +80,7 @@ class _RegisterSpaceStep7State extends State<RegisterSpaceStep7> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Agregar característica', style: TextStyle(color: Colors.black)),
+          title: Text('Agregar característica', style: TextStyle(color: MainTheme.contrast(context))),
           content: TextField(
             style: const TextStyle(color: Colors.black),
             controller: featureController,
@@ -117,14 +119,18 @@ class _RegisterSpaceStep7State extends State<RegisterSpaceStep7> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            const Text(
-              'Ahora, añade los detalles de tu espacio',
-              style: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
-            ),
+
+             Padding(
+               padding: const EdgeInsets.only(top: 10.0),
+               child: Text(
+                'Ahora, añade los detalles de tu espacio',
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                  color: MainTheme.contrast(context),
+                ),
+                           ),
+             ),
             const SizedBox(height: 8),
             const Text(
               'Los títulos cortos funcionan mejor.\nNo te preocupes, puedes modificarlo más adelante.',
@@ -149,12 +155,12 @@ class _RegisterSpaceStep7State extends State<RegisterSpaceStep7> {
               onChanged: (value) => _updateParent(),
             ),
             const SizedBox(height: 32),
-            const Text(
+            Text(
               'Aforo (personas)',
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
-                color: Colors.black,
+                color: MainTheme.contrast(context),
               ),
             ),
             TextFormField(
@@ -184,12 +190,12 @@ class _RegisterSpaceStep7State extends State<RegisterSpaceStep7> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text(
+            Text(
               'Características',
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
-                color: Colors.black,
+                color: MainTheme.contrast(context),
               ),
             ),
             IconButton(

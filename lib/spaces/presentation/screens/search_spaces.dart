@@ -6,6 +6,8 @@ import 'package:alquilafacil/spaces/presentation/widgets/search_space_button.dar
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../public/ui/providers/theme_provider.dart';
+
 class SearchSpaces extends StatefulWidget {
   const SearchSpaces({super.key});
   @override
@@ -24,6 +26,7 @@ class _SearchSpaces extends State<SearchSpaces> {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     final spaceProvider = context.watch<SpaceProvider>();
     return Scaffold(
       bottomNavigationBar: const ScreenBottomAppBar(),
@@ -44,17 +47,19 @@ class _SearchSpaces extends State<SearchSpaces> {
                     padding: const EdgeInsets.symmetric(
                         vertical: 15.0, horizontal: 10.0),
                     decoration: BoxDecoration(
-                      color: Colors.black12,
+                      color: themeProvider.isDarkTheme
+                          ? MainTheme.primary(context)
+                          : Colors.black12,
                       borderRadius: BorderRadius.circular(10.0),
                     ),
-                    child: const Row(
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Icon(Icons.search_outlined, color: Colors.black),
+                        Icon(Icons.search_outlined, color: MainTheme.contrast(context)),
                         SizedBox(width: 10),
                         Text(
                           'Buscar espacio',
-                          style: TextStyle(color: Colors.black, fontSize: 16.0),
+                          style: TextStyle(color: MainTheme.contrast(context), fontSize: 16.0),
                         ),
                       ],
                     ),
@@ -63,7 +68,9 @@ class _SearchSpaces extends State<SearchSpaces> {
                 const SizedBox(width: 10.0),
                 Container(
                   decoration: BoxDecoration(
-                      color: Colors.black12,
+                      color: themeProvider.isDarkTheme
+                          ? MainTheme.primary(context)
+                          : Colors.black12,
                       borderRadius: BorderRadius.circular(25.0)),
                   child: IconButton(
                       onPressed: () =>

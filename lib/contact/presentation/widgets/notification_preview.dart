@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../public/ui/theme/main_theme.dart';
+
 class NotificationPreview extends StatelessWidget {
   final String title;
   final String message;
@@ -24,19 +26,21 @@ class NotificationPreview extends StatelessWidget {
               child: ListTile(
                 title: Text(
                   title,
-                  style: const TextStyle(
+                  style:  TextStyle(
                       fontSize: 14.0,
-                      fontWeight: FontWeight.bold),
+                      fontWeight: FontWeight.bold,
+                  color: MainTheme.contrast(context),
+                  ),
                 ),
                 subtitle: Text(
                     message,
-                    style: const TextStyle(fontSize: 12.0),
+                    style: TextStyle(fontSize: 12.0, color: MainTheme.contrast(context)),
                 ),
               ),
             ),
-            const Icon(
+             Icon(
               Icons.arrow_forward_ios,
-              color: Colors.black,
+              color: MainTheme.contrast(context),
             ),
           ],
         ),

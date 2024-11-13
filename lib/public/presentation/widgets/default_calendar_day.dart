@@ -1,6 +1,8 @@
 
 import 'package:flutter/material.dart';
 
+import '../../ui/theme/main_theme.dart';
+
 class DefaultCalendarDay extends StatelessWidget {
   final DateTime day;
   final bool isOutside;
@@ -16,12 +18,12 @@ class DefaultCalendarDay extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         border: Border.all(color: Colors.grey, width: 0.5),
-        color: isOutside ? Colors.grey.shade200 : Colors.transparent,
+        color: Colors.transparent,
       ),
       alignment: Alignment.center,
       child: Text(
         '${day.day}',
-        style: TextStyle(color: isOutside ? Colors.grey : Colors.black),
+        style: TextStyle(color: isOutside ? Colors.grey : MainTheme.contrast(context)),
       ),
     );
   }

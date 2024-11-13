@@ -67,7 +67,7 @@ class Register extends StatelessWidget {
                   const Text(
                     "REGÍSTRATE",
                     style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 30.0),
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 30.0, color: Colors.white),
                   ),
                   const SizedBox(height: 10),
                   AuthTextField(
@@ -265,7 +265,7 @@ class Register extends StatelessWidget {
                   const Text(
                       "¿Ya tienes cuenta?",
                       style: TextStyle(
-                          fontSize: 10.0
+                          fontSize: 10.0, color: Colors.white
                       )
                   ),
                   const SizedBox(height: 10),
@@ -288,7 +288,7 @@ class Register extends StatelessWidget {
                     children: <Widget>[
                       const Text(
                         "o regístrate con",
-                        style: TextStyle(fontSize: 10.0),
+                        style: TextStyle(fontSize: 10.0, color: Colors.white),
                       ),
                       const SizedBox(height: 20.0),
                       Row(

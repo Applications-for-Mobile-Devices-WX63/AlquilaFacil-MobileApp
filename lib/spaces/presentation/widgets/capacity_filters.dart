@@ -21,7 +21,7 @@ class _CapacityFiltersState extends State<CapacityFilters> {
     return Row(
         children:[
           Checkbox(
-            side: const BorderSide(color: Colors.black),
+            side:  BorderSide(color: MainTheme.contrast(context)),
             shape: const CircleBorder(),
             value: isChecked,
             checkColor: Colors.white,

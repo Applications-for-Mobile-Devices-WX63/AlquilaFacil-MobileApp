@@ -41,13 +41,13 @@ class NavigationButtons extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8.0),
               ),
             ),
-            child: const Text('Anterior', style: TextStyle(fontSize: 16.0)),
+            child: Text('Anterior', style: TextStyle(fontSize: 16.0, color: MainTheme.contrast(context))),
           ),
           ElevatedButton(
             onPressed: canProceed
                 ? () {
                     if (onNext != null) {
-                      onNext!(); // Llamar al callback aquí
+                      onNext!();
                     }
                     if (isLastStep) {
                       Navigator.pushNamed(context, '/');

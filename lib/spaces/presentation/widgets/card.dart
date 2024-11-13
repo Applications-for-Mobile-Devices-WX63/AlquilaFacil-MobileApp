@@ -5,6 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../public/ui/providers/theme_provider.dart';
+import '../../../public/ui/theme/main_theme.dart';
+
 class SpaceCard extends StatefulWidget {
   final String location;
   final String price;
@@ -49,6 +52,7 @@ class _SpaceCardState extends State<SpaceCard> {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     final spaceProvider = context.watch<SpaceProvider>();
     return GestureDetector(
       onTap: () async {
@@ -59,7 +63,7 @@ class _SpaceCardState extends State<SpaceCard> {
        }
       },
       child: Card(
-        color: Colors.white,
+        color: themeProvider.isDarkTheme ? MainTheme.primary(context) : Colors.white,
         elevation: 3,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -89,8 +93,8 @@ class _SpaceCardState extends State<SpaceCard> {
                           widget.location,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
-                          style: const TextStyle(
-                            color: Colors.black,
+                          style: TextStyle(
+                            color: MainTheme.contrast(context),
                             fontSize: 16,
                             fontWeight: FontWeight.w400,
                           ),
@@ -99,8 +103,8 @@ class _SpaceCardState extends State<SpaceCard> {
                       const SizedBox(height: 4),
                       Text(
                         'S/. ${widget.price}',
-                        style: const TextStyle(
-                          color: Colors.black,
+                        style: TextStyle(
+                          color: MainTheme.contrast(context),
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),

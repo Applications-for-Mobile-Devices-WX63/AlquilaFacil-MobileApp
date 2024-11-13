@@ -6,6 +6,8 @@ class ThemeProvider extends ChangeNotifier {
 
   ThemeData get currentTheme => _currentTheme;
 
+  bool get isDarkTheme => _currentTheme == MainTheme.darkTheme;
+
   void toggleTheme() {
     if (_currentTheme == MainTheme.lightTheme) {
       _currentTheme = MainTheme.darkTheme;

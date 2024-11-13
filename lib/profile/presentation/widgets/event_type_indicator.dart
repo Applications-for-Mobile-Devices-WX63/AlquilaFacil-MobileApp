@@ -1,6 +1,8 @@
 
 import 'package:flutter/material.dart';
 
+import '../../../public/ui/theme/main_theme.dart';
+
 class EventTypeIndicator extends StatelessWidget {
   final Color color;
   final String text;
@@ -24,7 +26,13 @@ class EventTypeIndicator extends StatelessWidget {
         ),
       ),
       const SizedBox(width: 8.0),
-      Text(text, style: const TextStyle(color: Colors.black)),
+      Flexible(
+        child: Text(
+          text,
+          style: TextStyle(color: MainTheme.contrast(context)),
+          overflow: TextOverflow.visible,
+        ),
+      ),
     ],
     );
   }

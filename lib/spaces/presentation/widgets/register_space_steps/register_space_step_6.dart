@@ -56,10 +56,14 @@ class _RegisterSpaceStep6State extends State<RegisterSpaceStep6> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            const Text(
-              'Agrega una foto de tu espacio',
-              style: TextStyle(
-                  fontSize: 28, fontWeight: FontWeight.bold, color: Colors.black),
+
+            Padding(
+              padding: const EdgeInsets.only(top: 10.0),
+              child: Text(
+                'Agrega una foto de tu espacio',
+                style: TextStyle(
+                    fontSize: 28, fontWeight: FontWeight.bold, color: MainTheme.contrast(context)),
+              ),
             ),
             const SizedBox(height: 16),
             const Text(
@@ -124,6 +128,7 @@ class _RegisterSpaceStep6State extends State<RegisterSpaceStep6> {
                 ),
               ),
             ),
+            const SizedBox(height: 10),
             NavigationButtons(
               pageController: widget.pageController,
               canProceed: _canProceed,

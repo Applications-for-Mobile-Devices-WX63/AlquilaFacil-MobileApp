@@ -5,6 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:alquilafacil/spaces/presentation/widgets/card.dart';
 
+import '../../../public/ui/providers/theme_provider.dart';
+import '../../../public/ui/theme/main_theme.dart';
+
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
@@ -12,13 +15,14 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final spaceProvider = Provider.of<SpaceProvider>(context);
     final signInProvider = context.watch<SignInProvider>();
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: MainTheme.background(context),
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: const Text(
+        backgroundColor: themeProvider.isDarkTheme ? MainTheme.primary(context) : MainTheme.background(context),
+        title: Text(
           'Panel de control',
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: MainTheme.contrast(context)),
         ),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
@@ -30,6 +34,46 @@ class ProfileScreen extends StatelessWidget {
       bottomNavigationBar: const ScreenBottomAppBar(),
       body: Column(
         children: [
+          Card(
+            margin: const EdgeInsets.all(16.0),
+            elevation: 10.0,
+            child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Color del tema:",
+                  style: TextStyle(
+                    color: MainTheme.contrast(context),
+                    fontSize: 14.0,
+                  ),
+                ),
+                Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(Icons.wb_sunny, color: Colors.amber, size: 24),
+                  const SizedBox(width: 8),
+                  Switch.adaptive(
+                    value: themeProvider.isDarkTheme,
+                    onChanged: (value) {
+                      themeProvider.toggleTheme();
+                    },
+                    activeColor: MainTheme.background(context),
+                    activeTrackColor: const Color(0xFFD13333),
+                    inactiveThumbColor: Colors.amber,
+                    inactiveTrackColor: Colors.amberAccent,
+                    focusColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                  ),
+                  const SizedBox(width: 8),
+                  const Icon(Icons.nightlight_round, color: Colors.indigo, size: 24),
+                ],
+              ),
+             ]
+            ),
+          ),
+          ),
           Card(
             margin: const EdgeInsets.all(16.0),
             elevation: 10.0,
@@ -96,13 +140,13 @@ class FavoritesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final spaceProvider = Provider.of<SpaceProvider>(context);
     final favoriteSpaces = spaceProvider.favoriteSpaces;
-
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: const Text(
+        backgroundColor: themeProvider.isDarkTheme ? MainTheme.primary(context) : MainTheme.background(context),
+        title: Text(
           'Mis espacios favoritos',
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: MainTheme.contrast(context)),
         ),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
@@ -154,13 +198,13 @@ class NavigationRow extends StatelessWidget {
           children: [
             Text(
               title,
-              style: const TextStyle(
-                color: Colors.black,
+              style: TextStyle(
+                color: MainTheme.contrast(context),
               ),
             ),
-            const Icon(
+             Icon(
               Icons.arrow_forward_ios,
-              color: Colors.black,
+              color: MainTheme.contrast(context),
             ),
           ],
         ),

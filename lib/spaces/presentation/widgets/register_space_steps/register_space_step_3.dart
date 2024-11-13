@@ -42,12 +42,15 @@ class _RegisterSpaceStep3State extends State<RegisterSpaceStep3> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            const Text(
-              '¿Cuál de estas opciones describe mejor tu espacio?',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
+            Padding(
+              padding: const EdgeInsets.only(top: 10.0),
+              child:  Text(
+                '¿Cuál de estas opciones describe mejor tu espacio?',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: MainTheme.contrast(context)
+                ),
               ),
             ),
             const SizedBox(height: 16),

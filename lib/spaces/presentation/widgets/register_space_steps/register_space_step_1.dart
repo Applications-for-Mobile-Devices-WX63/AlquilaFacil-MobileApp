@@ -13,13 +13,14 @@ class RegisterSpaceStep1 extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            const Text(
+            Padding(padding: const EdgeInsets.only(top: 16.0),
+            child: Text(
               'Empezar a usar AlquilaFácil es muy sencillo.',
               style: TextStyle(
                   fontSize: 30.0,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black),
-            ),
+                  color: MainTheme.contrast(context)),
+            )),
             const SizedBox(height: 10.0),
             const Text(
               'Completa los siguientes pasos para registrar tu espacio en la aplicación',
@@ -32,14 +33,14 @@ class RegisterSpaceStep1 extends StatelessWidget {
 
             StepCard(
               image: Image.network(
-                  "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTL1WWbWCvhxqAxHN_beVZxjCdwsolm-ECyDixvSz6WLtMIVVEK"),
+                  "https://i.ibb.co/2hzsgKf/images-removebg-preview.png"),
               stepNumber: '1. Describe tu espacio',
               description: 'Comparte algunos datos básicos',
             ),
 
             StepCard(
               image: Image.network(
-                  "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTlnTHj2JDAP68rhPxI6bgEZ7wsx1Ys_uHoQ9WpCHtwqEcPnb6N"),
+                  "https://i.ibb.co/2dWkZMR/images-removebg-preview-1.png"),
               stepNumber: '2. Haz que destaque',
               description:
               'Agrega algunas fotos y un título a tu espacio, nosotros nos encargamos del resto',
@@ -48,7 +49,7 @@ class RegisterSpaceStep1 extends StatelessWidget {
             // Step 3 - Card
             StepCard(
               image: Image.network(
-                  "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcT0zf6Z5H2uLQJ7XdgVNQ9GutUVWE9lRfld0HV2qyX2TnfohZMb"),
+                  "https://i.ibb.co/xLPKTg9/images-removebg-preview-2.png"),
               stepNumber: '3. Terminar y publicar',
               description:
               'Agrega las últimas configuraciones y publica tu espacio',

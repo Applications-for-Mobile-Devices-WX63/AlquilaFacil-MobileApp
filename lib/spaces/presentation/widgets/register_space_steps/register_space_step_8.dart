@@ -60,12 +60,15 @@ class _RegisterSpaceStep8State extends State<RegisterSpaceStep8> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Ponle un precio a tu espacio',
-              style: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
+            Padding(
+              padding: const EdgeInsets.only(top: 10.0),
+              child: Text(
+                'Ponle un precio a tu espacio',
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                  color: MainTheme.contrast(context),
+                ),
               ),
             ),
             const SizedBox(height: 8),
@@ -109,6 +112,7 @@ class _RegisterSpaceStep8State extends State<RegisterSpaceStep8> {
                         controller: _priceController,
                         keyboardType: TextInputType.number,
                         decoration: const InputDecoration(
+
                           hintText: 'Precio por hora',
                           border: InputBorder.none,
                         ),

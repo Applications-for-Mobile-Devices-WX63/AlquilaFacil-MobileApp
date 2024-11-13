@@ -67,7 +67,7 @@ class _LoginState extends State<Login> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               const Text("INICIA SESIÓN",
-                  style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold)),
+                  style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold, color: Colors.white)),
               const SizedBox(height: 10),
               AuthTextField(
                 textLabel: 'Correo electrónico',
@@ -116,7 +116,8 @@ class _LoginState extends State<Login> {
               const Text(
                   "¿Aún no tienes cuenta?",
                 style: TextStyle(
-                  fontSize: 10.0
+                  fontSize: 10.0,
+                  color: Colors.white
                 )
               ),
               const SizedBox(height: 10),
@@ -141,7 +142,7 @@ class _LoginState extends State<Login> {
                 children: <Widget>[
                   const Text(
                     "o inicia sesión con",
-                    style: TextStyle(fontSize: 10.0),
+                    style: TextStyle(fontSize: 10.0, color: Colors.white),
                   ),
                   const SizedBox(height: 20.0),
                   Row(

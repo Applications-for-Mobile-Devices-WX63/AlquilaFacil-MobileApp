@@ -4,6 +4,7 @@ import 'package:alquilafacil/spaces/presentation/widgets/search_space_button.dar
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../public/ui/providers/theme_provider.dart';
 import '../../../public/ui/theme/main_theme.dart';
 
 class FilterSpacesDistrict extends StatefulWidget {
@@ -26,13 +27,17 @@ class _FilterSpacesDistrict extends State<FilterSpacesDistrict> {
   }
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     final spaceProvider = context.watch<SpaceProvider>();
     return Scaffold(
       appBar: AppBar(
-        title: const Center(
-          child: Text(
-              "Realizar búsqueda"
-          ),
+        backgroundColor: themeProvider.isDarkTheme ? MainTheme.primary(context) : MainTheme.background(context),
+        title: Text(
+              "Realizar búsqueda",
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: MainTheme.contrast(context),
+              ),
         ),
       ),
       bottomNavigationBar: const ScreenBottomAppBar(),
@@ -60,7 +65,7 @@ class _FilterSpacesDistrict extends State<FilterSpacesDistrict> {
                             color: MainTheme.primary(context),
                           ),
                           child: IconButton(
-                            icon: const Icon(Icons.location_on_sharp),
+                            icon: Icon(Icons.location_on_sharp, color: MainTheme.contrast(context),),
                             color: MainTheme.background(context), onPressed: () {
                               Navigator.pushNamed(
                                   context,
