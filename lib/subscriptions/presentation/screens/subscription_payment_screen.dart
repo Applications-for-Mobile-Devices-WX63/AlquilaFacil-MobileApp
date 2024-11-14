@@ -14,7 +14,7 @@ class SubscriptionPaymentScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: MainTheme.primary(context),
-        foregroundColor: MainTheme.background(context),
+        foregroundColor: Colors.white,
         title: const Text(
           "Elige un meétodo de pago",
           style: TextStyle(

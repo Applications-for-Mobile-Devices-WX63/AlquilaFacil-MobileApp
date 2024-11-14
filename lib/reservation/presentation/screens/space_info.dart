@@ -71,7 +71,7 @@ class _SpaceInfoState  extends State<SpaceInfo> {
         backgroundColor: MainTheme.background(context),
         appBar: AppBar(
           backgroundColor: MainTheme.primary(context),
-          title: Text("Información del espacio", style: TextStyle(color: Colors.white, fontSize: 18)),
+          title: const Text("Información del espacio", style: TextStyle(color: Colors.white, fontSize: 18)),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back, color: Colors.white),
             onPressed: () {

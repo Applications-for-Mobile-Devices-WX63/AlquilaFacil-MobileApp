@@ -18,7 +18,7 @@ class PlanSelectedDetailsScreen extends StatelessWidget {
     return Scaffold(
       appBar:  AppBar(
         backgroundColor: MainTheme.primary(context),
-        foregroundColor: MainTheme.background(context),
+        foregroundColor:  Colors.white,
         title: const Text(
           "Información del plan",
           style: TextStyle(
