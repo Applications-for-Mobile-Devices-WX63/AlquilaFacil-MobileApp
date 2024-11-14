@@ -33,6 +33,9 @@ import 'package:alquilafacil/spaces/presentation/screens/spaces_details.dart';
 import 'package:alquilafacil/spaces/presentation/screens/filter_spaces_district.dart';
 import 'package:alquilafacil/spaces/presentation/screens/search_spaces.dart';
 import 'package:alquilafacil/spaces/presentation/widgets/my_space_details.dart';
+import 'package:alquilafacil/subscriptions/data/remote/helpers/plan_service_helper.dart';
+import 'package:alquilafacil/subscriptions/presentation/provider/plan_provider.dart';
+import 'package:alquilafacil/subscriptions/presentation/screens/subscription_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -61,6 +64,11 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => SignUpProvider(authServiceHelper)),
         ChangeNotifierProvider(create: (_) => ConditionTermsProvider()),
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
+        ChangeNotifierProxyProvider<SignInProvider,PlanProvider>(
+          create: (_) => PlanProvider(PlanServiceHelper(SignInProvider(authServiceHelper))),
+          update: (context, signInProvider, previous) =>
+              PlanProvider(PlanServiceHelper(signInProvider)),
+        ),
         ChangeNotifierProxyProvider<SignInProvider, NotificationProvider>(
           create: (_) => NotificationProvider(NotificationServiceHelper(SignInProvider(authServiceHelper))),
           update: (context, signInProvider, previous) =>
@@ -118,7 +126,8 @@ class MyApp extends StatelessWidget {
               "/reservation-details": (context) => const ReservationDetailsScreen(),
               '/my-space-info': (context) => const MySpaceDetails(),
               "/create-comments" : (context) => const CreateCommentScreen(),
-              "/space-features": (context) => const AdditionalDetailsScreen()
+              "/space-features": (context) => const AdditionalDetailsScreen(),
+              "/subscription" : (context) => const SubscriptionScreen()
             },
             debugShowCheckedModeBanner: false,
           );

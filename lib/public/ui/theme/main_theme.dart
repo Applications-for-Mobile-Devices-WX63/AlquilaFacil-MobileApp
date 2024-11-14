@@ -32,11 +32,11 @@ class MainTheme {
       onSurface: Colors.black,
       surfaceContainerHighest: Colors.grey,
     ),
-    textButtonTheme: TextButtonThemeData(
+    textButtonTheme: const TextButtonThemeData(
       style: ButtonStyle(
         foregroundColor: MaterialStatePropertyAll<Color>(Colors.white),
         backgroundColor: MaterialStatePropertyAll<Color>(Colors.orangeAccent),
-        shape: const MaterialStatePropertyAll<RoundedRectangleBorder>(
+        shape: MaterialStatePropertyAll<RoundedRectangleBorder>(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(10.0)),
           ),
@@ -57,11 +57,11 @@ class MainTheme {
       onSurface: Colors.white,
       surfaceContainerHighest: Colors.grey,
     ),
-    textButtonTheme: TextButtonThemeData(
+    textButtonTheme: const TextButtonThemeData(
       style: ButtonStyle(
         foregroundColor: MaterialStatePropertyAll<Color>(Colors.white),
         backgroundColor: MaterialStatePropertyAll<Color>(Colors.orangeAccent),
-        shape: const MaterialStatePropertyAll<RoundedRectangleBorder>(
+        shape: MaterialStatePropertyAll<RoundedRectangleBorder>(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(10.0)),
           ),

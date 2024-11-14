@@ -1,7 +1,10 @@
 import 'package:alquilafacil/auth/presentation/providers/SignInPovider.dart';
 import 'package:alquilafacil/public/presentation/widgets/screen_bottom_app_bar.dart';
 import 'package:alquilafacil/spaces/presentation/providers/space_provider.dart';
+import 'package:alquilafacil/subscriptions/presentation/provider/plan_provider.dart';
+import 'package:alquilafacil/subscriptions/presentation/screens/subscription_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
 import 'package:alquilafacil/spaces/presentation/widgets/card.dart';
 
@@ -16,6 +19,7 @@ class ProfileScreen extends StatelessWidget {
     final spaceProvider = Provider.of<SpaceProvider>(context);
     final signInProvider = context.watch<SignInProvider>();
     final themeProvider = Provider.of<ThemeProvider>(context);
+    final planProvider = context.watch<PlanProvider>();
     return Scaffold(
       backgroundColor: MainTheme.background(context),
       appBar: AppBar(
@@ -86,6 +90,19 @@ class ProfileScreen extends StatelessWidget {
                   const NavigationRow(
                     title: 'Modificar perfil',
                     routeName: '/profile-details',
+                  ),
+                  const Divider(),
+                  NavigationRow(
+                    title: 'Ver mi suscripción',
+                    routeName: '/subscription',
+                    onTap: () async{
+                      try{
+                        await planProvider.fetchPlansAvailable();
+                        Navigator.push(context, MaterialPageRoute(builder: (_) => SubscriptionScreen()));
+                      } catch (e){
+                        Logger().e("Error while trying to fecth plans available: $e");
+                      }
+                    },
                   ),
                   const Divider(),
                   const NavigationRow(

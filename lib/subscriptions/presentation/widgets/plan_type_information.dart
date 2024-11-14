@@ -1,6 +1,5 @@
-import 'dart:ffi';
 
-import 'package:alquilafacil/subscriptions/presentation/widgets/plan_selected_details.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
