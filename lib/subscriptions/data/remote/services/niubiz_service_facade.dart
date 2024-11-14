@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:alquilafacil/shared/handlers/concrete_response_message_handler.dart';
 import 'package:dio/dio.dart';
 
-class NiubizServiceFacade{
+class NiubizServiceFacade {
   final String apiUrl = 'https://apisandbox.vnforappstest.com/api.security/v1';
   final String accessToken = 'YOUR_ACCESS_TOKEN';
   final errorMessageHandler = ConcreteResponseMessageHandler();
@@ -13,7 +13,7 @@ class NiubizServiceFacade{
     required double amount,
     required String currency,
   }) async {
-    final url =  '$apiUrl/security';
+    final url = '$apiUrl/security';
     final options = Options(headers: {'Authorization': 'Bearer $accessToken'});
     final body = jsonEncode({
       "order": {
@@ -23,12 +23,11 @@ class NiubizServiceFacade{
       },
     });
     final request = Dio();
-    final response = await request.post(url,data: body,options:options );
-    if(response.statusCode == HttpStatus.ok){
+    final response = await request.post(url, data: body, options: options);
+    if (response.statusCode == HttpStatus.ok) {
       return;
-    }else{
+    } else {
       throw Exception(errorMessageHandler.reject(response.statusCode!));
     }
-
   }
 }

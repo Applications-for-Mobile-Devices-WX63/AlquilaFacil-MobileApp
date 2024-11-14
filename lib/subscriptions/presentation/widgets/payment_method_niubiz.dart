@@ -1,3 +1,4 @@
+import 'package:alquilafacil/auth/presentation/screens/register.dart';
 import 'package:alquilafacil/subscriptions/presentation/provider/plan_provider.dart';
 import 'package:alquilafacil/subscriptions/presentation/screens/payment_subcription_screen.dart';
 import 'package:alquilafacil/subscriptions/presentation/widgets/payment_method_card.dart';
@@ -5,8 +6,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class PaymentMethodsAvailable extends StatelessWidget {
-  const PaymentMethodsAvailable({super.key});
+class PaymentMethodNiubiz extends StatelessWidget {
+  const PaymentMethodNiubiz({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,15 +17,15 @@ class PaymentMethodsAvailable extends StatelessWidget {
       children: [
         PaymentMethodCard(
             paymentLogo:
-                "https://logodownload.org/wp-content/uploads/2014/10/paypal-logo-0.png",
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjmd7Je-pipM_WEKycXMrVQ9JrGSkF0UjLPw&s",
             onPaymentStart: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (_) => PaymentSubscription(
-                          planPrice: planProvider.currentPlans[0].price,
-                          planId: planProvider.currentPlans[0].id,
-                          planName: planProvider.currentPlans[0].name)));
+              // Navigator.push(
+              //     context,
+              //     MaterialPageRoute(
+              //         builder: (_) => PaymentSubscription(
+              //             planPrice: planProvider.currentPlans[0].price,
+              //             planId: planProvider.currentPlans[0].id,
+              //             planName: planProvider.currentPlans[0].name)));
             }),
       ],
     );
