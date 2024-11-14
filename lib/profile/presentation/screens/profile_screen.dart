@@ -2,6 +2,7 @@ import 'package:alquilafacil/auth/presentation/providers/SignInPovider.dart';
 import 'package:alquilafacil/public/presentation/widgets/screen_bottom_app_bar.dart';
 import 'package:alquilafacil/spaces/presentation/providers/space_provider.dart';
 import 'package:alquilafacil/subscriptions/presentation/provider/plan_provider.dart';
+import 'package:alquilafacil/subscriptions/presentation/screens/payment_finish_screen.dart';
 import 'package:alquilafacil/subscriptions/presentation/screens/subscription_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
@@ -98,7 +99,7 @@ class ProfileScreen extends StatelessWidget {
                     onTap: () async{
                       try{
                         await planProvider.fetchPlansAvailable();
-                        Navigator.push(context, MaterialPageRoute(builder: (_) => SubscriptionScreen()));
+                        Navigator.push(context, MaterialPageRoute(builder: (_) => const SubscriptionScreen()));
                       } catch (e){
                         Logger().e("Error while trying to fecth plans available: $e");
                       }

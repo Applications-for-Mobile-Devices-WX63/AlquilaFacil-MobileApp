@@ -34,7 +34,9 @@ import 'package:alquilafacil/spaces/presentation/screens/filter_spaces_district.
 import 'package:alquilafacil/spaces/presentation/screens/search_spaces.dart';
 import 'package:alquilafacil/spaces/presentation/widgets/my_space_details.dart';
 import 'package:alquilafacil/subscriptions/data/remote/helpers/plan_service_helper.dart';
+import 'package:alquilafacil/subscriptions/data/remote/helpers/subscription_service_helper.dart';
 import 'package:alquilafacil/subscriptions/presentation/provider/plan_provider.dart';
+import 'package:alquilafacil/subscriptions/presentation/provider/subscription_provider.dart';
 import 'package:alquilafacil/subscriptions/presentation/screens/subscription_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -68,6 +70,11 @@ class MyApp extends StatelessWidget {
           create: (_) => PlanProvider(PlanServiceHelper(SignInProvider(authServiceHelper))),
           update: (context, signInProvider, previous) =>
               PlanProvider(PlanServiceHelper(signInProvider)),
+        ),
+        ChangeNotifierProxyProvider<SignInProvider,SubscriptionProvider>(
+          create: (_) => SubscriptionProvider(SubscriptionServiceHelper(SignInProvider(authServiceHelper))),
+          update: (context, signInProvider, previous) =>
+             SubscriptionProvider(SubscriptionServiceHelper(signInProvider)),
         ),
         ChangeNotifierProxyProvider<SignInProvider, NotificationProvider>(
           create: (_) => NotificationProvider(NotificationServiceHelper(SignInProvider(authServiceHelper))),

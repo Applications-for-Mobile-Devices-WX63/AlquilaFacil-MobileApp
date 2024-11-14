@@ -5,7 +5,7 @@ import '../../../public/ui/theme/main_theme.dart';
 
 class PaymentMethodCard extends StatelessWidget {
   final String paymentLogo;
-  final Function onPaymentStart;
+  final VoidCallback onPaymentStart;
   const PaymentMethodCard({super.key, required this.paymentLogo, required this.onPaymentStart});
 
   @override
@@ -16,7 +16,7 @@ class PaymentMethodCard extends StatelessWidget {
         child: InkWell(
           borderRadius: BorderRadius.circular(10),
           onTap: (){
-            onPaymentStart;
+            onPaymentStart();
           },
           child: Card(
             elevation: 10.0,
