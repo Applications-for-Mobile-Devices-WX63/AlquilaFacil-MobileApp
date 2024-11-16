@@ -40,6 +40,7 @@ import 'package:alquilafacil/subscriptions/presentation/provider/subscription_pr
 import 'package:alquilafacil/subscriptions/presentation/screens/subscription_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
 import 'auth/presentation/providers/SignInPovider.dart';
@@ -111,6 +112,15 @@ class MyApp extends StatelessWidget {
         builder: (context, themeProvider, child) {
           return MaterialApp(
             theme: themeProvider.currentTheme,
+            locale: const Locale('es', 'ES'),
+            localizationsDelegates: [
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: [
+              const Locale('es', 'ES'),
+            ],
             initialRoute: "/",
             routes: {
               "/": (context) => _buildInitialScreen(context.read<SignInProvider>()),
