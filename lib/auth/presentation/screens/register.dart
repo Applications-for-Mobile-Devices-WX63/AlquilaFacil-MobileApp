@@ -295,7 +295,31 @@ class Register extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           IconButton(
-                              onPressed: () => {},
+                              onPressed: () async {
+                                try{
+                                  if (!conditionTermsProvider.isChecked) {
+                                    await _showDialog("Por favor, acepte nuestras políticas de uso", "/sign-up");
+                                  }else{
+                                    final facebookUserCredentials = await signUpProvider.signInWithFacebook();
+                                    final nameDetails = facebookUserCredentials.user?.displayName?.split(" ");
+                                    profileProvider.setPhoneNumber(facebookUserCredentials.user?.phoneNumber ?? "123456789");
+                                    profileProvider.setName(nameDetails?[0] ?? " ");
+                                    profileProvider.setFatherName(nameDetails?[1] ?? " ");
+                                    profileProvider.setMotherName(
+                                        (nameDetails!.length >= 3) ? nameDetails[2] : "None"
+                                    );
+                                    profileProvider.setDocumentNumber("1234567");
+                                    profileProvider.setDateOfBirth(DateTime.now());
+                                    profileProvider.setPhotoUrl(facebookUserCredentials.user?.photoURL ?? "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/default-profile-picture-male-icon.png");
+                                    signUpProvider.setUsername(facebookUserCredentials.user?.displayName ?? " ");
+                                    signUpProvider.setEmail(facebookUserCredentials.user?.email ?? "");
+
+                                    Navigator.pushReplacementNamed(context, "/sign-up");
+                                  }
+                                } on  FirebaseAuthException catch (_){
+                                  await _showDialog("Usuario ya existente o datos incorrectos", "/sign-up");
+                                }
+                              },
                               icon: Image.network(
                                 "https://logodownload.org/wp-content/uploads/2014/09/facebook-logo-1-2.png",
                                 width: 40,

@@ -113,13 +113,13 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
             theme: themeProvider.currentTheme,
             locale: const Locale('es', 'ES'),
-            localizationsDelegates: [
+            localizationsDelegates: const [
               GlobalMaterialLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
             ],
-            supportedLocales: [
-              const Locale('es', 'ES'),
+            supportedLocales: const [
+              Locale('es', 'ES'),
             ],
             initialRoute: "/",
             routes: {
@@ -157,12 +157,17 @@ class MyApp extends StatelessWidget {
     return FutureBuilder<bool>(
       future: signInProvider.onSessionActive(),
       builder: (context, snapshot) {
-        if (snapshot.hasError || !snapshot.data!) {
-          return const Login();
-        } else {
-          return const SearchSpaces();
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
         }
+
+        if (snapshot.hasError || snapshot.data == null || !snapshot.data!) {
+          return const Login();
+        }
+
+        return const SearchSpaces();
       },
     );
   }
+
 }

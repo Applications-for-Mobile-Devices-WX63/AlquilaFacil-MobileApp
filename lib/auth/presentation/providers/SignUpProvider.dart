@@ -1,7 +1,9 @@
 import 'package:alquilafacil/auth/shared/AuthFilter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:logger/logger.dart';
 
 import '../../data/remote/helpers/auth_service_helper.dart';
 
@@ -11,6 +13,7 @@ class SignUpProvider extends ChangeNotifier with AuthFilter {
   String password = "";
   String confirmPassword = "";
   String successFulMessage = "";
+  final logger = Logger();
   final AuthServiceHelper serviceHelper;
   SignUpProvider(this.serviceHelper);
 
@@ -112,6 +115,23 @@ class SignUpProvider extends ChangeNotifier with AuthFilter {
 
     UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credentials);
     return userCredential;
+  }
+
+  Future<UserCredential> signInWithFacebook() async {
+    try {
+      final LoginResult result = await FacebookAuth.instance.login();
+      if (result.status == LoginStatus.success) {
+        final AccessToken? accessToken = result.accessToken;
+        final OAuthCredential credential = FacebookAuthProvider.credential(accessToken!.token);
+        UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
+        return userCredential;
+      } else {
+        throw Exception("Sign in with facebook was failed: ${result.status}");
+      }
+    } catch (e) {
+      logger.e("Error while trying to sign in with facebook: $e");
+      rethrow;
+    }
   }
 
 }

@@ -152,21 +152,11 @@ class _LoginState extends State<Login> {
                           onPressed: () async {
                             try {
                               UserCredential? facebookUserCredentials = await signInProvider.signInWithFacebook();
-                              if (facebookUserCredentials == null) {
-                                await _showDialog("No se pudo iniciar sesión con Facebook", "/login");
-                                return;
-                              }
                               signInProvider.setEmail(facebookUserCredentials.user?.email ?? " ");
                               Navigator.pushReplacementNamed(context, "/login");
                             } on FirebaseAuthException catch (e) {
-                              if (e.code == "user-not-found" || e.code == "wrong-password") {
                                 await _showDialog("Correo electrónico o contraseña incorrectos", "/login");
-                              } else {
-                                await _showDialog("La autenticación con facebook fallo", "/login");
                               }
-                            } catch (e) {
-                              await _showDialog("La autenticación con facebook fallo", "/login");
-                            }
                           },
                           icon: Image.network(
                             "https://logodownload.org/wp-content/uploads/2014/09/facebook-logo-1-2.png",
@@ -177,20 +167,11 @@ class _LoginState extends State<Login> {
                         onPressed: () async {
                           try {
                             UserCredential? googleUserCredentials = await signInProvider.signInWithGoogle();
-                            if (googleUserCredentials == null) {
-                              await _showDialog("No se pudo iniciar sesión con Google", "/login");
-                              return;
-                            }
                             signInProvider.setEmail(googleUserCredentials.user?.email ?? " ");
                             Navigator.pushReplacementNamed(context, "/login");
                           } on FirebaseAuthException catch (e) {
-                            if (e.code == "user-not-found" || e.code == "wrong-password") {
-                              await _showDialog("Correo electrónico o contraseña incorrectos", "/login");
-                            } else {
-                              await _showDialog("La autenticación con google fallo", "/login");
-                            }
-                          } catch (e) {
-                            await _showDialog("La autenticación con google fallo", "/login");
+                            await _showDialog(
+                                "La autenticación con google fallo", "/login");
                           }
                         },
                         icon: Image.network(
