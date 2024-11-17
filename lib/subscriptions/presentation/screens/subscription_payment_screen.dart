@@ -33,12 +33,13 @@ class SubscriptionPaymentScreen extends StatelessWidget {
                   fontSize: 25.0),
             ),
           ),
-          const Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                PaymentMethodsAvailable(),
-                PaymentMethodNiubiz(),
-              ])
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              PaymentMethodsAvailable(),
+              PaymentMethodNiubiz(planPrice: planPrice), // Pasa el precio aquí
+            ],
+          ),
         ],
       ),
       bottomNavigationBar: const ScreenBottomAppBar(),

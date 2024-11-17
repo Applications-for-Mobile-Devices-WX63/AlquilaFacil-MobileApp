@@ -1,32 +1,58 @@
-import 'package:alquilafacil/auth/presentation/screens/register.dart';
-import 'package:alquilafacil/subscriptions/presentation/provider/plan_provider.dart';
-import 'package:alquilafacil/subscriptions/presentation/screens/payment_subcription_screen.dart';
+import 'package:alquilafacil/subscriptions/data/remote/services/niubiz_service_facade.dart';
+import 'package:alquilafacil/subscriptions/presentation/screens/niubiz_payment_screen.dart';
 import 'package:alquilafacil/subscriptions/presentation/widgets/payment_method_card.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class PaymentMethodNiubiz extends StatelessWidget {
-  const PaymentMethodNiubiz({super.key});
+  final int planPrice;
+  const PaymentMethodNiubiz({super.key, required this.planPrice});
 
   @override
   Widget build(BuildContext context) {
-    final planProvider = context.watch<PlanProvider>();
+    final NiubizServiceFacade niubizService = NiubizServiceFacade();
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         PaymentMethodCard(
-            paymentLogo:
-                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjmd7Je-pipM_WEKycXMrVQ9JrGSkF0UjLPw&s",
-            onPaymentStart: () {
-              // Navigator.push(
-              //     context,
-              //     MaterialPageRoute(
-              //         builder: (_) => PaymentSubscription(
-              //             planPrice: planProvider.currentPlans[0].price,
-              //             planId: planProvider.currentPlans[0].id,
-              //             planName: planProvider.currentPlans[0].name)));
-            }),
+          paymentLogo:
+              "https://spm.org.pe/wp-content/uploads/2024/03/niubiz_2.webp",
+          onPaymentStart: () async {
+            try {
+              // Convierte planPrice a double, manejando posibles errores
+              final double amount =
+                  double.tryParse(planPrice.toString()) ?? 0.0;
+
+              // Llama al servicio para obtener el sessionKey
+              final sessionKey = await niubizService.getSessionKey(
+                '456879852', // MerchantId de soles
+                amount, // Precio del plan convertido a double
+              );
+
+              // Genera un número de pedido único como String
+              final purchaseNumber =
+                  DateTime.now().millisecondsSinceEpoch.toString();
+
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => NiubizPaymentScreen(
+                    sessionKey: sessionKey,
+                    merchantId: '456879852',
+                    amount: amount,
+                    purchaseNumber: purchaseNumber, // Número único
+                  ),
+                ),
+              );
+            } catch (e, stacktrace) {
+              print('Error: $e');
+              print('Stacktrace: $stacktrace');
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Error iniciando pago: $e')),
+              );
+            }
+          },
+        ),
       ],
     );
   }
