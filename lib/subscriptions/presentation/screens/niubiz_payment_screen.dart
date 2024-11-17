@@ -7,7 +7,7 @@ class NiubizPaymentScreen extends StatelessWidget {
   final double amount;
   final String purchaseNumber;
 
-  const NiubizPaymentScreen({
+  const NiubizPaymentScreen({super.key,
     required this.sessionKey,
     required this.merchantId,
     required this.amount,
@@ -41,7 +41,6 @@ class NiubizPaymentScreen extends StatelessWidget {
     </html>
     ''';
 
-    // Controlador para el WebView
     final WebViewController webViewController = WebViewController()
       ..loadHtmlString(htmlContent);
 

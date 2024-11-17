@@ -19,14 +19,11 @@ class PaymentMethodNiubiz extends StatelessWidget {
               "https://spm.org.pe/wp-content/uploads/2024/03/niubiz_2.webp",
           onPaymentStart: () async {
             try {
-              // Convierte planPrice a double, manejando posibles errores
               final double amount =
                   double.tryParse(planPrice.toString()) ?? 0.0;
-
-              // Llama al servicio para obtener el sessionKey
               final sessionKey = await niubizService.getSessionKey(
                 '456879852', // MerchantId de soles
-                amount, // Precio del plan convertido a double
+                amount,
               );
 
               // Genera un número de pedido único como String
@@ -40,7 +37,7 @@ class PaymentMethodNiubiz extends StatelessWidget {
                     sessionKey: sessionKey,
                     merchantId: '456879852',
                     amount: amount,
-                    purchaseNumber: purchaseNumber, // Número único
+                    purchaseNumber: purchaseNumber,
                   ),
                 ),
               );

@@ -3,39 +3,40 @@ import 'package:dio/dio.dart';
 
 class NiubizServiceFacade {
   final String apiUrl = 'https://apisandbox.vnforappstest.com';
-
   final String username = 'integraciones@niubiz.com.pe';
   final String password = '_7z3@8fF';
+  String accessToken = "";
 
   Future<String> createAccessToken() async {
     const url = 'https://apisandbox.vnforappstest.com/api.security/v1/security';
     final headers = {
-      'Authorization':
-          'Basic ${base64Encode(utf8.encode('$username:$password'))}',
+      'Authorization': 'Basic ${base64Encode(utf8.encode('$username:$password'))}',
       'Content-Type': 'application/json',
     };
 
     try {
-      final response =
-          await Dio().post(url, options: Options(headers: headers));
-      if (response.statusCode == 201) {
-        print('Access Token: ${response.data['accessToken']}');
-        return response.data['accessToken'];
+      final response = await Dio().post(url, options: Options(headers: headers));
+
+      print('Respuesta completa: ${response.data}');
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        if (response.data is String) {
+          accessToken = response.data;
+          print('Access Token obtenido: $accessToken');
+          return accessToken;
+        } else {
+          throw Exception('La respuesta no contiene un token válido.');
+        }
       } else {
-        print('Error Response: ${response.data}');
-        throw Exception(
-            'Error al crear el token de acceso: ${response.statusCode}');
+        throw Exception('Error en la solicitud: ${response.statusCode}, ${response.data}');
       }
     } catch (e) {
-      print('Error: $e');
+      print('Error en createAccessToken: $e');
       rethrow;
     }
   }
 
-  Future<String> createSessionToken(
-      String accessToken, String merchantId, double amount) async {
-    final String url =
-        '$apiUrl/api.ecommerce/v2/ecommerce/token/session/$merchantId';
+  Future<String> createSessionToken(String merchantId, double amount) async {
+    final String url = '$apiUrl/api.ecommerce/v2/ecommerce/token/session/$merchantId';
 
     final body = {
       "channel": "web",
@@ -69,29 +70,31 @@ class NiubizServiceFacade {
         ),
       );
 
+      print('Response Status Code: ${response.statusCode}');
+      print('Response Headers: ${response.headers}');
+      print('Response Body: ${response.data}');
+
       if (response.statusCode == 200) {
-        print('Session Key: ${response.data['sessionKey']}');
-        return response.data['sessionKey'];
+        if (response.data is Map<String, dynamic>) {
+          print('Session Key: ${response.data}');
+          return response.data;
+        } else {
+          throw Exception('El sessionKey no está presente en la respuesta.');
+        }
       } else {
         print('Error Response: ${response.data}');
-        throw Exception(
-            'Error al crear token de sesión: ${response.statusCode}');
+        throw Exception('Error al crear token de sesión: ${response.statusCode}');
       }
     } catch (e) {
-      print('Error: $e');
+      print('Error inesperado: $e');
       rethrow;
     }
   }
 
   Future<String> getSessionKey(String merchantId, double amount) async {
     try {
-      // Paso 1: Obtener el token de acceso
-      final accessToken = await createAccessToken();
-
-      // Paso 2: Crear el token de sesión usando el token de acceso
-      final sessionKey =
-          await createSessionToken(accessToken, merchantId, amount);
-
+      await createAccessToken();
+      final sessionKey = await createSessionToken(merchantId, amount);
       return sessionKey;
     } catch (e) {
       print('Error en getSessionKey: $e');

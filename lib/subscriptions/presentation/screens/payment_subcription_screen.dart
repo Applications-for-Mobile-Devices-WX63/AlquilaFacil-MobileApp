@@ -34,7 +34,7 @@ class PaymentSubscription extends StatelessWidget {
         child: PaypalCheckoutView(
           sandboxMode: true,
           clientId: "AXyaQ4frJzmFwCRK7Nf6_rm66IzaMoQGtjNIpBKwarHewHArcTHJGob_gJqsp2nQVjB18sA-osj0u_QK",
-          secretKey: "EJqS6dK5rnocQ9kCRHCn53kEflRfm5EYdpODk4ipkOAHzx2MtKbuby6di2UcOCtYZRtUs_wN-0LRzYeW", // Replace with your actual secret key
+          secretKey: "EJqS6dK5rnocQ9kCRHCn53kEflRfm5EYdpODk4ipkOAHzx2MtKbuby6di2UcOCtYZRtUs_wN-0LRzYeW",
           transactions: [
             {
               "amount": {
