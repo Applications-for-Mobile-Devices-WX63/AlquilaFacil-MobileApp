@@ -110,7 +110,7 @@ class Login extends StatelessWidget {
                               UserCredential? facebookUserCredentials = await signInProvider.signInWithFacebook();
                               signInProvider.setEmail(facebookUserCredentials.user?.email ?? " ");
                               Navigator.pushReplacementNamed(context, "/login");
-                            } on FirebaseAuthException catch (e) {
+                            } on FirebaseAuthException catch (_) {
                               await showDialog(context: context, builder: (_) => const CustomDialog(title: "Correo electrónico o contraseña incorrectos", route:"/login"));
                               }
                           },
@@ -125,7 +125,7 @@ class Login extends StatelessWidget {
                             UserCredential? googleUserCredentials = await signInProvider.signInWithGoogle();
                             signInProvider.setEmail(googleUserCredentials.user?.email ?? " ");
                             Navigator.pushReplacementNamed(context, "/login");
-                          } on FirebaseAuthException catch (e) {
+                          } on FirebaseAuthException catch (_) {
                             await showDialog(context: context, builder: (_) => const CustomDialog(title: "La autenticación con google fallo", route:"/login"));
                           }
                         },
