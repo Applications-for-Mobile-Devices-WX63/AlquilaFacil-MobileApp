@@ -56,7 +56,7 @@ class _SearchSpaces extends State<SearchSpaces> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Icon(Icons.search_outlined, color: MainTheme.contrast(context)),
-                        SizedBox(width: 10),
+                        const SizedBox(width: 10),
                         Text(
                           'Buscar espacio',
                           style: TextStyle(color: MainTheme.contrast(context), fontSize: 16.0),
@@ -93,6 +93,7 @@ class _SearchSpaces extends State<SearchSpaces> {
                   price: spaceProvider.spaces[index].nightPrice.toString(),
                   imageUrl: spaceProvider.spaces[index].photoUrl,
                   id: spaceProvider.spaces[index].id,
+                  userId: spaceProvider.spaces[index].userId!,
                 );
               },
               itemCount: spaceProvider.spaces.length,

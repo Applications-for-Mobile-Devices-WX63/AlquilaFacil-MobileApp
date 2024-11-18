@@ -185,6 +185,7 @@ class FavoritesScreen extends StatelessWidget {
                   price: space.nightPrice.toString(),
                   imageUrl: space.photoUrl,
                   id: space.id,
+                  userId: space.userId!,
                 );
               },
             ),

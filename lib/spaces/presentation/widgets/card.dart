@@ -1,4 +1,5 @@
 import 'package:alquilafacil/auth/presentation/screens/login.dart';
+import 'package:alquilafacil/profile/presentation/providers/pofile_provider.dart';
 import 'package:alquilafacil/reservation/presentation/screens/space_info.dart';
 import 'package:alquilafacil/spaces/presentation/providers/space_provider.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ class SpaceCard extends StatefulWidget {
   final String price;
   final String imageUrl;
   final int id;
+  final int userId;
 
   const SpaceCard({
     super.key,
@@ -20,6 +22,7 @@ class SpaceCard extends StatefulWidget {
     required this.price,
     required this.imageUrl,
     required this.id,
+    required this.userId,
   });
 
   @override
@@ -54,12 +57,14 @@ class _SpaceCardState extends State<SpaceCard> {
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
     final spaceProvider = context.watch<SpaceProvider>();
+    final profileProvider = context.watch<ProfileProvider>();
     return GestureDetector(
       onTap: () async {
        try{
         Navigator.push(context, MaterialPageRoute(builder: (context) => const SpaceInfo()));
        } finally{
          await spaceProvider.fetchSpaceById(widget.id);
+         await profileProvider.fetchUsernameExpect(widget.userId);
        }
       },
       child: Card(

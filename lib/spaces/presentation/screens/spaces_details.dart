@@ -70,6 +70,7 @@ class _SpaceDetailsState extends State<SpacesDetails> {
                               .toString(),
                           imageUrl: spaceProvider.currentSpaces[index].photoUrl,
                           id: spaceProvider.currentSpaces[index].id,
+                          userId: spaceProvider.currentSpaces[index].userId!,
                         );
                       },
                       itemCount: spaceProvider.currentSpaces.length,

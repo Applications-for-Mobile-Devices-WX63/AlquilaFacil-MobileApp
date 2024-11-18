@@ -48,6 +48,26 @@ class SpaceInfoActions extends StatelessWidget {
             ],
           ),
         ),
+        const SizedBox(height: 20),
+        GestureDetector(
+          onTap: (){
+            Navigator.pushNamed(context, "/create-report");
+          },
+          child: const Row(
+            children: [
+              Text(
+                "Reportar espacio",
+                style: TextStyle(
+                    color: Colors.red
+                ),
+              ),
+              Icon(
+                Icons.arrow_forward_ios,
+                color: Colors.red,
+              )
+            ],
+          ),
+        ),
       ],
     );
   }
