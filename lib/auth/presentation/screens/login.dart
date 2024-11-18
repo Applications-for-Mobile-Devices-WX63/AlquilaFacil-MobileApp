@@ -1,4 +1,5 @@
 import 'package:alquilafacil/auth/presentation/providers/SignInPovider.dart';
+import 'package:alquilafacil/public/presentation/widgets/custom_dialog.dart';
 import 'package:alquilafacil/spaces/presentation/screens/search_spaces.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -6,54 +7,9 @@ import 'package:provider/provider.dart';
 import '../../../public/ui/theme/main_theme.dart';
 import '../widgets/auth_text_field.dart';
 
-class Login extends StatefulWidget {
+class Login extends StatelessWidget {
   const Login({super.key});
 
-  @override
-  State<StatefulWidget> createState() => _LoginState();
-}
-
-class _LoginState extends State<Login> {
-  bool isAccepted = false;
-  Future<void> _showDialog(String dialogTitle, String route) async {
-    return showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(
-              dialogTitle,
-            style: TextStyle(
-              color: MainTheme.contrast(context),
-              fontSize: 15.0
-            ),
-          ),
-          actions: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 10.0),
-                    child: TextButton(
-                      child: const Text('Confirmar'),
-                       onPressed: (){
-                         Navigator.pushNamed(context, route);
-                       },
-                    ),
-                  ),
-                  TextButton(
-                    child: const Text('Cancelar'),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                ],
-              ),
-          ],
-        );
-      },
-
-    );
-  }
   @override
   Widget build(BuildContext context) {
     final signInProvider = context.watch<SignInProvider>();
@@ -103,10 +59,10 @@ class _LoginState extends State<Login> {
                   try{
                     await signInProvider.signIn();
                     if(signInProvider.token.isNotEmpty){
-                      await _showDialog("Inicio de sesión exitoso","/search-space");
+                      await showDialog(context: context, builder: (_) => const CustomDialog(title: "Inicio de sesión exitoso", route:"/search-space"));
                     }
                   } catch(_){
-                    await _showDialog("Correo electrónico o contraseña incorrectos","/login");
+                     await showDialog(context: context, builder: (_) => const CustomDialog(title: "Correo electrónico o contraseña incorrectos", route:"/search-space"));
                   }
                   },
                   child: const Text("Iniciar sesión"),
@@ -155,7 +111,7 @@ class _LoginState extends State<Login> {
                               signInProvider.setEmail(facebookUserCredentials.user?.email ?? " ");
                               Navigator.pushReplacementNamed(context, "/login");
                             } on FirebaseAuthException catch (e) {
-                                await _showDialog("Correo electrónico o contraseña incorrectos", "/login");
+                              await showDialog(context: context, builder: (_) => const CustomDialog(title: "Correo electrónico o contraseña incorrectos", route:"/login"));
                               }
                           },
                           icon: Image.network(
@@ -170,8 +126,7 @@ class _LoginState extends State<Login> {
                             signInProvider.setEmail(googleUserCredentials.user?.email ?? " ");
                             Navigator.pushReplacementNamed(context, "/login");
                           } on FirebaseAuthException catch (e) {
-                            await _showDialog(
-                                "La autenticación con google fallo", "/login");
+                            await showDialog(context: context, builder: (_) => const CustomDialog(title: "La autenticación con google fallo", route:"/login"));
                           }
                         },
                         icon: Image.network(

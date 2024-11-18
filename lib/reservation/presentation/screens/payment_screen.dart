@@ -1,11 +1,13 @@
 import 'package:alquilafacil/notification/presentation/providers/notification_provider.dart';
 import 'package:alquilafacil/spaces/presentation/screens/search_spaces.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_paypal_payment/flutter_paypal_payment.dart';
 import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
 
+import '../../../public/presentation/widgets/custom_dialog.dart';
 import '../providers/reservation_provider.dart';
 
 class PaymentScreen extends StatelessWidget {
@@ -62,17 +64,18 @@ class PaymentScreen extends StatelessWidget {
           onSuccess: (Map params) async {
             Logger().i("Payment Success: $params");
             try {
-              await reservationProvider.createReservation(userId, localId, startDate, endDate);
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Reserva realizada con éxito')),
-              );
-            } catch (e) {
+              try{
+                await reservationProvider.createReservation(userId, localId, startDate, endDate);
+              } finally{
+                await showDialog(context: context, builder: (_) => const CustomDialog(title: "Reserva realizada con éxito", route:"/search-space"));
+              }
+            } on DioException catch (e) {
               Logger().e("Error while creating reservation: $e");
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                    content: Text('Hubo un error al realizar la reserva')),
-              );
-              return;
+              if(e.response!.statusCode == 400){
+                await showDialog(context: context, builder: (_) => const CustomDialog(title: "No puedes reservar tu mismo espacio", route:"/search-space"));
+              }else{
+                await showDialog(context: context, builder: (_) => const CustomDialog(title: "Hubo un error al realizar la reserva, por favor revisa los datos proporcionados de tu cuenta", route:"/search-space"));
+              }
             }
 
             try {
@@ -85,10 +88,6 @@ class PaymentScreen extends StatelessWidget {
               Logger().e("Error while creating notification: $e");
             }
 
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (_) => const SearchSpaces()),
-            );
 
           },
           onError: (error) {

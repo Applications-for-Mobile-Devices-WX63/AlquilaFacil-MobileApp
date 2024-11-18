@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
+import '../../../public/presentation/widgets/custom_dialog.dart';
 import '../../../public/ui/theme/main_theme.dart';
 import '../widgets/auth_text_field.dart';
 import '../widgets/condition_terms.dart';
@@ -17,45 +18,6 @@ class Register extends StatelessWidget {
     final signUpProvider = context.watch<SignUpProvider>();
     final profileProvider = context.watch<ProfileProvider>();
     final conditionTermsProvider = context.watch<ConditionTermsProvider>();
-    Future<void> _showDialog(String dialogTitle, String route) async {
-      return showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text(
-              dialogTitle,
-              style: TextStyle(
-                  color: MainTheme.contrast(context),
-                  fontSize: 15.0
-              ),
-            ),
-            actions: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 10.0),
-                    child: TextButton(
-                      child: const Text('Confirmar'),
-                      onPressed: () {
-                        Navigator.pushReplacementNamed(context, route);
-                      },
-                    ),
-                  ),
-                  TextButton(
-                    child: const Text('Cancelar'),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                ],
-              ),
-            ],
-          );
-        },
-
-      );
-    }
     return Scaffold(
         backgroundColor: MainTheme.primary(context),
         body: Padding(
@@ -241,7 +203,7 @@ class Register extends StatelessWidget {
                         onPressed: () async {
                           try {
                             if (!conditionTermsProvider.isChecked) {
-                              await _showDialog("Por favor, acepte nuestras políticas de uso", "/sign-up");
+                              await showDialog(context: context, builder: (_) => const CustomDialog(title: "Por favor, acepte nuestras políticas de uso", route:"/sign-up"));
                             } else {
                                 await signUpProvider.signUp();
                                 if (signUpProvider.successFulMessage.isNotEmpty) {
@@ -249,14 +211,14 @@ class Register extends StatelessWidget {
                                     signUpProvider.email,
                                     signUpProvider.password,
                                   );
-                                  await _showDialog("Registro exitoso", "/login");
+                                  await showDialog(context: context, builder: (_) => const CustomDialog(title: "Registro éxitoso", route:"/sign-up"));
                                 } else{
-                                  await _showDialog("Usuario ya existente o datos incorrectos", "/sign-up");
+                                  await showDialog(context: context, builder: (_) => const CustomDialog(title: "Usuario ya existente o datos incorrectos", route:"/sign-up"));
                                 }
                             }
                           } catch (e) {
                             Logger().e("Error during registration: $e");
-                            await _showDialog("Ocurrió un error en el registro", "/sign-up");
+                            await showDialog(context: context, builder: (_) => const CustomDialog(title: "Ocurrió un error en el registro", route:"/sign-up"));
                           }
                         },
                         child: const Text("Regístrate ahora"),
@@ -298,7 +260,7 @@ class Register extends StatelessWidget {
                               onPressed: () async {
                                 try{
                                   if (!conditionTermsProvider.isChecked) {
-                                    await _showDialog("Por favor, acepte nuestras políticas de uso", "/sign-up");
+                                    await showDialog(context: context, builder: (_) => const CustomDialog(title: "Por favor, acepte nuestras políticas de uso", route:"/sign-up"));
                                   }else{
                                     final facebookUserCredentials = await signUpProvider.signInWithFacebook();
                                     final nameDetails = facebookUserCredentials.user?.displayName?.split(" ");
@@ -317,7 +279,7 @@ class Register extends StatelessWidget {
                                     Navigator.pushReplacementNamed(context, "/sign-up");
                                   }
                                 } on  FirebaseAuthException catch (_){
-                                  await _showDialog("Usuario ya existente o datos incorrectos", "/sign-up");
+                                  await showDialog(context: context, builder: (_) => const CustomDialog(title: "Usuario ya existente o datos incorrectos", route:"/sign-up"));
                                 }
                               },
                               icon: Image.network(
@@ -329,7 +291,7 @@ class Register extends StatelessWidget {
                             onPressed: () async {
                               try{
                                 if (!conditionTermsProvider.isChecked) {
-                                  await _showDialog("Por favor, acepte nuestras políticas de uso", "/sign-up");
+                                  await showDialog(context: context, builder: (_) => const CustomDialog(title: "Por favor, acepte nuestras políticas de uso", route:"/sign-up"));
                                 }else{
                                   final googleUserCredentials = await signUpProvider.signInWithGoogle();
                                   final nameDetails = googleUserCredentials.user?.displayName?.split(" ");
@@ -348,7 +310,7 @@ class Register extends StatelessWidget {
                                   Navigator.pushReplacementNamed(context, "/sign-up");
                                 }
                               } on  FirebaseAuthException catch (_){
-                                await _showDialog("Usuario ya existente o datos incorrectos", "/sign-up");
+                                await showDialog(context: context, builder: (_) => const CustomDialog(title: "Usuario ya existente o datos incorrectos", route:"/sign-up"));
                               }
                             },
                             icon: Image.network(

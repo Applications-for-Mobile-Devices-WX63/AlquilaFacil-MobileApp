@@ -18,7 +18,7 @@ class ConfirmationScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Finalizar reserva'),
+        title: const Text('Finalizar reserva'),
         leading: Container(
           margin: const EdgeInsets.symmetric(horizontal: 10.0),
           decoration: const BoxDecoration(
@@ -26,9 +26,9 @@ class ConfirmationScreen extends StatelessWidget {
             color: Colors.orangeAccent,
           ),
           child: IconButton(
-            icon: const Icon(Icons.arrow_back, color: Colors.white), // Color del ícono
+            icon: const Icon(Icons.arrow_back, color: Colors.white),
             onPressed: () {
-              Navigator.pop(context); // Navegar hacia atrás
+              Navigator.pop(context);
             },
           ),
         ),
@@ -43,7 +43,7 @@ class ConfirmationScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   const Text('Precio por hora:', style: TextStyle(color: Colors.black, fontSize: 16.0, fontWeight: FontWeight.bold)),
-                  Text('\S/. ${args.price.toStringAsFixed(2)}', style: TextStyle(color: Colors.black, fontSize: 16.0, fontWeight: FontWeight.bold)),
+                  Text('\S/. ${args.price.toStringAsFixed(2)}', style: const TextStyle(color: Colors.black, fontSize: 16.0, fontWeight: FontWeight.bold)),
                 ],
               ),
               const SizedBox(height: 16.0),
@@ -51,7 +51,7 @@ class ConfirmationScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   const Text('Horas reservadas:', style: TextStyle(color: Colors.black, fontSize: 16.0, fontWeight: FontWeight.bold)),
-                  Text(hours.toStringAsFixed(2), style: TextStyle(color: Colors.black, fontSize: 16.0, fontWeight: FontWeight.bold)),
+                  Text(hours.toStringAsFixed(2), style: const TextStyle(color: Colors.black, fontSize: 16.0, fontWeight: FontWeight.bold)),
                 ],
               ),
               const SizedBox(height: 16.0),

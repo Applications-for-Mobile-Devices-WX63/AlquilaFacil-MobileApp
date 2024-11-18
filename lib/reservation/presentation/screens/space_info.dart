@@ -9,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import '../../../public/presentation/widgets/custom_dialog.dart';
 import '../../../public/ui/theme/main_theme.dart';
 import 'payment_screen.dart';
 
@@ -167,13 +168,8 @@ class _SpaceInfoState extends State<SpaceInfo> {
                       onPressed: () async {
                         if (_startDateTime == null ||
                             _endDateTime == null) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text(
-                                  'Por favor selecciona las fechas y horas de inicio y fin válidas'),
-                            ),
-                          );
-                          return;
+
+                          await showDialog(context: context, builder: (_) => const CustomDialog(title: "Por favor selecciona las fechas y horas de inicio y fin válidas", route:"/space-info"));
                         }
                         Navigator.of(context).push(
                           MaterialPageRoute(
