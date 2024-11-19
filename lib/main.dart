@@ -47,6 +47,8 @@ import 'package:provider/provider.dart';
 import 'auth/presentation/providers/SignInPovider.dart';
 import 'auth/presentation/screens/login.dart';
 import 'auth/presentation/screens/register.dart';
+import 'contact/presentation/screens/faqs_screen.dart';
+import 'contact/presentation/screens/support_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -146,7 +148,9 @@ class MyApp extends StatelessWidget {
               "/create-comments" : (context) => const CreateCommentScreen(),
               "/space-features": (context) => const AdditionalDetailsScreen(),
               "/subscription" : (context) => const SubscriptionScreen(),
-              "/create-report": (context) => const CreateReportScreen()
+              "/create-report": (context) => const CreateReportScreen(),
+              "/support": (context) => const SupportScreen(),
+              "/faqs": (context) => const FaqsScreen(),
             },
             debugShowCheckedModeBanner: false,
           );

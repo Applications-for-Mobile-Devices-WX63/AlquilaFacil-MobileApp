@@ -37,115 +37,122 @@ class ProfileScreen extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: const ScreenBottomAppBar(),
-      body: Column(
-        children: [
-          Card(
-            margin: const EdgeInsets.all(16.0),
-            elevation: 10.0,
-            child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Color del tema:",
-                  style: TextStyle(
-                    color: MainTheme.contrast(context),
-                    fontSize: 14.0,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Card(
+              margin: const EdgeInsets.all(16.0),
+              elevation: 10.0,
+              child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Color del tema:",
+                    style: TextStyle(
+                      color: MainTheme.contrast(context),
+                      fontSize: 14.0,
+                    ),
                   ),
+                  Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(Icons.wb_sunny, color: Colors.amber, size: 24),
+                    const SizedBox(width: 8),
+                    Switch.adaptive(
+                      value: themeProvider.isDarkTheme,
+                      onChanged: (value) {
+                        themeProvider.toggleTheme();
+                      },
+                      activeColor: MainTheme.background(context),
+                      activeTrackColor: const Color(0xFFD13333),
+                      inactiveThumbColor: Colors.amber,
+                      inactiveTrackColor: Colors.amberAccent,
+                      focusColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                    ),
+                    const SizedBox(width: 8),
+                    const Icon(Icons.nightlight_round, color: Colors.indigo, size: 24),
+                  ],
                 ),
-                Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(Icons.wb_sunny, color: Colors.amber, size: 24),
-                  const SizedBox(width: 8),
-                  Switch.adaptive(
-                    value: themeProvider.isDarkTheme,
-                    onChanged: (value) {
-                      themeProvider.toggleTheme();
-                    },
-                    activeColor: MainTheme.background(context),
-                    activeTrackColor: const Color(0xFFD13333),
-                    inactiveThumbColor: Colors.amber,
-                    inactiveTrackColor: Colors.amberAccent,
-                    focusColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                  ),
-                  const SizedBox(width: 8),
-                  const Icon(Icons.nightlight_round, color: Colors.indigo, size: 24),
-                ],
+               ]
               ),
-             ]
             ),
-          ),
-          ),
-          Card(
-            margin: const EdgeInsets.all(16.0),
-            elevation: 10.0,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 32.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  const NavigationRow(
-                    title: 'Modificar perfil',
-                    routeName: '/profile-details',
-                  ),
-                  const Divider(),
-                  NavigationRow(
-                    title: 'Ver mi suscripción',
-                    routeName: '/subscription',
-                    onTap: () async{
-                      try{
-                        await planProvider.fetchPlansAvailable();
-                        Navigator.push(context, MaterialPageRoute(builder: (_) => const SubscriptionScreen()));
-                      } catch (e){
-                        Logger().e("Error while trying to fecth plans available: $e");
-                      }
-                    },
-                  ),
-                  const Divider(),
-                  const NavigationRow(
-                    title: 'Ver mis espacios',
-                    routeName: '/my-spaces',
-                  ),
-                  const Divider(),
-                  NavigationRow(
-                    title: 'Mis espacios favoritos',
-                    routeName: '/favorites',
-                    onTap: () async {
-                      await spaceProvider.loadFavorites();
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const FavoritesScreen(),
-                        ),
-                      );
-                    },
-                  ),
-                  const Divider(),
-                  NavigationRow(
-                    title: 'Cerrar sesión',
-                    routeName: '/login',
-                    onTap: () async {
-                      try {
-                        await signInProvider.onLogOutRequest();
-                      } finally {
-                        Navigator.pushNamedAndRemoveUntil(
+            ),
+            Card(
+              margin: const EdgeInsets.all(16.0),
+              elevation: 10.0,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 32.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    const NavigationRow(
+                      title: 'Modificar perfil',
+                      routeName: '/profile-details',
+                    ),
+                    const Divider(),
+                    NavigationRow(
+                      title: 'Ver mi suscripción',
+                      routeName: '/subscription',
+                      onTap: () async{
+                        try{
+                          await planProvider.fetchPlansAvailable();
+                          Navigator.push(context, MaterialPageRoute(builder: (_) => const SubscriptionScreen()));
+                        } catch (e){
+                          Logger().e("Error while trying to fecth plans available: $e");
+                        }
+                      },
+                    ),
+                    const Divider(),
+                    const NavigationRow(
+                      title: 'Ver mis espacios',
+                      routeName: '/my-spaces',
+                    ),
+                    const Divider(),
+                    NavigationRow(
+                      title: 'Mis espacios favoritos',
+                      routeName: '/favorites',
+                      onTap: () async {
+                        await spaceProvider.loadFavorites();
+                        Navigator.push(
                           context,
-                          "/login",
-                              (Route<dynamic> route) => false,
+                          MaterialPageRoute(
+                            builder: (context) => const FavoritesScreen(),
+                          ),
                         );
-                      }
-                    },
-                  ),
+                      },
+                    ),
+                    const Divider(),
+                    const NavigationRow(
+                      title: 'Soporte',
+                      routeName: '/support',
+                    ),
+                    const Divider(),
+                    NavigationRow(
+                      title: 'Cerrar sesión',
+                      routeName: '/login',
+                      onTap: () async {
+                        try {
+                          await signInProvider.onLogOutRequest();
+                        } finally {
+                          Navigator.pushNamedAndRemoveUntil(
+                            context,
+                            "/login",
+                                (Route<dynamic> route) => false,
+                          );
+                        }
+                      },
+                    ),
 
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
