@@ -2,6 +2,7 @@ import 'package:alquilafacil/auth/presentation/screens/login.dart';
 import 'package:alquilafacil/profile/presentation/providers/pofile_provider.dart';
 import 'package:alquilafacil/public/presentation/widgets/screen_bottom_app_bar.dart';
 import 'package:alquilafacil/reservation/presentation/widgets/report_submit_details.dart';
+import 'package:alquilafacil/spaces/presentation/providers/report_provider.dart';
 import 'package:alquilafacil/spaces/presentation/providers/space_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,7 @@ class CreateReportScreen extends StatelessWidget {
     final spaceProvider = context.watch<SpaceProvider>();
     final profileProvider = context.watch<ProfileProvider>();
     final TextEditingController descriptionReportController = TextEditingController();
+    final TextEditingController titleReportController = TextEditingController();
     return Scaffold(
       backgroundColor: MainTheme.primary(context),
       body: SingleChildScrollView(
@@ -59,6 +61,9 @@ class CreateReportScreen extends StatelessWidget {
                ownerName: profileProvider.usernameExpect,
                localName: spaceProvider.spaceSelected!.localName,
                descriptionReportController: descriptionReportController,
+               titleReportController: titleReportController,
+               localId: spaceProvider.spaceSelected!.id,
+               userId: spaceProvider.spaceSelected!.userId!,
              ),
             ],
           ),
