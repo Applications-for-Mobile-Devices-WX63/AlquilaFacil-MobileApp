@@ -44,10 +44,10 @@ class _ReservationDetailsScreen extends State<ReservationDetailsScreen> {
     final spaceProvider = context.watch<SpaceProvider>();
     final profileProvider = context.watch<ProfileProvider>();
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: MainTheme.background(context),
         appBar: AppBar(
           backgroundColor: MainTheme.primary(context),
-          title: Text("Información de la reserva", style: TextStyle(color: MainTheme.background(context), fontSize: 18)),
+          title: Text("Información de la reserva", style: TextStyle(color: Colors.white, fontSize: 18)),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back, color: Colors.white),
             onPressed: () {

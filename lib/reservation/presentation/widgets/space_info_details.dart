@@ -40,7 +40,7 @@ class SpaceInfoDetails extends StatelessWidget {
               fontSize: 25.0),
         ),
         Text(
-          "$streetAddress $cityPlace",
+          "$streetAddress,  $cityPlace",
           textAlign: TextAlign.start,
           style: TextStyle(color: MainTheme.contrast(context), fontSize: 18.0),
         ),

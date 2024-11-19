@@ -16,6 +16,7 @@ import 'package:alquilafacil/public/ui/theme/main_theme.dart';
 import 'package:alquilafacil/reservation/data/remote/helpers/reservation_service_helper.dart';
 import 'package:alquilafacil/reservation/presentation/providers/reservation_provider.dart';
 import 'package:alquilafacil/reservation/presentation/screens/create_report_screen.dart';
+import 'package:alquilafacil/reservation/presentation/screens/modify_reservation_screen.dart';
 import 'package:alquilafacil/reservation/presentation/screens/reservation_details_screen.dart';
 import 'package:alquilafacil/spaces/data/remote/helpers/comment_service_helper.dart';
 import 'package:alquilafacil/spaces/data/remote/helpers/local_categories_service_helper.dart';
@@ -151,6 +152,7 @@ class MyApp extends StatelessWidget {
               "/create-report": (context) => const CreateReportScreen(),
               "/support": (context) => const SupportScreen(),
               "/faqs": (context) => const FaqsScreen(),
+              "/modify-reservation": (context) => const ModifyReservationScreen(),
             },
             debugShowCheckedModeBanner: false,
           );

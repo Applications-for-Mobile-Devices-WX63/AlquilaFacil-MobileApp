@@ -33,6 +33,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
 
   Future<void> _loadReservations(int userId, ReservationProvider reservationProvider) async {
     await reservationProvider.getReservationsByUserId(userId);
+    await reservationProvider.getOtherUsersReservationsByUserId(userId);
     setState(() {
       _isLoading = false;
     });
@@ -47,6 +48,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
       return Scaffold(
         appBar: AppBar(title: const Text('Calendario')),
         body: Center(child: CircularProgressIndicator(color: MainTheme.secondary(context))),
+        bottomNavigationBar: const ScreenBottomAppBar(),
       );
     }
 
@@ -130,6 +132,11 @@ class _CalendarScreenState extends State<CalendarScreen> {
                       reservation.startDate.month == day.month &&
                       reservation.startDate.day == day.day,
                 ).toList();
+                final List<Reservation> matchingOtherUsersReservations = reservationProvider.reservationsFromOtherUsers.where(
+                      (reservation) => reservation.startDate.year == day.year &&
+                      reservation.startDate.month == day.month &&
+                      reservation.startDate.day == day.day,
+                ).toList();
                 if (matchingReservations.isNotEmpty) {
                   final reservation = matchingReservations.first;
                   return HighlightedCalendarDay(
@@ -140,6 +147,21 @@ class _CalendarScreenState extends State<CalendarScreen> {
                       Navigator.pushNamed(
                         context,
                         '/reservation-details',
+                        arguments: reservation,
+                      );
+                    },
+                  );
+                }
+                if (matchingOtherUsersReservations.isNotEmpty) {
+                  final reservation = matchingOtherUsersReservations.first;
+                  return HighlightedCalendarDay(
+                    day: day,
+                    color: reservation.isSubscribed ?? false ? Colors.amberAccent : Colors.blue,
+                    onTap: () async {
+                      await spaceProvider.fetchSpaceById(reservation.spaceId);
+                      Navigator.pushNamed(
+                        context,
+                        '/modify-reservation',
                         arguments: reservation,
                       );
                     },

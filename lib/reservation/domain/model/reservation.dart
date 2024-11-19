@@ -4,6 +4,7 @@ class Reservation {
   final int spaceId;
   final DateTime startDate;
   final DateTime endDate;
+  bool? isSubscribed;
 
   Reservation({
     required this.id,
@@ -11,6 +12,7 @@ class Reservation {
     required this.spaceId,
     required this.startDate,
     required this.endDate,
+    this.isSubscribed,
   });
 
   // Método para crear un objeto Reservation desde un JSON
@@ -21,6 +23,17 @@ class Reservation {
       spaceId: json['localId'] as int,
       startDate: DateTime.parse(json['startDate']),
       endDate: DateTime.parse(json['endDate']),
+    );
+  }
+
+  factory Reservation.fromJsonfromOtherUsers(Map<String, dynamic> json) {
+    return Reservation(
+      id: json['id'] as int,
+      userId: json['userId'] as int,
+      spaceId: json['localId'] as int,
+      startDate: DateTime.parse(json['startDate']),
+      endDate: DateTime.parse(json['endDate']),
+      isSubscribed: json['isSubscribe'] as bool,
     );
   }
 
