@@ -157,15 +157,15 @@ class _ModifyReservationScreen extends State<ModifyReservationScreen> {
                     const SizedBox(height: 20),
                     Container(
                       width: double.infinity,
-                      height: 50,
+                      height: 60,
                       child: reservation.startDate.isAfter(DateTime.now())
                           ? (reservation.isSubscribed ?? false)
                           ? Center(
                         child: Text(
-                          "Al ser un usuario premium, no puede modificar el horario de la reserva.",
+                          "Debido a que lo reservó un usuario premium, no se puede modificar",
                           style: TextStyle(
-                            color: MainTheme.contrast(context),
-                            fontSize: 16.0,
+                            color: MainTheme.primary(context),
+                            fontSize: 15.0,
                           ),
                           textAlign: TextAlign.center,
                         ),
