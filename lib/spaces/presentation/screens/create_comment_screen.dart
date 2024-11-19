@@ -65,7 +65,7 @@ class _CreateCommentScreenState extends State<CreateCommentScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text("Deja tu comentario: "),
+                const Text("Deja tu valoración: "),
                 StarRating(
                   color: MainTheme.secondary(context),
                   rating: rating,
@@ -121,7 +121,7 @@ class _CreateCommentScreenState extends State<CreateCommentScreen> {
                     provider.createComment(comment);
                     Navigator.pop(context);
                   },
-                  child: const Text('Publicar'),
+                  child: const Text('Publicar', style: TextStyle(color: Colors.white),),
                 ),
               ),
             ),

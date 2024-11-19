@@ -44,7 +44,7 @@ class _ReservationDetailsScreen extends State<ReservationDetailsScreen> {
     final spaceProvider = context.watch<SpaceProvider>();
     final profileProvider = context.watch<ProfileProvider>();
     return Scaffold(
-        backgroundColor: MainTheme.background(context),
+        backgroundColor: Colors.white,
         appBar: AppBar(
           backgroundColor: MainTheme.primary(context),
           title: Text("Información de la reserva", style: TextStyle(color: MainTheme.background(context), fontSize: 18)),
@@ -88,23 +88,25 @@ class _ReservationDetailsScreen extends State<ReservationDetailsScreen> {
                     const SizedBox(height: 20),
                     Text(
                         "Inicia el: ${DateFormat('dd/MM/yyyy').format(reservation.startDate)} a las ${DateFormat('HH:mm').format(reservation.startDate)}",
-                        style: const TextStyle(
-                            color: Colors.black,
+                        style: TextStyle(
+                            color: MainTheme.contrast(context),
                             fontSize: 15
                         )
                     ),
                     const SizedBox(height: 20),
                     Text(
                         "Termina el: ${DateFormat('dd/MM/yyyy').format(reservation.endDate)} a las ${DateFormat('HH:mm').format(reservation.endDate)}",
-                        style: const TextStyle(
-                            color: Colors.black,
+                        style: TextStyle(
+                            color: MainTheme.contrast(context),
                             fontSize: 15
                         )
                     ),
                     const SizedBox(height: 20),
                     Container(
+                      width: double.infinity,
+                      height: 50,
                       child: reservation.endDate.isBefore(DateTime.now()) ? TextButton(
-                          child: const Text("Deja un comentario"),
+                          child: const Text("Deja un comentario", textAlign: TextAlign.center,),
                           onPressed: () => Navigator.pushNamed(context, "/create-comments")
                       ) : const SizedBox.shrink()
                     )
