@@ -14,8 +14,17 @@ class SupportScreen extends StatelessWidget {
 
   Future<void> launchWhatsApp() async {
     final encodedMessage = Uri.encodeComponent(message);
-    final url = 'https://wa.me/$phoneNumber?text=$encodedMessage';
-    await canLaunch(url) ? await launch(url) : throw 'No se pudo inicializar WhatsApp';
+    final url = Uri.parse('https://wa.me/$phoneNumber?text=$encodedMessage');
+
+    try {
+      if (await canLaunchUrl(url)) {
+        await launchUrl(url);
+      } else {
+        throw Exception("Cannot launch WhatsApp");
+      }
+    } catch (e) {
+      throw Exception("Error launching WhatsApp: $e");
+    }
   }
 
   @override
@@ -58,11 +67,7 @@ class SupportScreen extends StatelessWidget {
                     title: 'Escribir a soporte',
                     routeName: '/',
                     onTap: () async{
-                      try{
                         await launchWhatsApp();
-                      } catch(e){
-                        Logger().i(e);
-                      }
                     },
                   ),
                 ],
