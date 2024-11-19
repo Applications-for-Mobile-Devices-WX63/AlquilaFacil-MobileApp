@@ -27,7 +27,7 @@ class _AuthTextField extends State<AuthTextField> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 350,
+      width: double.infinity,
       height: 80,
       padding: const EdgeInsets.all(10.0),
       decoration: BoxDecoration(
