@@ -19,9 +19,11 @@ import 'package:alquilafacil/reservation/presentation/screens/create_report_scre
 import 'package:alquilafacil/reservation/presentation/screens/reservation_details_screen.dart';
 import 'package:alquilafacil/spaces/data/remote/helpers/comment_service_helper.dart';
 import 'package:alquilafacil/spaces/data/remote/helpers/local_categories_service_helper.dart';
+import 'package:alquilafacil/spaces/data/remote/helpers/report_service_helper.dart';
 import 'package:alquilafacil/spaces/data/remote/helpers/space_service_helper.dart';
 import 'package:alquilafacil/spaces/presentation/providers/comment_provider.dart';
 import 'package:alquilafacil/spaces/presentation/providers/local_categories_provider.dart';
+import 'package:alquilafacil/spaces/presentation/providers/report_provider.dart';
 import 'package:alquilafacil/spaces/presentation/providers/space_provider.dart';
 import 'package:alquilafacil/spaces/presentation/screens/additional_details_screen.dart';
 import 'package:alquilafacil/spaces/presentation/screens/comments_screen.dart';
@@ -74,6 +76,11 @@ class MyApp extends StatelessWidget {
           create: (_) => PlanProvider(PlanServiceHelper(SignInProvider(authServiceHelper))),
           update: (context, signInProvider, previous) =>
               PlanProvider(PlanServiceHelper(signInProvider)),
+        ),
+        ChangeNotifierProxyProvider<SignInProvider,ReportProvider>(
+          create: (_) => ReportProvider(ReportServiceHelper(SignInProvider(authServiceHelper))),
+          update: (context, signInProvider, previous) =>
+              ReportProvider(ReportServiceHelper(signInProvider)),
         ),
         ChangeNotifierProxyProvider<SignInProvider,SubscriptionProvider>(
           create: (_) => SubscriptionProvider(SubscriptionServiceHelper(SignInProvider(authServiceHelper))),

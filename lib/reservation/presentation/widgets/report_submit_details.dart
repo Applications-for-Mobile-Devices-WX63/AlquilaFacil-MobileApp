@@ -1,16 +1,24 @@
+import 'package:alquilafacil/spaces/domain/model/report.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
+import 'package:provider/provider.dart';
 
 import '../../../public/ui/theme/main_theme.dart';
+import '../../../spaces/presentation/providers/report_provider.dart';
 
 class ReportSubmitDetails extends StatelessWidget {
   final String ownerName;
   final String localName;
+  final int localId;
+  final int userId;
   final TextEditingController descriptionReportController;
-  const ReportSubmitDetails({super.key, required this.ownerName, required this.localName, required this.descriptionReportController});
+  final TextEditingController titleReportController;
+  const ReportSubmitDetails({super.key, required this.ownerName, required this.localName, required this.descriptionReportController, required this.titleReportController, required this.localId, required this.userId});
 
   @override
   Widget build(BuildContext context) {
+    final reportProvider = context.watch<ReportProvider>();
     return SizedBox(
       width: double.infinity,
       height: 700,
@@ -62,6 +70,7 @@ class ReportSubmitDetails extends StatelessWidget {
                  SizedBox(
                    height: 40,
                    child: TextField(
+                     controller: titleReportController,
                      cursorColor: MainTheme.contrast(context),
                      style: const TextStyle(
                        fontSize: 10
@@ -118,8 +127,13 @@ class ReportSubmitDetails extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10)
                       )
                     ),
-                    onPressed: (){
-
+                    onPressed: () async{
+                      var reportToAdd = Report(id: 0, localId: localId, title: titleReportController.text, userId: userId, description: descriptionReportController.text);
+                      try{
+                        await reportProvider.createReport(reportToAdd);
+                      } catch (e){
+                        Logger().e("Error while trying to create a report $e  ${reportToAdd.toJson()}");
+                      }
                     },
                     child: const Text("Enviar mensaje")
                 ),
