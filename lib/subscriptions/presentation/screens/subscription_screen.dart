@@ -15,10 +15,7 @@ class SubscriptionScreen extends StatelessWidget {
         backgroundColor: MainTheme.primary(context),
         foregroundColor: Colors.white,
         title: const Text(
-          "Adquiere tu suscripción",
-          style: TextStyle(
-              fontWeight: FontWeight.bold
-          ),
+          "Suscripción",
         ),
       ),
       body: const PlanTypesAvailable(),

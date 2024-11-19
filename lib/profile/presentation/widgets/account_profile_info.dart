@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../../public/ui/theme/main_theme.dart';
+
 class AccountProfileInfo extends StatelessWidget {
   final String phoneNumber;
   final String documentNumber;
@@ -17,22 +19,22 @@ class AccountProfileInfo extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Row(
+                Row(
                   children: [
                     Icon(Icons.phone),
                     SizedBox(width: 20),
                     Text(
-                      "Número de telefono",
+                      "Teléfono: ",
                       style: TextStyle(
-                          color: Colors.black
+                          color: MainTheme.contrast(context)
                       ),
                     )
                   ],
                 ),
                 Text(
                   phoneNumber,
-                  style: const TextStyle(
-                      color: Colors.black
+                  style:  TextStyle(
+                      color: MainTheme.contrast(context)
                   ),
                 )
               ],
@@ -41,50 +43,50 @@ class AccountProfileInfo extends StatelessWidget {
              Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Row(
+                 Row(
                   children: [
                     Icon(Icons.account_balance_rounded),
                     SizedBox(width: 20),
                     Text(
-                      "Número de documento",
+                      "Documento: ",
                       style: TextStyle(
-                          color: Colors.black
+                          color: MainTheme.contrast(context)
                       ),
                     )
                   ],
                 ),
                 Text(
                   documentNumber,
-                  style: const TextStyle(
-                      color: Colors.black
+                  style: TextStyle(
+                      color: MainTheme.contrast(context)
                   ),
                 )
               ],
             ),
           const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Row(
-                  children: [
-                    Icon(Icons.date_range),
-                    SizedBox(width: 20),
-                    Text(
-                      "Fecha de cumpleaños",
-                      style: TextStyle(
-                          color: Colors.black
-                      ),
-                    )
-                  ],
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Icon(Icons.date_range),
+                  SizedBox(width: 20),
+                  Text(
+                    "Cumpleaños: ",
+                    style: TextStyle(
+                        color: MainTheme.contrast(context)
+                    ),
+                  )
+                ],
+              ),
+              Text(
+                dateOfBirth,
+                style: TextStyle(
+                    color: MainTheme.contrast(context)
                 ),
-                Text(
-                  dateOfBirth,
-                  style: const TextStyle(
-                      color: Colors.black
-                  ),
-                )
-              ],
-            ),
+              )
+            ],
+          ),
         ],
       ),
     );

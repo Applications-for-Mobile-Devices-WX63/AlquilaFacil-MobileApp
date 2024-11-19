@@ -29,12 +29,13 @@ class ProfileActions extends StatelessWidget {
                   profileProvider.setIsEditMode();
                 },
                 child: const Text(
-                  "Editar datos de mi perfil",
+                  "Editar datos",
                   style: TextStyle(
                       fontSize: 12
                   ),
                 ),
             ),
+            const SizedBox(width: 10),
             ElevatedButton(
                 style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(

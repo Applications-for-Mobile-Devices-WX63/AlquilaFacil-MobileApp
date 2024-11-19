@@ -25,42 +25,46 @@ class PlanTypeInformation extends StatelessWidget {
           onTap:  (){
             Navigator.push(context, MaterialPageRoute(builder: (_) => PlanSelectedDetailsScreen(planName: planName, planService: planService, planId: planId, planPrice: planPrice)));
           },
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 10),
-                  child: Image.network(
-                      "https://tse4.mm.bing.net/th?id=OIP.N62R-B5j13QHIL9OhcdJ1wHaHa&pid=Api&P=0&h=180",
-                    width: 50,
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Image.network(
+                        "https://www.supercoloring.com/sites/default/files/fif/2017/05/gold-star-paper-craft.png",
+                      width: 50,
+                      height: 50,
+                    ),
                   ),
-                ),
-                Expanded(
-                  child: Column(
-                    children: [
-                      Text(
-                          planName,
-                        style: TextStyle(
-                          color: MainTheme.contrast(context),
-                          fontWeight: FontWeight.bold
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                        child: Text(
-                            planService,
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Text(
+                            planName,
                           style: TextStyle(
-                            fontSize: 10.0,
-                            color: MainTheme.helper(context)
+                            color: MainTheme.contrast(context),
+                            fontWeight: FontWeight.bold
                           ),
                         ),
-                      )
-                    ],
-                  ),
-                )
-              ],
+                        Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                          child: Text(
+                              planService,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 12.0,
+                              color: MainTheme.helper(context)
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ),

@@ -21,11 +21,11 @@ class PaymentMethodCard extends StatelessWidget {
         },
         child: Card(
           elevation: 10.0,
-          color: MainTheme.background(context),
+          color: Colors.white,
           child: Image.network(
             fit: BoxFit.cover,
             paymentLogo,
-            width: 100,
+            width: 130,
           ),
         ),
       ),

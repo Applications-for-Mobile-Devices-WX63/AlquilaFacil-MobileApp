@@ -21,7 +21,7 @@ class AvatarDetails extends StatelessWidget {
               fit: StackFit.expand,
               children: [
                CircleAvatar(
-                  backgroundColor: Colors.black,
+                  backgroundColor: MainTheme.contrast(context),
                   child: Image.network(photoUrl)
                 ),
                 Positioned(
@@ -48,8 +48,8 @@ class AvatarDetails extends StatelessWidget {
           ),
           Text(
             fullName,
-            style:  const TextStyle(
-                color: Colors.black
+            style:  TextStyle(
+                color: MainTheme.contrast(context)
             ),
           ),
         ],

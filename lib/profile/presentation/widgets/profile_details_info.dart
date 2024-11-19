@@ -33,7 +33,7 @@ class ProfileDetailsInfo extends StatelessWidget {
       width: double.infinity,
       height: 600,
       decoration:  BoxDecoration(
-        color: Colors.white,
+        color: MainTheme.background(context),
         borderRadius: BorderRadius.circular(15)
       ),
       child:  Column(

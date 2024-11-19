@@ -33,10 +33,8 @@ class _ProfileDetailsState extends State<ProfileDetails> {
     return Scaffold(
       backgroundColor: MainTheme.primary(context),
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: const Center(
-          child: Text("Mi perfil"),
-        ),
+        backgroundColor: MainTheme.background(context),
+        title:  Text("Mi perfil", style: TextStyle(color: MainTheme.contrast(context)),),
       ),
       body: profileProvider.currentProfile != null ?  SingleChildScrollView(
           child:  ProfileDetailsInfo(

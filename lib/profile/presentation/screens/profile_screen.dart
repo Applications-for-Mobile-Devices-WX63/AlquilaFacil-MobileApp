@@ -44,7 +44,7 @@ class ProfileScreen extends StatelessWidget {
               margin: const EdgeInsets.all(16.0),
               elevation: 10.0,
               child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
+              padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 32.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -84,7 +84,7 @@ class ProfileScreen extends StatelessWidget {
               margin: const EdgeInsets.all(16.0),
               elevation: 10.0,
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 32.0),
+                padding: const EdgeInsets.symmetric(vertical: 16.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -108,7 +108,7 @@ class ProfileScreen extends StatelessWidget {
                     ),
                     const Divider(),
                     const NavigationRow(
-                      title: 'Ver mis espacios',
+                      title: 'Mis espacios publicados',
                       routeName: '/my-spaces',
                     ),
                     const Divider(),

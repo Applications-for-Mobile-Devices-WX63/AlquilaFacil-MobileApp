@@ -21,38 +21,42 @@ class PlanSelectedDetailsScreen extends StatelessWidget {
         foregroundColor:  Colors.white,
         title: const Text(
           "Información del plan",
-          style: TextStyle(
-              fontWeight: FontWeight.bold
-          ),
         ),
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            PlanSelectedDetails(
-                planName: planName,
-                planService: planService,
-                id: planId,
-                planPrice: planPrice
-            ),
-            SizedBox(
-              width: 150,
-              child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: MainTheme.secondary(context),
-                      foregroundColor: MainTheme.background(context),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)
-                      )
-                  ),
-                  onPressed: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (_) => SubscriptionPaymentScreen(planPrice: planPrice)));
-                  },
-                  child: const Text("Suscribirse")
-              ),
-            )
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+        children: [
+        PlanSelectedDetails(
+        planName: planName,
+            planService: planService,
+            id: planId,
+            planPrice: planPrice
         ),
+        const SizedBox(height: 20),
+        Container(
+          width: double.infinity,
+          height: 50,
+          child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: MainTheme.secondary(context),
+                foregroundColor: MainTheme.background(context),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)
+                ),
+              ),
+              onPressed: (){
+                Navigator.push(context, MaterialPageRoute(builder: (_) => SubscriptionPaymentScreen(planPrice: planPrice)));
+              },
+              child: const Text("Suscribirse")
+          ),
+        ),
+
+        ],
+      ),
+        ),
+
 
       ),
       bottomNavigationBar: const ScreenBottomAppBar(),

@@ -17,30 +17,33 @@ class SubscriptionPaymentScreen extends StatelessWidget {
         backgroundColor: MainTheme.primary(context),
         foregroundColor: Colors.white,
         title: const Text(
-          "Elige un meétodo de pago",
-          style: TextStyle(fontWeight: FontWeight.bold),
+          "Elige método de pago",
         ),
       ),
-      body: Column(
-        children: [
-          Container(
-            margin: const EdgeInsets.symmetric(vertical: 100, horizontal: 110),
-            child: Text(
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
               "Precio total: \$$planPrice",
               style: TextStyle(
                   color: MainTheme.contrast(context),
                   fontWeight: FontWeight.bold,
-                  fontSize: 25.0),
+                  fontSize: 25.0
+              ),
+              textAlign: TextAlign.center,
             ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              const PaymentMethodsAvailable(),
-              PaymentMethodNiubiz(planPrice: planPrice),
-            ],
-          ),
-        ],
+            const SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                const PaymentMethodsAvailable(),
+                PaymentMethodNiubiz(planPrice: planPrice),
+              ],
+            ),
+          ],
+        ),
       ),
       bottomNavigationBar: const ScreenBottomAppBar(),
     );

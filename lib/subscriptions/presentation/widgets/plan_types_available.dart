@@ -12,41 +12,43 @@ class PlanTypesAvailable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final planProvider = context.watch<PlanProvider>();
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 80, horizontal: 30),
-      child: Card(
-        elevation: 20.0,
-        color: MainTheme.background(context),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-             Container(
-              margin: const EdgeInsets.symmetric(vertical: 40, horizontal: 10),
-              child: Text(
-                  "Planes de suscripción :",
-                style: TextStyle(
-                    color: MainTheme.contrast(context),
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Card(
+          elevation: 20.0,
+          color: MainTheme.background(context),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+               Container(
+                margin: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+                child: Text(
+                    "Mejora tu estadía:",
+                  style: TextStyle(
+                      color: MainTheme.contrast(context),
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold
+                  ),
                 ),
               ),
-            ),
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 20),
-              child: ListView.builder(
-                  itemCount: planProvider.currentPlans.length,
-                  shrinkWrap: true,
-                  itemBuilder: (BuildContext context, int index){
-                    return  PlanTypeInformation(
-                        planName: planProvider.currentPlans[index].name,
-                        planPrice: planProvider.currentPlans[index].price,
-                        planService: planProvider.currentPlans[index].service,
-                        planId: planProvider.currentPlans[index].id
-                    );
-                  }
-              ),
-            )
-          ],
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 20),
+                child: ListView.builder(
+                    itemCount: planProvider.currentPlans.length,
+                    shrinkWrap: true,
+                    itemBuilder: (BuildContext context, int index){
+                      return  PlanTypeInformation(
+                          planName: planProvider.currentPlans[index].name,
+                          planPrice: planProvider.currentPlans[index].price,
+                          planService: planProvider.currentPlans[index].service,
+                          planId: planProvider.currentPlans[index].id
+                      );
+                    }
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
