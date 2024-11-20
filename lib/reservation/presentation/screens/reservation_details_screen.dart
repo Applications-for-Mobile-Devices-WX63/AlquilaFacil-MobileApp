@@ -109,6 +109,10 @@ class _ReservationDetailsScreen extends State<ReservationDetailsScreen> {
                           child: const Text("Deja un comentario", textAlign: TextAlign.center,),
                           onPressed: () => Navigator.pushNamed(context, "/create-comments")
                       ) : const SizedBox.shrink()
+                    ),
+                    TextButton(
+                        child: const Text("Reportar local", textAlign: TextAlign.center,),
+                        onPressed: () => Navigator.pushNamed(context, "/create-report")
                     )
                   ],
                 ),

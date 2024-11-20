@@ -31,7 +31,7 @@ class ReportSubmitDetails extends StatelessWidget {
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
               child: const Text(
-                "Enviar un mensaje:",
+                "Reportar un espacio:",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 25
@@ -61,7 +61,7 @@ class ReportSubmitDetails extends StatelessWidget {
                   Text(localName),
                   const SizedBox(height: 10),
                   const Text(
-                      "Asunto:",
+                      "Motivo:",
                       style: TextStyle(
                           fontWeight: FontWeight.bold
                       )
@@ -87,15 +87,14 @@ class ReportSubmitDetails extends StatelessWidget {
                  ),
                   const SizedBox(height: 10),
                   const Text(
-                      "Razon:",
+                      "Descripción:",
                       style: TextStyle(
                           fontWeight: FontWeight.bold
                       )
                   ),
-
                   TextField(
                     controller: descriptionReportController,
-                    minLines: 1,
+                    minLines: 8,
                     maxLines: null,
                     keyboardType: TextInputType.multiline,
                     cursorColor: MainTheme.contrast(context),
@@ -108,13 +107,12 @@ class ReportSubmitDetails extends StatelessWidget {
                       ),
                     ),
                     onChanged: (value) {
-
                     },
                   ),
                 ],
               ),
             ),
-            const SizedBox(height: 220),
+            const SizedBox(height: 100),
             Center(
               child: SizedBox(
                 width: 300,
@@ -131,15 +129,16 @@ class ReportSubmitDetails extends StatelessWidget {
                       var reportToAdd = Report(id: 0, localId: localId, title: titleReportController.text, userId: userId, description: descriptionReportController.text);
                       try{
                         await reportProvider.createReport(reportToAdd);
+                        Navigator.pop(context);
                       } catch (e){
                         Logger().e("Error while trying to create a report $e  ${reportToAdd.toJson()}");
                       }
+
                     },
-                    child: const Text("Enviar mensaje")
+                    child: const Text("Reportar")
                 ),
               ),
             )
-            
           ],
         ),
       ),

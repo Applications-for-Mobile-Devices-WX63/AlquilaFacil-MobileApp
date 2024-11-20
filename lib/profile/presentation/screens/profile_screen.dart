@@ -131,6 +131,11 @@ class ProfileScreen extends StatelessWidget {
                       routeName: '/support',
                     ),
                     const Divider(),
+                    const NavigationRow(
+                      title: 'Reportes realizados',
+                      routeName: '/show-reports',
+                    ),
+                    const Divider(),
                     NavigationRow(
                       title: 'Cerrar sesión',
                       routeName: '/login',
@@ -145,7 +150,7 @@ class ProfileScreen extends StatelessWidget {
                           );
                         }
                       },
-                    ),
+                    )
 
                   ],
                 ),
