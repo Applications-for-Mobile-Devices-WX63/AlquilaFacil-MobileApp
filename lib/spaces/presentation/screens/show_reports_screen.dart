@@ -45,9 +45,18 @@ class _ShowReportsScreenState extends State<ShowReportsScreen> {
           shrinkWrap: true,
           itemCount: reportProvider.currentReports.length,
           itemBuilder: (context, int index) {
-            return NotificationPreview(
-              title: reportProvider.currentReports[index].title,
-              message: reportProvider.currentReports[index].description,
+            return Dismissible(
+              key: Key(reportProvider.currentReports[index].id.toString()),
+              background: Container(
+                color: MainTheme.primary(context),
+              ),
+              onDismissed: (direction) async {
+                await reportProvider.deleteReport(reportProvider.currentReports[index].id);
+              },
+              child: NotificationPreview(
+                title: reportProvider.currentReports[index].title,
+                message: reportProvider.currentReports[index].description,
+              ),
             );
           },
         ),

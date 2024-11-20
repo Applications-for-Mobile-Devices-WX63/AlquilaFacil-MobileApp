@@ -128,11 +128,8 @@ class ReportSubmitDetails extends StatelessWidget {
                     onPressed: () async{
                       var reportToAdd = Report(id: 0, localId: localId, title: titleReportController.text, userId: userId, description: descriptionReportController.text);
                       try{
-                        try{
                           await reportProvider.createReport(reportToAdd);
-                        } finally{
                           Navigator.pop(context);
-                        }
                       } catch (e){
                         Logger().e("Error while trying to create a report $e  ${reportToAdd.toJson()}");
                       }

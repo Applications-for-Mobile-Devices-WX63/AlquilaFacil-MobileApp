@@ -17,4 +17,10 @@ class ReportProvider extends ChangeNotifier{
     await reportServiceHelper.createReport(report);
     notifyListeners();
   }
+
+  Future<void> deleteReport(int reportId) async {
+    await reportServiceHelper.deleteReport(reportId);
+    currentReports.removeWhere((report) => report.id == reportId);
+    notifyListeners();
+  }
 }
