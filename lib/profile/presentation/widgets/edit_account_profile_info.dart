@@ -21,72 +21,84 @@ class EditAccountProfileInfo extends StatefulWidget {
 
 class _EditAccountProfileInfoState extends State<EditAccountProfileInfo> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+    final profileProvider = context.read<ProfileProvider>();
+    profileProvider.setCurrentName(widget.name);
+    profileProvider.setCurrentFatherName(widget.fatherName);
+    profileProvider.setCurrentMotherName(widget.motherName);
+    profileProvider.setCurrentPhoneNumber(widget.phoneNumber);
+    profileProvider.setCurrentDocumentNumber(widget.documentNumber);
+    profileProvider.setCurrentDateOfBirth(widget.dateOfBirth);
+  }
+
   @override
   Widget build(BuildContext context) {
     final profileProvider = context.watch<ProfileProvider>();
+
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20),
-      child:
-           Form(
-                key: _formKey,
-                child:
-                Column(
-                    children: [
-                      const SizedBox(height: 50),
-                      EditAccountInfoField(
-                        accountParam: widget.name,
-                        labelParam: "Ingrese el nuevo nombre",
-                        onChangeValue: (String value) {
-                          profileProvider.setCurrentName(value);
-                       },
-                      ),
-                      const SizedBox(height: 50),
-                      EditAccountInfoField(
-                          accountParam: widget.fatherName,
-                          labelParam: "Ingrese el nuevo apellido paterno",
-                        onChangeValue: (String value){
-                            profileProvider.setCurrentFatherName(value);
-                        },
-                      ),
-                      const SizedBox(height: 50),
-                      EditAccountInfoField(
-                          accountParam:widget.motherName,
-                          labelParam: "Ingrese el nuevo apellido materno",
-                        onChangeValue: (String value){
-                          profileProvider.setCurrentMotherName(value);
-                        },
-                      ),
-                      const SizedBox(height: 50),
-                      EditAccountInfoField(
-                          accountParam: widget.documentNumber,
-                          labelParam: "Ingrese el nuevo número de documento",
-                        onChangeValue: (String value){
-                          profileProvider.setCurrentDocumentNumber(value);
-                        },
-                      ),
-                      const SizedBox(height: 50),
-                      EditAccountInfoField(
-                          accountParam: widget.phoneNumber,
-                          labelParam: "Ingrese el nuevo número de telefono",
-                        onChangeValue: (String value){
-                          profileProvider.setCurrentPhoneNumber(value);
-                        },
-                      ),
-                      const SizedBox(height: 50),
-                      EditAccountInfoField(
-                          accountParam: widget.dateOfBirth,
-                          labelParam: "Ingrese la nueva fecha de cumpleaños",
-                        onChangeValue: (String value){
-                          profileProvider.setCurrentDateOfBirth(value);
-                        },
-                      ),
-                      const SizedBox(height: 20),
-                      const  EditProfileActions()
-                ]
-
-              )
-           )
+      child: Form(
+        key: _formKey,
+        child: Column(
+          children: [
+            const SizedBox(height: 50),
+            EditAccountInfoField(
+              accountParam: profileProvider.currentName,
+              labelParam: "Ingrese el nuevo nombre",
+              onChangeValue: (String value) {
+                profileProvider.setCurrentName(value);
+              },
+            ),
+            const SizedBox(height: 50),
+            EditAccountInfoField(
+              accountParam: profileProvider.currentFatherName,
+              labelParam: "Ingrese el nuevo apellido paterno",
+              onChangeValue: (String value) {
+                profileProvider.setCurrentFatherName(value);
+              },
+            ),
+            const SizedBox(height: 50),
+            EditAccountInfoField(
+              accountParam: profileProvider.currentMotherName,
+              labelParam: "Ingrese el nuevo apellido materno",
+              onChangeValue: (String value) {
+                profileProvider.setCurrentMotherName(value);
+              },
+            ),
+            const SizedBox(height: 50),
+            EditAccountInfoField(
+              accountParam: profileProvider.currentDocumentNumber,
+              labelParam: "Ingrese el nuevo número de documento",
+              onChangeValue: (String value) {
+                profileProvider.setCurrentDocumentNumber(value);
+              },
+            ),
+            const SizedBox(height: 50),
+            EditAccountInfoField(
+              accountParam: profileProvider.currentPhoneNumber,
+              labelParam: "Ingrese el nuevo número de telefono",
+              onChangeValue: (String value) {
+                profileProvider.setCurrentPhoneNumber(value);
+              },
+            ),
+            const SizedBox(height: 50),
+            EditAccountInfoField(
+              accountParam: profileProvider.currentDateOfBirth,
+              labelParam: "Ingrese la nueva fecha de cumpleaños",
+              onChangeValue: (String value) {
+                profileProvider.setCurrentDateOfBirth(value);
+              },
+            ),
+            const SizedBox(height: 20),
+            const EditProfileActions(),
+          ],
+        ),
+      ),
     );
   }
 }
+
 

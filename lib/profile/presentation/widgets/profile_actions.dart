@@ -1,3 +1,5 @@
+import 'package:alquilafacil/auth/presentation/providers/SignInPovider.dart';
+import 'package:alquilafacil/auth/presentation/screens/login.dart';
 import 'package:alquilafacil/auth/presentation/screens/register.dart';
 import 'package:alquilafacil/profile/presentation/providers/pofile_provider.dart';
 import 'package:alquilafacil/public/ui/theme/main_theme.dart';
@@ -11,6 +13,7 @@ class ProfileActions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final profileProvider = context.watch<ProfileProvider>();
+    final signInProvider = context.watch<SignInProvider>();
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 40),
         child: Row(
@@ -45,8 +48,12 @@ class ProfileActions extends StatelessWidget {
                     backgroundColor: MainTheme.primary(context),
                     foregroundColor: Colors.white
                 ),
-                onPressed: (){
-
+                onPressed: () async {
+                  try{
+                    await signInProvider.onLogOutRequest();
+                  } finally{
+                    Navigator.push(context, MaterialPageRoute(builder: (_) => const Login()));
+                  }
                 },
                 child: const Text(
                     "Cerrar sesión",
