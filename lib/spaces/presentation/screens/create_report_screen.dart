@@ -1,8 +1,6 @@
-import 'package:alquilafacil/auth/presentation/screens/login.dart';
 import 'package:alquilafacil/profile/presentation/providers/pofile_provider.dart';
 import 'package:alquilafacil/public/presentation/widgets/screen_bottom_app_bar.dart';
 import 'package:alquilafacil/spaces/presentation/widgets/report_submit_details.dart';
-import 'package:alquilafacil/spaces/presentation/providers/report_provider.dart';
 import 'package:alquilafacil/spaces/presentation/providers/space_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -24,10 +22,10 @@ class CreateReportScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: MainTheme.background(context),
       appBar: AppBar(
-        title: Text('Reportar espacio', style: TextStyle(color: Colors.white)),
+        title: const Text('Reportar espacio', style: TextStyle(color: Colors.white)),
         backgroundColor: MainTheme.primary(context),
         leading: IconButton(
-          icon:  Icon(Icons.arrow_back, color: Colors.white),
+          icon:  const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () {
             Navigator.pop(context);
           },

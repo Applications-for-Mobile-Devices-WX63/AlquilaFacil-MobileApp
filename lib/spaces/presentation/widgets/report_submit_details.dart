@@ -57,7 +57,7 @@ class ReportSubmitDetails extends StatelessWidget {
                    style: const TextStyle(
                      fontSize: 10
                    ),
-                   decoration: InputDecoration(
+                   decoration: const InputDecoration(
                      focusedBorder: OutlineInputBorder(
                      ),
                      border: OutlineInputBorder(

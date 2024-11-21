@@ -46,5 +46,17 @@ class NotificationServiceHelper extends NotificationService{
     return notifications;
   }
 
+  @override
+  Future<void> deleteNotification(int notificationId)async {
+    final request = Dio();
+    final url = "${Constant.BASE_URL}${Constant.RESOURCE_PATH}notification/$notificationId";
+    String token = signInProvider.token;
+    final options = Options( headers:  {"Authorization": "Bearer $token"});
+    final response = await request.delete(url, options: options);
+    if (response.statusCode != HttpStatus.ok){
+      throw Exception(errorMessageHandler.reject(response.statusCode!));
+    }
+  }
+
 
 }

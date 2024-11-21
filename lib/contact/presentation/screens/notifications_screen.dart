@@ -44,9 +44,18 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                     shrinkWrap: true,
                     itemCount: notificationProvider.notifications.length,
                     itemBuilder: (context, int index) {
-                      return NotificationPreview(
-                        title: notificationProvider.notifications[index].title,
-                        message: notificationProvider.notifications[index].description,
+                      return Dismissible(
+                        key: Key(notificationProvider.notifications[index].id.toString()),
+                        onDismissed: (direction) async{
+                          await notificationProvider.deleteNotification(notificationProvider.notifications[index].id);
+                        },
+                        background: Container(
+                          color: MainTheme.primary(context),
+                        ),
+                        child: NotificationPreview(
+                          title: notificationProvider.notifications[index].title,
+                          message: notificationProvider.notifications[index].description,
+                        ),
                       );
                     },
                   )

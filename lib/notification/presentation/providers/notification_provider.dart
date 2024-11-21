@@ -10,13 +10,19 @@ class NotificationProvider extends ChangeNotifier{
   NotificationProvider(this.notificationServiceHelper);
 
   Future<void> createNotification(String title, String description, int userId) async {
-    final notification = AlertNotification(title: title, description: description, userId: userId);
+    final notification = AlertNotification(id:0, title: title, description: description, userId: userId);
     await notificationServiceHelper.createNotification(notification);
     notifyListeners();
   }
 
   Future<void> fetchNotificationsByUserId(int userId) async {
     notifications = await notificationServiceHelper.getAllNotificationsByUserId(userId);
+    notifyListeners();
+  }
+
+  Future<void> deleteNotification(int notificationId) async{
+    await notificationServiceHelper.deleteNotification(notificationId);
+    notifications.removeWhere((notification) => notification.id == notificationId);
     notifyListeners();
   }
 
