@@ -40,8 +40,7 @@ class _ShowReportsScreenState extends State<ShowReportsScreen> {
         ),
       ),
       body: reportProvider.currentReports.isNotEmpty
-          ? SingleChildScrollView(
-        child: ListView.builder(
+          ?  ListView.builder(
           shrinkWrap: true,
           itemCount: reportProvider.currentReports.length,
           itemBuilder: (context, int index) {
@@ -59,8 +58,7 @@ class _ShowReportsScreenState extends State<ShowReportsScreen> {
               ),
             );
           },
-        ),
-      )
+        )
           :  Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

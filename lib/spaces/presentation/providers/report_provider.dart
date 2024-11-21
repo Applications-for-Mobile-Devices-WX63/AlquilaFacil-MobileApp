@@ -13,7 +13,7 @@ class ReportProvider extends ChangeNotifier{
     notifyListeners();
   }
 
-  Future<void> createReport(Report report) async{
+  Future<void> createReport(Report report) async {
     await reportServiceHelper.createReport(report);
     notifyListeners();
   }

@@ -1,7 +1,7 @@
 import 'package:alquilafacil/auth/presentation/screens/login.dart';
 import 'package:alquilafacil/profile/presentation/providers/pofile_provider.dart';
 import 'package:alquilafacil/public/presentation/widgets/screen_bottom_app_bar.dart';
-import 'package:alquilafacil/reservation/presentation/widgets/report_submit_details.dart';
+import 'package:alquilafacil/spaces/presentation/widgets/report_submit_details.dart';
 import 'package:alquilafacil/spaces/presentation/providers/report_provider.dart';
 import 'package:alquilafacil/spaces/presentation/providers/space_provider.dart';
 import 'package:flutter/cupertino.dart';
