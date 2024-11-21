@@ -39,18 +39,17 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
         ),
       ),
       body: notificationProvider.notifications.isNotEmpty
-          ? SingleChildScrollView(
-              child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: notificationProvider.notifications.length,
-                itemBuilder: (context, int index) {
-                  return NotificationPreview(
-                    title: notificationProvider.notifications[index].title,
-                    message: notificationProvider.notifications[index].description,
-                  );
-                },
-              ),
-            )
+          ?
+                  ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: notificationProvider.notifications.length,
+                    itemBuilder: (context, int index) {
+                      return NotificationPreview(
+                        title: notificationProvider.notifications[index].title,
+                        message: notificationProvider.notifications[index].description,
+                      );
+                    },
+                  )
           :  Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,

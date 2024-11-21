@@ -112,8 +112,16 @@ class _SpaceInfoState extends State<SpaceInfo> {
                     isEditMode: false,
                     features: spaceProvider.spaceSelected!.features,
                   ),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 20),
                   const SpaceInfoActions(),
+                  const SizedBox(height: 20),
+                  Text(
+                    "Horario de reserva:",
+                    style: TextStyle(
+                        color: MainTheme.contrast(context),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 17.0),
+                  ),
                   const SizedBox(height: 10),
                   Center(
                     child: Column(
@@ -136,7 +144,7 @@ class _SpaceInfoState extends State<SpaceInfo> {
                             ),
                           ),
                         ),
-                        const SizedBox(height: 10),
+                        const SizedBox(height: 2),
                         Text(
                           '-',
                           style: TextStyle(
@@ -144,12 +152,12 @@ class _SpaceInfoState extends State<SpaceInfo> {
                             color: MainTheme.contrast(context),
                           ),
                         ),
-                        const SizedBox(height: 10),
+                        const SizedBox(height: 2),
                         GestureDetector(
                           onTap: () => _showDatePicker(context, false),
                           child: Container(
                             padding: const EdgeInsets.symmetric(
-                                vertical: 10.0, horizontal: 20.0),
+                                vertical: 5.0, horizontal: 20.0),
                             child: Text(
                               _endDateTime != null
                                   ? DateFormat('dd/MM/yyyy HH:mm')
@@ -164,7 +172,7 @@ class _SpaceInfoState extends State<SpaceInfo> {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 16.0),
+                  const SizedBox(height: 20.0),
                   Center(
                     child: ElevatedButton(
                       onPressed: () async {
@@ -195,7 +203,7 @@ class _SpaceInfoState extends State<SpaceInfo> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15)),
                         minimumSize: const Size(350, 50),
-                        backgroundColor: Colors.orange,
+                        backgroundColor: Colors.orangeAccent,
                         foregroundColor: Colors.white,
                       ),
                       child: const Text('Reservar'),

@@ -211,7 +211,7 @@ class Register extends StatelessWidget {
                                     signUpProvider.email,
                                     signUpProvider.password,
                                   );
-                                  await showDialog(context: context, builder: (_) => const CustomDialog(title: "Registro éxitoso", route:"/login"));
+                                  await showDialog(context: context, builder: (_) => const CustomDialog(title: "Registro exitoso", route:"/login"));
                                 } else{
                                   await showDialog(context: context, builder: (_) => const CustomDialog(title: "Usuario ya existente o datos incorrectos", route:"/sign-up"));
                                 }

@@ -16,6 +16,7 @@ class ReportServiceHelper extends ReportService{
     final request = Dio();
     const url = "${Constant.BASE_URL}${Constant.RESOURCE_PATH}report";
     String token = signInProvider.token;
+    report.userId = signInProvider.userId;
     final options = Options( headers:  {"Authorization": "Bearer $token"});
     final response  = await request.post(url, data: report.toJson(), options:options );
     if (response.statusCode != HttpStatus.created){

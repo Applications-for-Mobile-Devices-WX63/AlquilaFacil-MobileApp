@@ -17,7 +17,7 @@ class SubscriptionPaymentScreen extends StatelessWidget {
         backgroundColor: MainTheme.primary(context),
         foregroundColor: Colors.white,
         title: const Text(
-          "Elige método de pago",
+          "Pago de suscripción",
         ),
       ),
       body: Padding(
@@ -36,10 +36,9 @@ class SubscriptionPaymentScreen extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const PaymentMethodsAvailable(),
-                PaymentMethodNiubiz(planPrice: planPrice),
               ],
             ),
           ],

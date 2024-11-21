@@ -14,10 +14,7 @@ class PlanTypesAvailable extends StatelessWidget {
     final planProvider = context.watch<PlanProvider>();
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Card(
-          elevation: 20.0,
-          color: MainTheme.background(context),
+        padding: const EdgeInsets.all(20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -50,7 +47,7 @@ class PlanTypesAvailable extends StatelessWidget {
             ],
           ),
         ),
-      ),
+
     );
   }
 }

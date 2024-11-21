@@ -65,7 +65,7 @@ class _FilterSpacesDistrict extends State<FilterSpacesDistrict> {
                             color: MainTheme.primary(context),
                           ),
                           child: IconButton(
-                            icon: Icon(Icons.location_on_sharp, color: MainTheme.contrast(context),),
+                            icon: Icon(Icons.location_on_sharp, color: Colors.white),
                             color: MainTheme.background(context), onPressed: () {
                               Navigator.pushNamed(
                                   context,

@@ -17,6 +17,26 @@ class EditProfileActions extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)
+                  ),
+                  elevation: 0,
+                  backgroundColor: MainTheme.primary(context),
+                  foregroundColor: Colors.white
+              ),
+              onPressed: (){
+                profileProvider.setIsEditMode();
+              },
+              child: const Text(
+                "Descartar",
+                style: TextStyle(
+                    fontSize: 12
+                ),
+              )
+          ),
+          const SizedBox(width: 10),
+          ElevatedButton(
             style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10)
@@ -33,31 +53,13 @@ class EditProfileActions extends StatelessWidget {
               }
             },
             child: const Text(
-              "Confirmar cambios",
+              "Confirmar",
               style: TextStyle(
                   fontSize: 12
               ),
             ),
           ),
-          ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)
-                  ),
-                  elevation: 0,
-                  backgroundColor: MainTheme.primary(context),
-                  foregroundColor: Colors.white
-              ),
-              onPressed: (){
-                profileProvider.setIsEditMode();
-              },
-              child: const Text(
-                "Descartar cambios",
-                style: TextStyle(
-                    fontSize: 12
-                ),
-              )
-          )
+
         ],
       ),
     );

@@ -39,7 +39,7 @@ class NotificationPreview extends StatelessWidget {
               ),
             ),
              Icon(
-              Icons.arrow_forward_ios,
+              Icons.notifications,
               color: MainTheme.contrast(context),
             ),
           ],

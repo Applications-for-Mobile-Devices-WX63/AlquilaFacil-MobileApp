@@ -44,7 +44,7 @@ class _EditAccountProfileInfoState extends State<EditAccountProfileInfo> {
         key: _formKey,
         child: Column(
           children: [
-            const SizedBox(height: 50),
+            const SizedBox(height: 20),
             EditAccountInfoField(
               accountParam: profileProvider.currentName,
               labelParam: "Ingrese el nuevo nombre",
@@ -52,7 +52,7 @@ class _EditAccountProfileInfoState extends State<EditAccountProfileInfo> {
                 profileProvider.setCurrentName(value);
               },
             ),
-            const SizedBox(height: 50),
+            const SizedBox(height: 20),
             EditAccountInfoField(
               accountParam: profileProvider.currentFatherName,
               labelParam: "Ingrese el nuevo apellido paterno",
@@ -60,7 +60,7 @@ class _EditAccountProfileInfoState extends State<EditAccountProfileInfo> {
                 profileProvider.setCurrentFatherName(value);
               },
             ),
-            const SizedBox(height: 50),
+            const SizedBox(height: 20),
             EditAccountInfoField(
               accountParam: profileProvider.currentMotherName,
               labelParam: "Ingrese el nuevo apellido materno",
@@ -68,7 +68,7 @@ class _EditAccountProfileInfoState extends State<EditAccountProfileInfo> {
                 profileProvider.setCurrentMotherName(value);
               },
             ),
-            const SizedBox(height: 50),
+            const SizedBox(height: 20),
             EditAccountInfoField(
               accountParam: profileProvider.currentDocumentNumber,
               labelParam: "Ingrese el nuevo número de documento",
@@ -76,7 +76,7 @@ class _EditAccountProfileInfoState extends State<EditAccountProfileInfo> {
                 profileProvider.setCurrentDocumentNumber(value);
               },
             ),
-            const SizedBox(height: 50),
+            const SizedBox(height: 20),
             EditAccountInfoField(
               accountParam: profileProvider.currentPhoneNumber,
               labelParam: "Ingrese el nuevo número de telefono",
@@ -84,7 +84,7 @@ class _EditAccountProfileInfoState extends State<EditAccountProfileInfo> {
                 profileProvider.setCurrentPhoneNumber(value);
               },
             ),
-            const SizedBox(height: 50),
+            const SizedBox(height: 20),
             EditAccountInfoField(
               accountParam: profileProvider.currentDateOfBirth,
               labelParam: "Ingrese la nueva fecha de cumpleaños",

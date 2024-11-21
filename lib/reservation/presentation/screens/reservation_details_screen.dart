@@ -110,10 +110,16 @@ class _ReservationDetailsScreen extends State<ReservationDetailsScreen> {
                           onPressed: () => Navigator.pushNamed(context, "/create-comments")
                       ) : const SizedBox.shrink()
                     ),
-                    TextButton(
-                        child: const Text("Reportar local", textAlign: TextAlign.center,),
-                        onPressed: () => Navigator.pushNamed(context, "/create-report")
-                    )
+                    const SizedBox(height: 20),
+                    Container(
+                      width: double.infinity,
+                      height: 50,
+                      child: TextButton(
+                          child: const Text("Reportar local", textAlign: TextAlign.center,),
+                          onPressed: () => Navigator.pushNamed(context, "/create-report")
+                      )
+                    ),
+
                   ],
                 ),
               ),
