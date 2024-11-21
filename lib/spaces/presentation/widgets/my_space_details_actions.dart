@@ -35,6 +35,20 @@ class MySpaceDetailsActions extends StatelessWidget {
       children: [
         ElevatedButton(
             style: ElevatedButton.styleFrom(
+                backgroundColor: MainTheme.primary(context),
+                foregroundColor: MainTheme.background(context),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)
+                )
+            ),
+            onPressed:(){
+              spaceProvider.setIsEditMode();
+            },
+            child: const Text("Descartar")
+        ),
+        const SizedBox(width: 10),
+        ElevatedButton(
+            style: ElevatedButton.styleFrom(
                 backgroundColor: MainTheme.secondary(context),
                 foregroundColor: MainTheme.background(context),
                 shape: RoundedRectangleBorder(
@@ -49,21 +63,9 @@ class MySpaceDetailsActions extends StatelessWidget {
                spaceProvider.setIsEditMode();
              }
             },
-            child: const Text("Confirmar cambios")
+            child: const Text("Confirmar")
         ),
-        ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                backgroundColor: MainTheme.primary(context),
-                foregroundColor: MainTheme.background(context),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10)
-                )
-            ),
-            onPressed:(){
-              spaceProvider.setIsEditMode();
-            },
-            child: const Text("Descartar cambios")
-        ),
+
       ],
     );
   }

@@ -173,7 +173,7 @@ class _MySpaceDetailsState extends State<MySpaceDetails> {
                                   spaceProvider
                                       .setCurrentPrice(currentPriceNight!);
                                 },
-                                hintText: 'Precio por noche',
+                                hintText: 'Precio',
                               )
                             : Text(
                                 "Precio por noche: S/.${spaceProvider.spaceSelected!.nightPrice}",
