@@ -115,7 +115,8 @@ class _ReservationDetailsScreen extends State<ReservationDetailsScreen> {
                       width: double.infinity,
                       height: 50,
                       child: TextButton(
-                          child: const Text("Reportar local", textAlign: TextAlign.center,),
+                          style: ButtonStyle(backgroundColor: WidgetStateProperty.all(MainTheme.primary(context))),
+                          child: const Text("Reportar local", textAlign: TextAlign.center, style: TextStyle(color: Colors.white),),
                           onPressed: () => Navigator.pushNamed(context, "/create-report")
                       )
                     ),

@@ -51,7 +51,7 @@ class ReportSubmitDetails extends StatelessWidget {
                 const SizedBox(height: 10),
                SizedBox(
                  height: 40,
-                 child: TextField(
+                 child: TextFormField(
                    controller: titleReportController,
                    cursorColor: MainTheme.contrast(context),
                    style: const TextStyle(
@@ -59,10 +59,8 @@ class ReportSubmitDetails extends StatelessWidget {
                    ),
                    decoration: InputDecoration(
                      focusedBorder: OutlineInputBorder(
-                         borderRadius: BorderRadius.circular(15)
                      ),
                      border: OutlineInputBorder(
-                       borderRadius: BorderRadius.circular(15)
                      ),
                    )
                  ),
@@ -74,7 +72,7 @@ class ReportSubmitDetails extends StatelessWidget {
                         fontWeight: FontWeight.bold
                     )
                 ),
-                TextField(
+                TextFormField(
                   controller: descriptionReportController,
                   minLines: 8,
                   maxLines: null,
@@ -85,7 +83,6 @@ class ReportSubmitDetails extends StatelessWidget {
                   ),
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15),
                     ),
                   ),
                   onChanged: (value) {
