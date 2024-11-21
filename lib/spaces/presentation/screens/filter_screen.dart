@@ -150,27 +150,27 @@ class _FilterScreenState extends State<FilterScreen>{
                    shrinkWrap: true,
                    physics: const NeverScrollableScrollPhysics(),
                  ),
-                 Padding(
-                   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                   child: SizedBox(
-                     width: 400,
-                     height: 100,
-                     child: TextButton(onPressed: () async {
-                       if(spaceProvider.maxRange != 0 || spaceProvider.minRange != 0 || spaceProvider.categorySelected != 0){
-                          spaceProvider.getFilterRanges();
-                          spaceProvider.searchDistrictsByCategoryIdAndRange();
-                          Navigator.pushNamed(
-                          context, "/spaces-details"
-                         );
-                       }
-                       else{
-                            await _showDialog("Por favor, seleccione los parámetros de búsqueda", "/filter-screen");
+                 Center(
+                   child: Container(
+                     width: 200,
+                     margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                     child:
+                     TextButton(onPressed: () async {
+                         if(spaceProvider.maxRange != 0 || spaceProvider.minRange != 0 || spaceProvider.categorySelected != 0){
+                            spaceProvider.getFilterRanges();
+                            spaceProvider.searchDistrictsByCategoryIdAndRange();
+                            Navigator.pushNamed(
+                            context, "/spaces-details"
+                           );
                          }
-                       },
-                         child: const Text("Buscar espacio ", textAlign: TextAlign.center,)
+                         else{
+                              await _showDialog("Por favor, seleccione los parámetros de búsqueda", "/filter-screen");
+                           }
+                         },
+                           child: const Text("Buscar espacio ", textAlign: TextAlign.center,)
+                       ),
                      ),
-                   ),
-                 )
+                 ),
               ],
              ),
            )
